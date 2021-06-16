@@ -6,6 +6,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //
 });
 
-function test1() {
-  ipc.send("TESTING_1")
+function test(a) {
+  ipc.send("TESTING_"+a)
 }

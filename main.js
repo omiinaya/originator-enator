@@ -19,15 +19,37 @@ app.on('ready', createWindow);
 
 ipc.on('TESTING_1', function () {
   console.log(getMBInfo())
+})
+
+ipc.on('TESTING_2', function () {
   console.log(getUser())
+})
+
+ipc.on('TESTING_3', function () {
   console.log(getPCName())
+})
+
+ipc.on('TESTING_4', function () {
   setPCDescription()
+})
+
+ipc.on('TESTING_5', function () {
   setPCName()
+})
+
+ipc.on('TESTING_6', function () {
   setMonitorTimeout()
 })
 
+ipc.on('TESTING_7', function () {
+  console.log(getHighPowerCfg())
+})
+
 function getMBInfo() {
-  return execSync('wmic baseboard get product').toString().replace(/\n/g, '').split(' ')[2].trim()
+  var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
+  var y = x.lastIndexOf(' ')
+  var z = x.substring(0, y + 1)
+  return z
 }
 
 function getPCName() {
@@ -38,16 +60,30 @@ function getUser() {
   return execSync('echo %USERNAME%').toString().trim()
 }
 
-//NamePC
+function getHighPowerCfg() {
+  var raw = execSync('powercfg /list').toString().trim()
+  var bloated = raw.split('\n');
+  var list = bloated.splice(2, bloated.length - 1);
+  var high;
+  list.forEach(line => {
+    if (line.includes("High")) {
+      high = line.substring(
+        line.lastIndexOf("Power Scheme GUID:") + 18,
+        line.lastIndexOf("(High performance)")
+      ).trim()
+    }
+  })
+  return high
+}
+
 function setPCDescription() {
-  var description = getUser()+"PC"
+  var description = getUser() + "PC"
   return execSync('net config server /srvcomment:' + description)
 }
 
-//Name-PC
 function setPCName() {
-  var newName = "'"+getUser() + "-PC'"
-  return execSync("WMIC computersystem where caption='%computername%' call rename name="+newName)
+  var newName = "'" + getUser() + "-PC'"
+  return execSync("WMIC computersystem where caption='%computername%' call rename name=" + newName)
 }
 
 function setMonitorTimeout() {
