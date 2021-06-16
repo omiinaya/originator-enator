@@ -15,39 +15,41 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
 };
 
-
 app.on('ready', createWindow);
 
 ipc.on('TESTING_1', function () {
-  console.log(getSystemInfo())
-  console.log(getCurrentUser())
+  console.log(getMBInfo())
+  console.log(getUser())
   console.log(getPCName())
   setPCDescription()
   setPCName()
+  setMonitorTimeout()
 })
 
-function getSystemInfo() {
-  var motherboard = execSync('wmic baseboard get product').toString().replace(/\n/g, '').split(' ')[2].trim()
-  return motherboard
+function getMBInfo() {
+  return execSync('wmic baseboard get product').toString().replace(/\n/g, '').split(' ')[2].trim()
 }
 
 function getPCName() {
-  var name = execSync('cmd /k hostname').toString().trim()
-  return name
+  return execSync('echo %computername%').toString().trim()
 }
 
-function getCurrentUser() {
-  var user = execSync('echo %USERNAME%').toString().trim()
-  return user
+function getUser() {
+  return execSync('echo %USERNAME%').toString().trim()
 }
 
+//NamePC
 function setPCDescription() {
-  var description = getCurrentUser()+"PC"
-  execSync('net config server /srvcomment:' + description)
+  var description = getUser()+"PC"
+  return execSync('net config server /srvcomment:' + description)
 }
 
+//Name-PC
 function setPCName() {
-  var currentName = getPCName()
-  var newName = getCurrentUser() + "-PC"
-  execSync('WMIC computersystem where caption='+ currentName +' rename '+newName)
+  var newName = "'"+getUser() + "-PC'"
+  return execSync("WMIC computersystem where caption='%computername%' call rename name="+newName)
+}
+
+function setMonitorTimeout() {
+  return execSync('powercfg /change monitor-timeout-ac 0').toString()
 }
