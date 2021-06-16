@@ -42,7 +42,19 @@ ipc.on('TESTING_6', function () {
 })
 
 ipc.on('TESTING_7', function () {
-  console.log(getHighPowerCfg())
+  console.log(getPowerGUID("High"))
+})
+
+ipc.on('TESTING_8', function () {
+  console.log(getPowerGUID("Balanced"))
+})
+
+ipc.on('TESTING_9', function () {
+  setPowerCfg('High')
+})
+
+ipc.on('TESTING_10', function () {
+  setPowerCfg('Balanced')
 })
 
 function getMBInfo() {
@@ -60,20 +72,21 @@ function getUser() {
   return execSync('echo %USERNAME%').toString().trim()
 }
 
-function getHighPowerCfg() {
+function getPowerGUID(a) {
   var raw = execSync('powercfg /list').toString().trim()
   var bloated = raw.split('\n');
   var list = bloated.splice(2, bloated.length - 1);
-  var high;
+  var guid;
   list.forEach(line => {
-    if (line.includes("High")) {
-      high = line.substring(
-        line.lastIndexOf("Power Scheme GUID:") + 18,
-        line.lastIndexOf("(High performance)")
-      ).trim()
+    if (line.includes(a)) {
+      guid = line.substring(
+        line.lastIndexOf(":") + 1,
+        line.lastIndexOf("(")
+      )
+      .trim()
     }
   })
-  return high
+  return guid
 }
 
 function setPCDescription() {
@@ -88,4 +101,8 @@ function setPCName() {
 
 function setMonitorTimeout() {
   return execSync('powercfg /change monitor-timeout-ac 0').toString()
+}
+
+function setPowerCfg(a) {
+  return execSync('powercfg /setactive '+getPowerGUID(a)).toString()
 }
