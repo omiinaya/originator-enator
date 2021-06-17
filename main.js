@@ -1,6 +1,6 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
-const { execSync } = require('child_process')
+const { execSync, spawnSync, spawn } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
 
@@ -55,6 +55,10 @@ ipc.on('TESTING_9', function () {
 
 ipc.on('TESTING_10', function () {
   setPowerCfg('Balanced')
+})
+
+ipc.on('TESTING_11', function () {
+  pShellExec()
 })
 
 function getMBInfo() {
@@ -126,4 +130,21 @@ function setPowerCfg(a) {
   } else {
     return execSync('powercfg /setactive ' + getPowerGUID(a))
   }
+}
+
+//executing pshell if admin rights
+function pShellExec() {
+  var child = spawn('powershell.exe',['./assets/scripts/helloworld.ps1']);
+
+  child.stdout.on("data", function(data) {
+    console.log("Pshell: " + data)
+  })
+
+  child.stderr.on("data", function(data) {
+    console.log("Err: " + data)
+  })
+
+  child.on("exit", function(data) {
+    console.log("Pshell script is done executing.")
+  })
 }
