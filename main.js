@@ -120,5 +120,10 @@ function setMonitorTimeout() {
 }
 
 function setPowerCfg(a) {
-  return execSync('powercfg /setactive ' + getPowerGUID(a))
+  //if there is no high setting, use ultimate
+  if (!getPowerGUID(a)) {
+    return execSync('powercfg /setactive ' + getPowerGUID('Ultimate'))
+  } else {
+    return execSync('powercfg /setactive ' + getPowerGUID(a))
+  }
 }
