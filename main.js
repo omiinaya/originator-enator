@@ -73,9 +73,13 @@ function getUser() {
 }
 
 function getPowerGUID(a) {
+  //getting the raw output of the command
   var raw = execSync('powercfg /list').toString().trim()
+  //splitting the output into lines
   var bloated = raw.split('\n');
+  //removing the first 2 lines
   var list = bloated.splice(2, bloated.length - 1);
+  //check if a line contains whatever value was passed on a (high/balanced)
   var guid;
   list.forEach(line => {
     if (line.includes(a)) {
@@ -83,26 +87,38 @@ function getPowerGUID(a) {
         line.lastIndexOf(":") + 1,
         line.lastIndexOf("(")
       )
-      .trim()
+        .trim()
     }
   })
   return guid
 }
 
-function setPCDescription() {
-  var description = getUser() + "PC"
-  return execSync('net config server /srvcomment:' + description)
+function setPCDescription(arg) {
+  if (!arg) {
+    //if no name provided as an argument, change it to usernamepc
+    var description = getUser() + "PC"
+    return execSync('net config server /srvcomment:' + description)
+  } else {
+    //if argument provided, change it to arg
+    return execSync('net config server /srvcomment:' + arg)
+  }
 }
 
-function setPCName() {
-  var newName = "'" + getUser() + "-PC'"
-  return execSync("WMIC computersystem where caption='%computername%' call rename name=" + newName)
+function setPCName(arg) {
+  if (!arg) {
+    //if no name provided as an argument, change it to username-pc
+    var newName = "'" + getUser() + "-PC'"
+    return execSync("WMIC computersystem where caption='%computername%' call rename name=" + newName)
+  } else {
+    //if argument provided, change it to arg
+    return execSync("WMIC computersystem where caption='%computername%' call rename name=" + arg)
+  }
 }
 
 function setMonitorTimeout() {
-  return execSync('powercfg /change monitor-timeout-ac 0').toString()
+  return execSync('powercfg /change monitor-timeout-ac 0') //0 = never
 }
 
 function setPowerCfg(a) {
-  return execSync('powercfg /setactive '+getPowerGUID(a)).toString()
+  return execSync('powercfg /setactive ' + getPowerGUID(a))
 }
