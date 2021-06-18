@@ -58,7 +58,7 @@ ipc.on('TESTING_10', function () {
 })
 
 ipc.on('TESTING_11', function () {
-  pShellExec()
+  pShellExec('helloworld.ps1')
 })
 
 function getMBInfo() {
@@ -144,18 +144,18 @@ function registerPowerPlan(a) {
 }
 
 //executing pshell if admin rights
-function pShellExec() {
-  var child = spawn('powershell.exe',['./assets/scripts/helloworld.ps1']);
+function pShellExec(a) {
+  var child = spawn('powershell.exe',['./assets/scripts/'+a]);
 
   child.stdout.on("data", function(data) {
-    console.log("Pshell: " + data)
+    console.log("output: " + data)
   })
 
   child.stderr.on("data", function(data) {
-    console.log("Err: " + data)
+    console.log("error: " + data)
   })
 
-  child.on("exit", function(data) {
+  child.on("exit", function() {
     console.log("Pshell script is done executing.")
   })
 }
