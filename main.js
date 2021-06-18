@@ -3,6 +3,7 @@ const { app, BrowserWindow } = require('electron');
 const { execSync, spawnSync, spawn } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
+const { elevate } = require('node-windows')
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -101,10 +102,10 @@ function setPCDescription(arg) {
   if (!arg) {
     //if no name provided as an argument, change it to usernamepc
     var description = getUser() + "PC"
-    return execSync('net config server /srvcomment:' + description)
+    return elevate('net config server /srvcomment:' + description)
   } else {
     //if argument provided, change it to arg
-    return execSync('net config server /srvcomment:' + arg)
+    return elevate('net config server /srvcomment:' + arg)
   }
 }
 
@@ -112,15 +113,15 @@ function setPCName(arg) {
   if (!arg) {
     //if no name provided as an argument, change it to username-pc
     var newName = "'" + getUser() + "-PC'"
-    return execSync("WMIC computersystem where caption='%computername%' call rename name=" + newName)
+    return elevate("WMIC computersystem where caption='%computername%' call rename name=" + newName)
   } else {
     //if argument provided, change it to arg
-    return execSync("WMIC computersystem where caption='%computername%' call rename name=" + arg)
+    return elevate("WMIC computersystem where caption='%computername%' call rename name=" + arg)
   }
 }
 
 function setMonitorTimeout() {
-  return execSync('powercfg /change monitor-timeout-ac 0') //0 = never
+  return elevate('powercfg /change monitor-timeout-ac 0') //0 = never
 }
 
 function setPowerCfg(a) {
