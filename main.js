@@ -145,18 +145,18 @@ function registerPowerPlan(a) {
 }
 
 //executing pshell if admin rights
-function pShellExec() {
-  var child = spawn('powershell.exe',['./assets/scripts/helloworld.ps1']);
+function pShellExec(a) {
+  var child = spawn('powershell.exe',['./assets/scripts/'+a]);
 
   child.stdout.on("data", function(data) {
-    console.log("Pshell: " + data)
+    console.log("out: " + data)
   })
 
   child.stderr.on("data", function(data) {
-    console.log("Err: " + data)
+    console.log("err: " + data)
   })
 
-  child.on("exit", function(data) {
-    console.log("Pshell script is done executing.")
+  child.on("exit", function() {
+    console.log("Script successfully executed")
   })
 }
