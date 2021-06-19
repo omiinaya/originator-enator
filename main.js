@@ -62,6 +62,10 @@ ipc.on('TESTING_11', function () {
   pShellExec('helloworld.ps1')
 })
 
+ipc.on('TESTING_12', function () {
+  setStandbyTimeout()
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -121,7 +125,13 @@ function setPCName(arg) {
 }
 
 function setMonitorTimeout() {
-  return elevate('powercfg /change monitor-timeout-ac 0') //0 = never
+  elevate('powercfg /change monitor-timeout-ac 0') //0 = never
+  elevate('powercfg /change monitor-timeout-dc 0')
+}
+
+function setStandbyTimeout() {
+  elevate('powercfg -change -standby-timeout-ac 0')
+  elevate('powercfg -change -standby-timeout-dc 0')
 }
 
 function setPowerCfg(a) {
