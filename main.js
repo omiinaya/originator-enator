@@ -156,7 +156,7 @@ function registerPowerPlan(a) {
 
 //executing pshell if admin rights
 function pShellExec(a) {
-  var child = spawn('powershell.exe',['./assets/scripts/'+a]);
+  var child = spawn('powershell.exe',['./assets/scripts/' + a]);
 
   child.stdout.on("data", function(data) {
     console.log("out: " + data)
