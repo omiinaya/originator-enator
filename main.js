@@ -77,7 +77,11 @@ ipc.on('TESTING_12', function () {
 })
 
 ipc.on('TESTING_13', function () {
-  console.log("test" + takeOwnership('C:\\Users\\Nfernal\\Desktop\\test\\'))
+  takeOwnership('C:\\Users\\Nfernal\\Desktop\\test\\')
+})
+
+ipc.on('TESTING_14', function () {
+  console.log(getCurrentScheme())
 })
 
 function getMBInfo() {
@@ -109,11 +113,19 @@ function getPowerGUID(a) {
       guid = line.substring(
         line.lastIndexOf(":") + 1,
         line.lastIndexOf("(")
-      )
-        .trim()
+      ).trim()
     }
   })
   return guid
+}
+
+function getCurrentScheme() {
+  var output = execSync('powercfg /getactivescheme').toString().trim()
+  var scheme = output.substring(
+    output.lastIndexOf(":") + 1,
+    output.lastIndexOf("(")
+  ).trim()
+  return scheme
 }
 
 function setPCDescription(arg) {
