@@ -4,6 +4,7 @@ const { execSync, spawnSync, spawn } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
 const { elevate } = require('node-windows')
+const profile = require('@nodert-win10-20h1/windows.system.userprofile')
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -14,6 +15,8 @@ const createWindow = () => {
     }
   });
   mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
+  //console.log(storage)
+  console.log(profile)
 };
 
 app.on('ready', createWindow);
@@ -170,3 +173,10 @@ function pShellExec(a) {
     console.log("Script successfully executed")
   })
 }
+
+
+//C:\ProgramData\Microsoft\Windows\SystemData
+//C:\ProgramData\Microsoft\Windows\SystemData\S-1-5-18\ReadOnly\LockScreen_Z
+//directory where windows stores lockscreen image
+//takeown /f <foldername> /r /d y
+//reg=HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\RotatingLockScreenEnalbed
