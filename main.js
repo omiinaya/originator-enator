@@ -3,8 +3,17 @@ const { app, BrowserWindow } = require('electron');
 const { execSync, spawnSync, spawn } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
-const { elevate } = require('node-windows')
-const profile = require('@nodert-win10-20h1/windows.system.userprofile')
+const exec = require('@mh-cbon/aghfabsowecwn').exec;
+
+//exec options
+var opts = {
+  bridgeTimeout: 5000,    // a timeout to detect that UAC was not validated, defaults to 3 minutes
+  stdio: 'pipe',          // How do you want your pipes ?
+  env: {
+    'FORCE_COLOR': 1,  // example, enable chalk coloring  
+    'DEBUG': '*'      // example, enable visionmedia/debug output
+  }
+}
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -15,8 +24,6 @@ const createWindow = () => {
     }
   });
   mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
-  //console.log(storage)
-  console.log(profile)
 };
 
 app.on('ready', createWindow);
@@ -69,6 +76,10 @@ ipc.on('TESTING_12', function () {
   setStandbyTimeout()
 })
 
+ipc.on('TESTING_13', function () {
+  console.log("test" + takeOwnership('C:\\Users\\Nfernal\\Desktop\\test\\'))
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -109,10 +120,10 @@ function setPCDescription(arg) {
   if (!arg) {
     //if no name provided as an argument, change it to usernamepc
     var description = getUser() + "PC"
-    return elevate('net config server /srvcomment:' + description)
+    return exec('net config server /srvcomment:' + description)
   } else {
     //if argument provided, change it to arg
-    return elevate('net config server /srvcomment:' + arg)
+    return exec('net config server /srvcomment:' + arg)
   }
 }
 
@@ -120,27 +131,27 @@ function setPCName(arg) {
   if (!arg) {
     //if no name provided as an argument, change it to username-pc
     var newName = "'" + getUser() + "-PC'"
-    return elevate("WMIC computersystem where caption='%computername%' call rename name=" + newName)
+    return exec("WMIC computersystem where caption='%computername%' call rename name=" + newName)
   } else {
     //if argument provided, change it to arg
-    return elevate("WMIC computersystem where caption='%computername%' call rename name=" + arg)
+    return exec("WMIC computersystem where caption='%computername%' call rename name=" + arg)
   }
 }
 
 function setMonitorTimeout() {
-  elevate('powercfg /change monitor-timeout-ac 0') //0 = never
-  elevate('powercfg /change monitor-timeout-dc 0')
+  exec('powercfg /change monitor-timeout-ac 0') //0 = never
+  exec('powercfg /change monitor-timeout-dc 0')
 }
 
 function setStandbyTimeout() {
-  elevate('powercfg -change -standby-timeout-ac 0')
-  elevate('powercfg -change -standby-timeout-dc 0')
+  exec('powercfg -change -standby-timeout-ac 0')
+  exec('powercfg -change -standby-timeout-dc 0')
 }
 
 function setPowerCfg(a) {
   //if there is no high setting, register it
   if (!getPowerGUID(a)) {
-    registerPowerPlan(a) 
+    registerPowerPlan(a)
   } else {
     return execSync('powercfg /setactive ' + getPowerGUID(a))
   }
@@ -150,7 +161,7 @@ function registerPowerPlan(a) {
   if (a === "High") {
     execSync('powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c')
     setPowerCfg(a)
-  } else {
+  } else if (a === "Ultimate") {
     //unnecessary else with GUID for Ultimate
     execSync('powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61')
     setPowerCfg(a)
@@ -159,21 +170,31 @@ function registerPowerPlan(a) {
 
 //executing pshell if admin rights
 function pShellExec(a) {
-  var child = spawn('powershell.exe',['./assets/scripts/' + a]);
+  var child = spawn('powershell.exe', ['./assets/scripts/' + a]);
 
-  child.stdout.on("data", function(data) {
+  child.stdout.on("data", function (data) {
     console.log("out: " + data)
   })
 
-  child.stderr.on("data", function(data) {
+  child.stderr.on("data", function (data) {
     console.log("err: " + data)
   })
 
-  child.on("exit", function() {
+  child.on("exit", function () {
     console.log("Script successfully executed")
   })
 }
 
+function takeOwnership(a) {
+  var child = exec('takeown /f ' + a + ' /r /d y', opts)
+
+  child.stdout.pipe(process.stdout)
+  child.stderr.pipe(process.stderr)
+
+  child.on('close', function (code) {
+    console.log('Hostile takeover successful.')
+  })
+}
 
 //C:\ProgramData\Microsoft\Windows\SystemData
 //C:\ProgramData\Microsoft\Windows\SystemData\S-1-5-18\ReadOnly\LockScreen_Z
