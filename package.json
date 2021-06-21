@@ -19,7 +19,6 @@
     "electron-rebuild": "^2.3.5"
   },
   "dependencies": {
-    "@nodert-win10-20h1/windows.system.userprofile": "^0.1.0",
     "electron-reload": "^1.5.0",
     "node-windows": "^1.0.0-beta.5",
     "update-electron-app": "^2.0.1",
