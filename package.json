@@ -19,8 +19,12 @@
     "electron-rebuild": "^2.3.5"
   },
   "dependencies": {
+    "@mh-cbon/aghfabsowecwn": "^2.0.4",
     "electron-reload": "^1.5.0",
+    "i": "^0.3.6",
     "node-windows": "^1.0.0-beta.5",
+    "npm": "^7.18.1",
+    "regedit": "^4.0.0",
     "update-electron-app": "^2.0.1",
     "v8-compile-cache": "^2.3.0"
   }
