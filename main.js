@@ -1,9 +1,11 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
-const { execSync, spawnSync, spawn } = require('child_process')
+const { execSync, spawn, spawnSync } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
 const exec = require('@mh-cbon/aghfabsowecwn').exec;
+const regedit = require('regedit')
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 //exec options
 var opts = {
@@ -82,6 +84,18 @@ ipc.on('TESTING_13', function () {
 
 ipc.on('TESTING_14', function () {
   console.log(getCurrentScheme())
+})
+
+ipc.on('TESTING_15', function () {
+  console.log(getSchemeContents())
+})
+
+ipc.on('TESTING_16', function () {
+  getRegistry()
+})
+
+ipc.on('TESTING_17', function () {
+  imageSwap()
 })
 
 function getMBInfo() {
@@ -198,16 +212,81 @@ function pShellExec(a) {
 }
 
 function takeOwnership(a) {
-  var child = exec('takeown /f ' + a + ' /r /d y', opts)
+  var child = exec('takeown /F ' + a + ' /A /R /D Y', opts)
 
   child.stdout.pipe(process.stdout)
   child.stderr.pipe(process.stderr)
 
   child.on('close', function (code) {
-    console.log('Hostile takeover successful.')
+    console.log('exit: ' + code)
   })
 }
 
+function takeOwnership2(a) {
+  exec('icacls ' + a + ' /grant Users:F', opts)
+  exec('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
+}
+
+function getImageName(a) {
+  var x = execSync('dir ' + a).toString().trim()
+  var y = x.split('\n')
+  var z = y.filter(name => name.includes('LockScreen') && name.includes('.jpg'))
+  var name = z[0].substring(z[0].lastIndexOf(' '), z[0].lastIndexOf('g')+1).trim()
+  return name
+}
+
+function copyFile(a, b) {
+  //copy sourceFile destinationFile
+  var child = exec('copy ' + a + ' ' + b, opts)
+
+  child.stdout.pipe(process.stdout)
+  child.stderr.pipe(process.stderr)
+
+  child.on('close', function (code) {
+    console.log('exit: ' + code)
+  })
+}
+
+function renameFile(a, b) {
+  var child = exec('rename  ' + a + '  ' + b, opts)
+
+  child.stdout.pipe(process.stdout)
+  child.stderr.pipe(process.stderr)
+
+  child.on('close', function (code) {
+    console.log('exit: ' + code)
+  })
+}
+
+async function imageSwap() {
+  var imgDir1 = 'C:\\ProgramData\\Microsoft\\Windows\\SystemData\\'
+  var imgDir2 = imgDir1 + 'S-1-5-18\\ReadOnly\\LockScreen_Z\\'
+  var imgDir3 = imgDir2 + getImageName(imgDir2)
+  var originImage = __dirname + '\\assets\\images\\origin-red.jpg'
+  var originCopy = 'origin-red.jpg'
+  var imgDir4 = imgDir2 + originCopy
+  /*
+  takeOwnership(imgDir1)
+  console.log('Successfully took ownership of the first directory.')
+  await delay(2000)
+  takeOwnership(imgDir2)
+  console.log('Successfully took ownership of the second directory.')
+  await delay(2000)
+  takeOwnership2(imgDir3)
+  console.log('Successfully took ownership of the actual image.')
+  await delay(2000)
+  */
+  const originalName = getImageName(imgDir2)
+  copyFile(originImage, imgDir2 + 'origin-red.jpg')
+  await delay(2000)
+  renameFile(imgDir3, 'OLD_'+getImageName(imgDir2))
+  await delay(2000)
+  console.log(originalName)
+  console.log(imgDir4)
+  renameFile(imgDir4, originalName)
+}
+
+//LockScreen___1920_1080_notdimmed
 //C:\ProgramData\Microsoft\Windows\SystemData
 //C:\ProgramData\Microsoft\Windows\SystemData\S-1-5-18\ReadOnly\LockScreen_Z
 //directory where windows stores lockscreen image
