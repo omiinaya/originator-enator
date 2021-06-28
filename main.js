@@ -4,7 +4,6 @@ const { execSync, spawn, spawnSync } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
 const exec = require('@mh-cbon/aghfabsowecwn').exec;
-const regedit = require('regedit')
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 //exec options
@@ -124,6 +123,10 @@ ipc.on('TESTING_23', function () {
 
 ipc.on('TESTING_24', function () {
   setExecutionPolicy('Restricted')
+})
+
+ipc.on('TESTING_25', function () {
+  test()
 })
 
 function getMBInfo() {
@@ -287,7 +290,18 @@ function renameFile(a, b) {
 }
 
 function unpinBloat() {
-  pShellExec('unpin_bloat.ps1')
+  var x = setTimeout(function () {
+    if (getExecutionPolicy() === 'Unrestricted') {
+      pShellExec('unpin_bloat.ps1')
+      clearTimeout(x)
+      delay(1000)
+      setExecutionPolicy('Restricted')
+    } else {
+      setExecutionPolicy('Unrestricted')
+      delay(1000)
+      unpinBloat()
+    }
+  }, 2000);
 }
 
 function setExecutionPolicy(a) {
