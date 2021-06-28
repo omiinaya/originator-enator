@@ -98,6 +98,26 @@ ipc.on('TESTING_17', function () {
   imageSwap()
 })
 
+ipc.on('TESTING_18', function () {
+  getDrives()
+})
+
+ipc.on('TESTING_19', function () {
+  registerPowerPlan('High')
+})
+
+ipc.on('TESTING_20', function () {
+  registerPowerPlan('Ultimate')
+})
+
+ipc.on('TESTING_21', function () {
+  setExecutionPlicy()
+})
+
+ipc.on('TESTING_22', function () {
+  console.log(getExecutionPlicy())
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -256,6 +276,14 @@ function renameFile(a, b) {
   child.on('close', function (code) {
     console.log('exit: ' + code)
   })
+}
+
+function setExecutionPlicy() {
+  exec('Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -force', {'shell':'powershell.exe'})
+}
+
+function getExecutionPlicy() {
+  return execSync('Get-ExecutionPolicy', {'shell':'powershell.exe'}).toString().trim()
 }
 
 function getDrives() {
