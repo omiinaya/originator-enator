@@ -111,11 +111,19 @@ ipc.on('TESTING_20', function () {
 })
 
 ipc.on('TESTING_21', function () {
-  setExecutionPlicy()
+  setExecutionPolicy('Unrestricted')
 })
 
 ipc.on('TESTING_22', function () {
-  console.log(getExecutionPlicy())
+  console.log(getExecutionPolicy())
+})
+
+ipc.on('TESTING_23', function () {
+  unpinBloat()
+})
+
+ipc.on('TESTING_24', function () {
+  setExecutionPolicy('Restricted')
 })
 
 function getMBInfo() {
@@ -251,7 +259,7 @@ function getImageName(a) {
   var x = execSync('dir ' + a).toString().trim()
   var y = x.split('\n')
   var z = y.filter(name => name.includes('LockScreen') && name.includes('.jpg'))
-  var name = z[0].substring(z[0].lastIndexOf(' '), z[0].lastIndexOf('g')+1).trim()
+  var name = z[0].substring(z[0].lastIndexOf(' '), z[0].lastIndexOf('g') + 1).trim()
   return name
 }
 
@@ -278,12 +286,17 @@ function renameFile(a, b) {
   })
 }
 
-function setExecutionPlicy() {
-  exec('Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -force', {'shell':'powershell.exe'})
+function unpinBloat() {
+  pShellExec('unpin_bloat.ps1')
 }
 
-function getExecutionPlicy() {
-  return execSync('Get-ExecutionPolicy', {'shell':'powershell.exe'}).toString().trim()
+function setExecutionPolicy(a) {
+  //Restricted || Unrestricted
+  exec('Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy ' + a + ' -force', { 'shell': 'powershell.exe' })
+}
+
+function getExecutionPolicy() {
+  return execSync('Get-ExecutionPolicy', { 'shell': 'powershell.exe' }).toString().trim()
 }
 
 function getDrives() {
@@ -313,7 +326,7 @@ async function imageSwap() {
   const originalName = getImageName(imgDir2)
   copyFile(originImage, imgDir2 + 'origin-red.jpg')
   await delay(2000)
-  renameFile(imgDir3, 'OLD_'+getImageName(imgDir2))
+  renameFile(imgDir3, 'OLD_' + getImageName(imgDir2))
   await delay(2000)
   console.log(originalName)
   console.log(imgDir4)
