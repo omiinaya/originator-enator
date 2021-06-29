@@ -38,11 +38,4 @@ foreach ($regName in $regStartList.name) {
     $regLocation = $regLocation.Replace("HKEY_CURRENT_USER","HKCU")
     #write-host $regLocation
    }
-   # foreach($disable in $disableList) {
-   #    if (Get-ItemProperty -Path "$reglocation" -name "$Disable"-ErrorAction SilentlyContinue) {
-   #         Write-host "yeah i exist"
-   #         #Remove-ItemProperty -Path "$location" -Name "$($startUp.name)" -whatif
-   #    }else {write-host "no exist"}
-   # }   
-
 }

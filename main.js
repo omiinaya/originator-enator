@@ -125,6 +125,10 @@ ipc.on('TESTING_24', function () {
   installSoftware()
 })
 
+ipc.on('TESTING_25', function () {
+  beforeCleanUp()
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -305,6 +309,10 @@ function getDrives() {
 
 function initializeDrives() {
   pShellExec('INITIALIZE_DRIVES.ps1')
+}
+
+function beforeCleanUp() {
+  pShellExec('BEFORE_CLEANUP.ps1')
 }
 
 async function imageSwap() {
