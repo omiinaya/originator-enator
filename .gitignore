@@ -25,6 +25,7 @@ node_modules/
 jspm_packages/
 test-win32-x64/
 driver-fetch-win32-x64/
+system-tools-win32-x64/
 
 # Optional npm cache directory
 .npm

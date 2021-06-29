@@ -129,6 +129,10 @@ ipc.on('TESTING_25', function () {
   beforeCleanUp()
 })
 
+ipc.on('TESTING_26', function () {
+  setEdgeHome()
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -313,6 +317,10 @@ function initializeDrives() {
 
 function beforeCleanUp() {
   pShellExec('BEFORE_CLEANUP.ps1')
+}
+
+function setEdgeHome() {
+  pShellExec('SET_EDGE_HOME.ps1')
 }
 
 async function imageSwap() {
