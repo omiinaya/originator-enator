@@ -1,6 +1,7 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
 const { execSync, spawn } = require('child_process')
+const childExec = require('child_process').exec
 const ipc = require('electron').ipcMain
 const path = require('path');
 const exec = require('@mh-cbon/aghfabsowecwn').exec;
@@ -197,19 +198,12 @@ function getCurrentScheme() {
   return scheme
 }
 
-function setPCDescription(arg) {
-  if (!arg) {
-    //if no name provided as an argument, change it to usernamepc
-    var description = getUser() + "PC"
-    return exec('net config server /srvcomment:' + description)
-  } else {
-    //if argument provided, change it to arg
-    return exec('net config server /srvcomment:' + arg)
-  }
+function setPCDescription() {
+  exec('net config server /srvcomment:"' + getUser() + 'PC"')
 }
 
-function setPCName(arg) {
-  return exec("WMIC computersystem where caption='%computername%' call rename name=%USERNAME%" + "-PC")
+function setPCName() {
+  exec("WMIC computersystem where caption='%computername%' call rename name='" + getUser() + "-PC'")
 }
 
 function setMonitorTimeout() {
