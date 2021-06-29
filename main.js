@@ -110,30 +110,18 @@ ipc.on('TESTING_20', function () {
 })
 
 ipc.on('TESTING_21', function () {
-  setExecutionPolicy('Unrestricted')
-})
-
-ipc.on('TESTING_22', function () {
-  console.log(getExecutionPolicy())
-})
-
-ipc.on('TESTING_23', function () {
   unpinBloat()
 })
 
-ipc.on('TESTING_24', function () {
-  setExecutionPolicy('Restricted')
-})
-
-ipc.on('TESTING_25', function () {
+ipc.on('TESTING_22', function () {
   initializeDrives()
 })
 
-ipc.on('TESTING_26', function () {
+ipc.on('TESTING_23', function () {
   disableOneDrive()
 })
 
-ipc.on('TESTING_27', function () {
+ipc.on('TESTING_24', function () {
   installSoftware()
 })
 
@@ -307,15 +295,6 @@ function installSoftware() {
 
 function unpinBloat() {
   pShellExec('UNPIN_BLOAT.ps1')
-}
-
-function setExecutionPolicy(a) {
-  //Restricted || Unrestricted
-  exec('Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy ' + a + ' -force', { 'shell': 'powershell.exe' })
-}
-
-function getExecutionPolicy() {
-  return execSync('Get-ExecutionPolicy', { 'shell': 'powershell.exe' }).toString().trim()
 }
 
 function getDrives() {

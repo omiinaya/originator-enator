@@ -6,7 +6,7 @@ CD $PSScriptRoot
 if(Test-Path C:\Windows\Import-Workorder.txt)
 {
     #Make sure windows is activated
-    Read-Host -Prompt “Make sure windows is activated before running this`n`nThen press enter to continue”
+    Read-Host -Prompt ï¿½Make sure windows is activated before running this`n`nThen press enter to continueï¿½
     Clear-Host;
 }
 else
@@ -122,13 +122,13 @@ else
 #Now in fun colors!
 $originalForegroundColor = $Host.UI.RawUI.ForegroundColor
 $originalBackgroundColor = $Host.UI.RawUI.BackgroundColor
-Write-Host -NoNewline “Press any key "
+Write-Host -NoNewline ï¿½Press any key "
 $Host.UI.RawUI.ForegroundColor = "Red"
 $Host.UI.RawUI.BackgroundColor = "Black"
 Write-Host -NoNewline "E X C E P T   E N T E R"
 $Host.UI.RawUI.ForegroundColor = $originalForegroundColor
 $Host.UI.RawUI.BackgroundColor = $originalBackgroundColor
-Write-Host -NoNewline " to continue”
+Write-Host -NoNewline " to continueï¿½
 $keypress = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 #if enter key was pressed...
@@ -245,3 +245,7 @@ if (Select-String -Path C:\Windows\Import-Workorder.txt -Pattern 'MB-ASUS' -Quie
 }
 
 if(Test-Path C:\Windows\Import-Workorder.txt) { Remove-Item C:\Windows\Import-Workorder.txt}
+
+if(Test-Path C:\DMIInfo.txt) { Remove-Item C:\DMIInfo.txt}
+
+DMIInfo
