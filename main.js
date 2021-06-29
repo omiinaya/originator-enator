@@ -199,12 +199,13 @@ function getCurrentScheme() {
 }
 
 function setPCDescription() {
-  exec('net config server /srvcomment:"' + getUser() + 'PC"')
+  execSync('net config server /srvcomment:"%USERNAME%'+'PC"')
 }
 
 function setPCName() {
-  exec("WMIC computersystem where caption='%computername%' call rename name='" + getUser() + "-PC'")
+  execSync(`WMIC computersystem where caption='%computername%' call rename name='%USERNAME%`+`-PC'`)
 }
+
 
 function setMonitorTimeout() {
   exec('powercfg /change monitor-timeout-ac 0') //0 = never
@@ -238,7 +239,7 @@ function registerPowerPlan(a) {
 
 //executing pshell if admin rights
 function pShellExec(a) {
-  var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File','./assets/scripts/' + a]);
+  var child = spawn('powershell.exe',['-ExecutionPolicy', 'ByPass', '-File','./assets/scripts/' + a], { shell:true, detached: true });
 
   child.stdout.on("data", function (data) {
     print("out: " + data)
