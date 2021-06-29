@@ -126,7 +126,15 @@ ipc.on('TESTING_24', function () {
 })
 
 ipc.on('TESTING_25', function () {
-  test()
+  initializeDrives()
+})
+
+ipc.on('TESTING_26', function () {
+  disableOneDrive()
+})
+
+ipc.on('TESTING_27', function () {
+  installSoftware()
 })
 
 function getMBInfo() {
@@ -227,7 +235,7 @@ function registerPowerPlan(a) {
 
 //executing pshell if admin rights
 function pShellExec(a) {
-  var child = spawn('powershell.exe', ['./assets/scripts/' + a]);
+  var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File','./assets/scripts/' + a]);
 
   child.stdout.on("data", function (data) {
     console.log("out: " + data)
@@ -289,19 +297,16 @@ function renameFile(a, b) {
   })
 }
 
+function disableOneDrive() {
+  pShellExec('DISABLE_ONEDRIVE.ps1')
+}
+
+function installSoftware() {
+  pShellExec('INSTALL_SOFTWARE.ps1')
+}
+
 function unpinBloat() {
-  var x = setTimeout(function () {
-    if (getExecutionPolicy() === 'Unrestricted') {
-      pShellExec('unpin_bloat.ps1')
-      clearTimeout(x)
-      delay(1000)
-      setExecutionPolicy('Restricted')
-    } else {
-      setExecutionPolicy('Unrestricted')
-      delay(1000)
-      unpinBloat()
-    }
-  }, 2000);
+  pShellExec('UNPIN_BLOAT.ps1')
 }
 
 function setExecutionPolicy(a) {
@@ -317,6 +322,10 @@ function getDrives() {
   var output = execSync('wmic logicaldisk get name, size, volumename, description').toString()
   var drives = output.split('\n').splice(1, output.length - 1)
   return drives
+}
+
+function initializeDrives() {
+  pShellExec('INITIALIZE_DRIVES.ps1')
 }
 
 async function imageSwap() {
