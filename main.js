@@ -314,23 +314,23 @@ function unpinBloat() {
 }
 
 function runSysprep() {
-  var file = scriptsHome + 'sysprep.bat'
-  spawn('start ' + file).toString().trim()
+  var file = scriptsHome + 'sysprep.cmd'
+  childExec('start ' + file).toString().trim()
 }
 
 function runAfterSysprep() {
   var file = scriptsHome + 'RunAfterSysprep.cmd'
-  spawn('start ' + file).toString().trim()
+  childExec('start ' + file).toString().trim()
 }
 
 function runCleanUp() {
   var file = scriptsHome + 'CleanUp.cmd'
-  exec('start ' + file).toString().trim()
+  childExec('start ' + file).toString().trim()
 }
 
 function runClearLogs() {
   var file = scriptsHome + 'clearlogs.bat'
-  exec('start ' + file).toString().trim()
+  childExec('start ' + file).toString().trim()
 }
 
 function getDrives() {
