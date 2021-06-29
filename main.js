@@ -1,10 +1,13 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
-const { execSync, spawn, spawnSync } = require('child_process')
+const { execSync, spawn } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
 const exec = require('@mh-cbon/aghfabsowecwn').exec;
 const delay = ms => new Promise(res => setTimeout(res, ms));
+
+let window;
+let scriptsHome = __dirname + '\\assets\\scripts\\';
 
 //exec options
 var opts = {
@@ -25,20 +28,21 @@ const createWindow = () => {
     }
   });
   mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
+  window = mainWindow
 };
 
 app.on('ready', createWindow);
 
 ipc.on('TESTING_1', function () {
-  console.log(getMBInfo())
+  print(getMBInfo())
 })
 
 ipc.on('TESTING_2', function () {
-  console.log(getUser())
+  print(getUser())
 })
 
 ipc.on('TESTING_3', function () {
-  console.log(getPCName())
+  print(getPCName())
 })
 
 ipc.on('TESTING_4', function () {
@@ -54,11 +58,11 @@ ipc.on('TESTING_6', function () {
 })
 
 ipc.on('TESTING_7', function () {
-  console.log(getPowerGUID("High"))
+  print(getPowerGUID("High"))
 })
 
 ipc.on('TESTING_8', function () {
-  console.log(getPowerGUID("Balanced"))
+  print(getPowerGUID("Balanced"))
 })
 
 ipc.on('TESTING_9', function () {
@@ -82,11 +86,11 @@ ipc.on('TESTING_13', function () {
 })
 
 ipc.on('TESTING_14', function () {
-  console.log(getCurrentScheme())
+  print(getCurrentScheme())
 })
 
 ipc.on('TESTING_15', function () {
-  console.log(getSchemeContents())
+  print(getSchemeContents())
 })
 
 ipc.on('TESTING_16', function () {
@@ -131,6 +135,18 @@ ipc.on('TESTING_25', function () {
 
 ipc.on('TESTING_26', function () {
   setEdgeHome()
+})
+
+ipc.on('TESTING_27', function () {
+  runCleanUp()
+})
+
+ipc.on('TESTING_28', function () {
+  runClearLogs()
+})
+
+ipc.on('TESTING_29', function () {
+  runSysprep()
 })
 
 function getMBInfo() {
@@ -234,15 +250,15 @@ function pShellExec(a) {
   var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File','./assets/scripts/' + a]);
 
   child.stdout.on("data", function (data) {
-    console.log("out: " + data)
+    print("out: " + data)
   })
 
   child.stderr.on("data", function (data) {
-    console.log("err: " + data)
+    print("err: " + data)
   })
 
   child.on("exit", function () {
-    console.log("Script successfully executed")
+    print("Script successfully executed")
   })
 }
 
@@ -253,7 +269,7 @@ function takeOwnership(a) {
   child.stderr.pipe(process.stderr)
 
   child.on('close', function (code) {
-    console.log('exit: ' + code)
+    print('exit: ' + code)
   })
 }
 
@@ -278,7 +294,7 @@ function copyFile(a, b) {
   child.stderr.pipe(process.stderr)
 
   child.on('close', function (code) {
-    console.log('exit: ' + code)
+    print('exit: ' + code)
   })
 }
 
@@ -289,7 +305,7 @@ function renameFile(a, b) {
   child.stderr.pipe(process.stderr)
 
   child.on('close', function (code) {
-    console.log('exit: ' + code)
+    print('exit: ' + code)
   })
 }
 
@@ -303,6 +319,21 @@ function installSoftware() {
 
 function unpinBloat() {
   pShellExec('UNPIN_BLOAT.ps1')
+}
+
+function runSysprep() {
+  var file = scriptsHome + 'sysprep.bat'
+  spawn('start ' + file).toString().trim()
+}
+
+function runCleanUp() {
+  var file = scriptsHome + 'CleanUp.cmd'
+  exec('start ' + file).toString().trim()
+}
+
+function runClearLogs() {
+  var file = scriptsHome + 'clearlogs.bat'
+  exec('start ' + file).toString().trim()
 }
 
 function getDrives() {
@@ -332,13 +363,13 @@ async function imageSwap() {
   var imgDir4 = imgDir2 + originCopy
   /*
   takeOwnership(imgDir1)
-  console.log('Successfully took ownership of the first directory.')
+  print('Successfully took ownership of the first directory.')
   await delay(2000)
   takeOwnership(imgDir2)
-  console.log('Successfully took ownership of the second directory.')
+  print('Successfully took ownership of the second directory.')
   await delay(2000)
   takeOwnership2(imgDir3)
-  console.log('Successfully took ownership of the actual image.')
+  print('Successfully took ownership of the actual image.')
   await delay(2000)
   */
   const originalName = getImageName(imgDir2)
@@ -346,8 +377,8 @@ async function imageSwap() {
   await delay(2000)
   renameFile(imgDir3, 'OLD_' + getImageName(imgDir2))
   await delay(2000)
-  console.log(originalName)
-  console.log(imgDir4)
+  print(originalName)
+  print(imgDir4)
   renameFile(imgDir4, originalName)
 }
 
@@ -357,3 +388,8 @@ async function imageSwap() {
 //directory where windows stores lockscreen image
 //takeown /f <foldername> /r /d y
 //reg=HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\RotatingLockScreenEnalbed
+
+
+function print(a) {
+  window.webContents.send('LOG_REQUEST', a);
+}
