@@ -149,6 +149,10 @@ ipc.on('TESTING_29', function () {
   runSysprep()
 })
 
+ipc.on('TESTING_30', function () {
+  runAfterSysprep()
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -205,14 +209,7 @@ function setPCDescription(arg) {
 }
 
 function setPCName(arg) {
-  if (!arg) {
-    //if no name provided as an argument, change it to username-pc
-    var newName = "'" + getUser() + "-PC'"
-    return exec("WMIC computersystem where caption='%computername%' call rename name=" + newName)
-  } else {
-    //if argument provided, change it to arg
-    return exec("WMIC computersystem where caption='%computername%' call rename name=" + arg)
-  }
+  return exec("WMIC computersystem where caption='%computername%' call rename name=%USERNAME%" + "-PC")
 }
 
 function setMonitorTimeout() {
@@ -323,6 +320,11 @@ function unpinBloat() {
 
 function runSysprep() {
   var file = scriptsHome + 'sysprep.bat'
+  spawn('start ' + file).toString().trim()
+}
+
+function runAfterSysprep() {
+  var file = scriptsHome + 'RunAfterSysprep.cmd'
   spawn('start ' + file).toString().trim()
 }
 
