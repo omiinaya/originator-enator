@@ -1,0 +1,8 @@
+<Configuration>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>H:\</HostFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+</Configuration>

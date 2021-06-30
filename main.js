@@ -1,13 +1,14 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
-const { execSync, spawn, exec } = require('child_process')
+const { execSync, spawn } = require('child_process')
+const childExec = require('child_process').exec
 const ipc = require('electron').ipcMain
 const path = require('path');
-const elevate = require('@mh-cbon/aghfabsowecwn').exec;
+const exec = require('@mh-cbon/aghfabsowecwn').exec;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 let window;
-let scriptsHome = "./assets\\scripts\\"
+let scriptsHome = __dirname + '\\assets\\scripts\\';
 
 //exec options
 var opts = {
@@ -27,7 +28,7 @@ const createWindow = () => {
       nodeIntegration: true
     }
   });
-  mainWindow.loadFile(path.join(__dirname,'./assets/html/index.html'));
+  mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
   window = mainWindow
 };
 
@@ -153,10 +154,6 @@ ipc.on('TESTING_30', function () {
   runAfterSysprep()
 })
 
-ipc.on('TESTING_31', function () {
-  installEdge()
-})
-
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -211,13 +208,13 @@ function setPCName() {
 
 
 function setMonitorTimeout() {
-  elevate('powercfg /change monitor-timeout-ac 0') //0 = never
-  elevate('powercfg /change monitor-timeout-dc 0')
+  exec('powercfg /change monitor-timeout-ac 0') //0 = never
+  exec('powercfg /change monitor-timeout-dc 0')
 }
 
 function setStandbyTimeout() {
-  elevate('powercfg -change -standby-timeout-ac 0')
-  elevate('powercfg -change -standby-timeout-dc 0')
+  exec('powercfg -change -standby-timeout-ac 0')
+  exec('powercfg -change -standby-timeout-dc 0')
 }
 
 function setPowerCfg(a) {
@@ -258,7 +255,7 @@ function pShellExec(a) {
 }
 
 function takeOwnership(a) {
-  var child = elevate('takeown /F ' + a + ' /A /R /D Y', opts)
+  var child = exec('takeown /F ' + a + ' /A /R /D Y', opts)
 
   child.stdout.pipe(process.stdout)
   child.stderr.pipe(process.stderr)
@@ -269,8 +266,8 @@ function takeOwnership(a) {
 }
 
 function takeOwnership2(a) {
-  elevate('icacls ' + a + ' /grant Users:F', opts)
-  elevate('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
+  exec('icacls ' + a + ' /grant Users:F', opts)
+  exec('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
 }
 
 function getImageName(a) {
@@ -294,7 +291,7 @@ function copyFile(a, b) {
 }
 
 function renameFile(a, b) {
-  var child = elevate('rename  ' + a + '  ' + b, opts)
+  var child = exec('rename  ' + a + '  ' + b, opts)
 
   child.stdout.pipe(process.stdout)
   child.stderr.pipe(process.stderr)
@@ -317,29 +314,31 @@ function unpinBloat() {
 }
 
 function runSysprep() {
-  //try exec('start "" "tmp.txt"', {cwd: 'C:\\Users\\testuser\\Node_dev'});
-  var file = scriptsHome + 'sysprep.cmd';
-  console.log(file)
-  exec('start ' + file).toString().trim()
+  var file = scriptsHome + 'sysprep.bat'
+  spawn('start ' + file).toString().trim()
 }
 
 function runAfterSysprep() {
-  var file = scriptsHome + 'RunAfterSysprep.cmd';
-  console.log(file)
-  exec('start ' + file).toString().trim()
+  var file = scriptsHome + 'RunAfterSysprep.cmd'
+  spawn('start ' + file).toString().trim()
 }
 
 function runCleanUp() {
-  var file = scriptsHome + 'CleanUp.cmd';
-  console.log(file)
+  var file = scriptsHome + 'CleanUp.cmd'
   exec('start ' + file).toString().trim()
 }
 
 function runClearLogs() {
-  var file = scriptsHome + 'clearlogs.bat';
-  console.log(file)
+  var file = scriptsHome + 'clearlogs.bat'
   exec('start ' + file).toString().trim()
 }
+
+/*
+function activateWindows() {
+  var file = scriptsHome + ''
+  exec('start ' + file).toString().trim()
+}
+*/
 
 function getDrives() {
   var output = execSync('wmic logicaldisk get name, size, volumename, description').toString()
@@ -353,10 +352,6 @@ function initializeDrives() {
 
 function beforeCleanUp() {
   pShellExec('BEFORE_CLEANUP.ps1')
-}
-
-function installEdge() {
-  pShellExec('INSTALL_EDGE.ps1')
 }
 
 function setEdgeHome() {

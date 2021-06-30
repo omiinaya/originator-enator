@@ -1,0 +1,4 @@
+Under:
+C:\Users\WDAGUtilityAccount\AppData\Local\Packages\Microsoft.Windows.Search_cw5n1h2txyewy\LocalState\ConstraintIndex\Input_{73cc164a-3e29-433a-b697-81a1ec453bc6}
+
+A file called: appglobals.txt lists all windows apps hash keys with a note about their respective actual programs

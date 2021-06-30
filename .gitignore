@@ -26,6 +26,10 @@ jspm_packages/
 test-win32-x64/
 driver-fetch-win32-x64/
 system-tools-win32-x64/
+assets/scripts/ORIGINATOR2.0/
+assets/scripts/CleanInstallDragonCenter2.0.65.0SDK20200731updatecommSDK54/
+assets/scripts/Armoury.exe
+assets/scripts/iCUE.msi
 
 # Optional npm cache directory
 .npm
