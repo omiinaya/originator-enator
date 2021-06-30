@@ -154,6 +154,10 @@ ipc.on('TESTING_30', function () {
   runAfterSysprep()
 })
 
+ipc.on('TESTING_31', function () {
+  installEdge()
+})
+
 function getMBInfo() {
   var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
   var y = x.lastIndexOf(' ')
@@ -333,13 +337,6 @@ function runClearLogs() {
   exec('start ' + file).toString().trim()
 }
 
-/*
-function activateWindows() {
-  var file = scriptsHome + ''
-  exec('start ' + file).toString().trim()
-}
-*/
-
 function getDrives() {
   var output = execSync('wmic logicaldisk get name, size, volumename, description').toString()
   var drives = output.split('\n').splice(1, output.length - 1)
@@ -356,6 +353,10 @@ function beforeCleanUp() {
 
 function setEdgeHome() {
   pShellExec('SET_EDGE_TO_ORIGIN.ps1')
+}
+
+function installEdge() {
+  pShellExec('INSTALL_EDGE.ps1')
 }
 
 async function imageSwap() {
