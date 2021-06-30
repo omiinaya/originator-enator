@@ -1,10 +1,9 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
-const { execSync, spawn } = require('child_process')
-const childExec = require('child_process').exec
+const { execSync, spawn, exec } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
-const exec = require('@mh-cbon/aghfabsowecwn').exec;
+const elevate = require('@mh-cbon/aghfabsowecwn').exec;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 let window;
@@ -208,13 +207,13 @@ function setPCName() {
 
 
 function setMonitorTimeout() {
-  exec('powercfg /change monitor-timeout-ac 0') //0 = never
-  exec('powercfg /change monitor-timeout-dc 0')
+  elevate('powercfg /change monitor-timeout-ac 0') //0 = never
+  elevate('powercfg /change monitor-timeout-dc 0')
 }
 
 function setStandbyTimeout() {
-  exec('powercfg -change -standby-timeout-ac 0')
-  exec('powercfg -change -standby-timeout-dc 0')
+  elevate('powercfg -change -standby-timeout-ac 0')
+  elevate('powercfg -change -standby-timeout-dc 0')
 }
 
 function setPowerCfg(a) {
@@ -255,7 +254,7 @@ function pShellExec(a) {
 }
 
 function takeOwnership(a) {
-  var child = exec('takeown /F ' + a + ' /A /R /D Y', opts)
+  var child = elevate('takeown /F ' + a + ' /A /R /D Y', opts)
 
   child.stdout.pipe(process.stdout)
   child.stderr.pipe(process.stderr)
@@ -266,8 +265,8 @@ function takeOwnership(a) {
 }
 
 function takeOwnership2(a) {
-  exec('icacls ' + a + ' /grant Users:F', opts)
-  exec('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
+  elevate('icacls ' + a + ' /grant Users:F', opts)
+  elevate('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
 }
 
 function getImageName(a) {
@@ -291,7 +290,7 @@ function copyFile(a, b) {
 }
 
 function renameFile(a, b) {
-  var child = exec('rename  ' + a + '  ' + b, opts)
+  var child = elevate('rename  ' + a + '  ' + b, opts)
 
   child.stdout.pipe(process.stdout)
   child.stderr.pipe(process.stderr)
@@ -314,23 +313,28 @@ function unpinBloat() {
 }
 
 function runSysprep() {
-  var file = scriptsHome + 'sysprep.cmd'
-  childExec('start ' + file).toString().trim()
+  //try exec('start "" "tmp.txt"', {cwd: 'C:\\Users\\testuser\\Node_dev'});
+  var file = scriptsHome + 'sysprep.cmd';
+  console.log(file)
+  exec('start ' + file).toString().trim()
 }
 
 function runAfterSysprep() {
-  var file = scriptsHome + 'RunAfterSysprep.cmd'
-  childExec('start ' + file).toString().trim()
+  var file = scriptsHome + 'RunAfterSysprep.cmd';
+  console.log(file)
+  exec('start ' + file).toString().trim()
 }
 
 function runCleanUp() {
-  var file = scriptsHome + 'CleanUp.cmd'
-  childExec('start ' + file).toString().trim()
+  var file = scriptsHome + 'CleanUp.cmd';
+  console.log(file)
+  exec('start ' + file).toString().trim()
 }
 
 function runClearLogs() {
-  var file = scriptsHome + 'clearlogs.bat'
-  childExec('start ' + file).toString().trim()
+  var file = scriptsHome + 'clearlogs.bat';
+  console.log(file)
+  exec('start ' + file).toString().trim()
 }
 
 function getDrives() {
@@ -348,7 +352,7 @@ function beforeCleanUp() {
 }
 
 function setEdgeHome() {
-  pShellExec('SET_EDGE_HOME.ps1')
+  pShellExec('SET_EDGE_TO_ORIGIN.ps1')
 }
 
 async function imageSwap() {
