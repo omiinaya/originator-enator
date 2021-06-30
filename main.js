@@ -1,10 +1,9 @@
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 const { app, BrowserWindow } = require('electron');
-const { execSync, spawn } = require('child_process')
-const childExec = require('child_process').exec
+const { execSync, spawn, exec } = require('child_process')
 const ipc = require('electron').ipcMain
 const path = require('path');
-const exec = require('@mh-cbon/aghfabsowecwn').exec;
+const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 let window;
@@ -270,8 +269,8 @@ function takeOwnership(a) {
 }
 
 function takeOwnership2(a) {
-  exec('icacls ' + a + ' /grant Users:F', opts)
-  exec('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
+  elevated('icacls ' + a + ' /grant Users:F', opts)
+  elevated('icacls ' + a + ' /setowner "Administrators" /T /C', opts)
 }
 
 function getImageName(a) {
@@ -319,12 +318,12 @@ function unpinBloat() {
 
 function runSysprep() {
   var file = scriptsHome + 'sysprep.bat'
-  spawn('start ' + file).toString().trim()
+  exec('start ' + file).toString().trim()
 }
 
 function runAfterSysprep() {
   var file = scriptsHome + 'RunAfterSysprep.cmd'
-  spawn('start ' + file).toString().trim()
+  exec('start ' + file).toString().trim()
 }
 
 function runCleanUp() {
