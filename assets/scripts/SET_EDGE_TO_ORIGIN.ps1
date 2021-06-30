@@ -70,6 +70,7 @@ while( ($monitoredWindowHandle -eq 0) -or ($numberOfTimesTheHandleCountWasTheSam
 [WinAp]::ShowWindow($monitoredWindowHandle,3);
 
 #Get to the location of startup settings
+$wshell.SendKeys('{ESCAPE}');
 $wshell.SendKeys('%{f}');
 Sleep -Seconds 1;
 $wshell.SendKeys('+{s}');
