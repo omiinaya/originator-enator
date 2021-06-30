@@ -7,7 +7,7 @@ const elevate = require('@mh-cbon/aghfabsowecwn').exec;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 let window;
-let scriptsHome = __dirname + '\\assets\\scripts\\';
+let scriptsHome = "./assets\\scripts\\"
 
 //exec options
 var opts = {
@@ -27,7 +27,7 @@ const createWindow = () => {
       nodeIntegration: true
     }
   });
-  mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
+  mainWindow.loadFile(path.join(__dirname,'./assets/html/index.html'));
   window = mainWindow
 };
 
@@ -151,6 +151,10 @@ ipc.on('TESTING_29', function () {
 
 ipc.on('TESTING_30', function () {
   runAfterSysprep()
+})
+
+ipc.on('TESTING_31', function () {
+  installEdge()
 })
 
 function getMBInfo() {
@@ -349,6 +353,10 @@ function initializeDrives() {
 
 function beforeCleanUp() {
   pShellExec('BEFORE_CLEANUP.ps1')
+}
+
+function installEdge() {
+  pShellExec('INSTALL_EDGE.ps1')
 }
 
 function setEdgeHome() {
