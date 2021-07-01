@@ -23,11 +23,14 @@
     "@electron/remote": "^1.2.0",
     "@mh-cbon/aghfabsowecwn": "^2.0.4",
     "electron-reload": "^1.5.0",
-    "i": "^0.3.6",
-    "node-windows": "^1.0.0-beta.5",
-    "npm": "^7.18.1",
-    "regedit": "^4.0.0",
-    "update-electron-app": "^2.0.1",
+    "progressbar.js": "^1.1.0",
+    "puppeteer": "^10.1.0",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-adblocker": "^2.11.11",
+    "puppeteer-extra-plugin-stealth": "^2.7.8",
+    "request": "^2.88.2",
+    "request-progress": "^3.0.0",
+    "unzipper": "^0.10.11",
     "v8-compile-cache": "^2.3.0"
   }
 }
