@@ -1,7 +1,9 @@
 const ipc = require('electron').ipcMain
-const { execSync, spawn, exec } = require('child_process')
+const { execSync, spawn } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 const set = require('./set')
+
+var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
 
 var opts = {
     bridgeTimeout: 5000,    // a timeout to detect that UAC was not validated, defaults to 3 minutes
@@ -28,7 +30,8 @@ function registerPowerPlan(a) {
 }
 
 function pShellExec(a) {
-    var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File', './assets/scripts/' + a], { shell: true, detached: true });
+    console.log(scriptsHome)
+    var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File', scriptsHome + a], { shell: true, detached: true });
 
     child.stdout.on("data", function (data) {
         print("out: " + data)

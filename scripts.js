@@ -1,9 +1,9 @@
 const { exec } = require('child_process')
 const core = require('./core')
 const request = require('request')
-const { createWriteStream } = require("fs")
+//const { createWriteStream } = require("fs")
 
-let scriptsHome = __dirname + '\\assets\\scripts\\';
+var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
 
 function disableOneDrive() {
     core.pShellExec('DISABLE_ONEDRIVE.ps1')
