@@ -119,7 +119,3 @@ ipc.on('TESTING_30', function () {
 ipc.on('TESTING_31', function () {
     scripts.installEdge()
 })
-
-ipc.on('TESTING_32', function () {
-    scripts.downloadEdge()
-})

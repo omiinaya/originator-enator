@@ -48,16 +48,16 @@ function beforeCleanUp() {
 function setEdgeHome() {
     core.pShellExec('SET_EDGE_TO_ORIGIN.ps1')
 }
-
+/*
 function downloadEdge() {
     var url = 'https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=en';
     var dir = scriptsHome + '\\Originator2.0\\Software\\Edge\\Edge.msi'
     var stream = request(url).pipe(createWriteStream(dir))
     stream.on('finish', function () { 
-        console.log('test')
+        //installEdge()
      });
 }
-
+*/
 function installEdge() {
     core.pShellExec('INSTALL_EDGE.ps1')
 }
@@ -73,6 +73,5 @@ module.exports = {
     initializeDrives,
     beforeCleanUp,
     setEdgeHome,
-    downloadEdge,
     installEdge
 }
