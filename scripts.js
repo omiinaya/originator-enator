@@ -18,7 +18,7 @@ function unpinBloat() {
 }
 
 function runSysprep() {
-    var file = scriptsHome + 'sysprep.bat'
+    var file = scriptsHome + 'sysprep.cmd'
     exec('start ' + file).toString().trim()
 }
 

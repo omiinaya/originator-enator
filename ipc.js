@@ -119,3 +119,8 @@ ipc.on('TESTING_30', function () {
 ipc.on('TESTING_31', function () {
     scripts.installEdge()
 })
+
+ipc.on('BIOSVERSION_REQUEST', function () {
+    var data = get.BiosVersion()
+    window.webContents.send('BIOSVERSION_RESPONSE', data);
+})

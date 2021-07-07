@@ -54,6 +54,14 @@ function Drives() {
     return drives
 }
 
+function BiosVersion() {
+    return execSync('wmic bios get smbiosbiosversion').toString().replace('SMBIOSBIOSVersion', '').trim()
+}
+
+function MemoryInfo() {
+    //wmic MEMORYCHIP get BankLabel, DeviceLocator, MemoryType, TypeDetail, Capacity, Speed
+}
+
 module.exports = {
     MBInfo,
     User,
@@ -61,5 +69,6 @@ module.exports = {
     PowerGUID,
     ImageName,
     CurrentScheme,
-    Drives
+    Drives,
+    BiosVersion
 }
