@@ -11,8 +11,8 @@
 
 <body>
   <div class="computer-info">
-    <div class="title" id="top-section">Computer Information</div>
-    <ul>
+    <div class="title">Computer Information</div>
+    <ul class="section">
       <li><div class="info" id="BIOSVersion"></div></li>
       <li><div class="info" id="Motherboard"></div></li>
       <li><div class="info" id="CPU"></div></li>
@@ -23,27 +23,27 @@
     </ul>
   </div>
   <div class="content">
-    <div class="title" id="middle-section">Before Sysprep</div>
-    <ul class="before-sysprep">
-      <li><input type="checkbox" /> <button class="button" onClick=test(22)>InitializeDrives</button></li>
-      <li><input type="checkbox" /> <button class="button" onClick=test(9)>setPowerCfg High</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(6)>setMonitorTimeout</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(12)>setStandbyTimeout</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(25)>beforeCleanUp</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(27)>runCleanUp</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(28)>runClearlogs</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(29)>runSysprep</button></li>
+    <div class="title">Before Sysprep</div>
+    <ul class="section">
+      <li><input type="checkbox" disabled/> <button class="button" onClick=test(22)>InitializeDrives</button></li>
+      <li><input type="checkbox" disabled/> <button class="button" onClick=test(9)>setPowerCfg High</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(6)>setMonitorTimeout</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(12)>setStandbyTimeout</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(25)>beforeCleanUp</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(27)>runCleanUp</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(28)>runClearlogs</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(29)>runSysprep</button></li>
     </ul>
-    <div class="title" id="bottom-section">After Sysprep</div>
-    <ul class="after-sysprep">
-      <li><input type="checkbox" /><button class="button" onClick=test(30)>runAfterSysprep</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(4)>setPCDescription</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(5)>setPCName</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(10)>setPowerCfg Balanced</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(21)>unpinBloat</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(23)>disableOneDrive</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(24)>installSoftware</button></li>
-      <li><input type="checkbox" /><button class="button" onClick=test(26)>setEdgeHome</button></li>
+    <div class="title">After Sysprep</div>
+    <ul class="section">
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(30)>runAfterSysprep</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(4)>setPCDescription</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(5)>setPCName</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(10)>setPowerCfg Balanced</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(21)>unpinBloat</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(23)>disableOneDrive</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(24)>installSoftware</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(26)>setEdgeHome</button></li>
     </ul>
   </div>
 </body>
