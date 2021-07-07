@@ -19,4 +19,4 @@ const createWindow = () => {
 
 app.on('ready', createWindow);
 
-require('./ipc.js')
+require('./ipcM.js')

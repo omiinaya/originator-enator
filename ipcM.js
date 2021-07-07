@@ -138,3 +138,18 @@ ipc.on('MEMORYSIZE_REQUEST', function () {
     var data = get.MemorySize()
     window.webContents.send('MEMORYSIZE_RESPONSE', data);
 })
+
+ipc.on('GPUNAME_REQUEST', function () {
+    var data = get.GPUName()
+    window.webContents.send('GPUNAME_RESPONSE', data);
+})
+
+ipc.on('OSNAME_REQUEST', function () {
+    var data = get.OSName()
+    window.webContents.send('OSNAME_RESPONSE', data);
+})
+
+ipc.on('CPUNAME_REQUEST', function () {
+    var data = get.CPUName()
+    window.webContents.send('CPUNAME_RESPONSE', data);
+})

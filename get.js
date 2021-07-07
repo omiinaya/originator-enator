@@ -77,6 +77,14 @@ function GPUName() {
     return execSync('wmic path win32_VideoController get name').toString().replace('Name', '').trim()
 }
 
+function OSName() {
+    return execSync('wmic os get Caption').toString().replace('Caption', '').trim()
+}
+
+function CPUName() {
+    return execSync('wmic cpu get name').toString().replace('Name', '').trim()
+}
+
 module.exports = {
     MBInfo,
     User,
@@ -88,5 +96,7 @@ module.exports = {
     BiosVersion,
     MemorySpeed,
     MemorySize,
-    GPUName
+    GPUName,
+    OSName,
+    CPUName
 }
