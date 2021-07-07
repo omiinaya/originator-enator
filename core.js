@@ -42,6 +42,7 @@ function pShellExec(a) {
 
     child.on("exit", function () {
         print("Script successfully executed")
+        console.log('test1')
     })
 }
 

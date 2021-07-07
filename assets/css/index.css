@@ -63,3 +63,16 @@ input {
 .section {
   margin: 5px;
 }
+
+.footer {
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  text-align: center;
+  background-color: #fad625;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0;
+}

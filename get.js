@@ -1,4 +1,5 @@
 const { execSync } = require('child_process')
+const core = require('./core')
 
 function MBInfo() {
     var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
@@ -72,6 +73,10 @@ function MemorySize() {
     return size
 }
 
+function GPUName() {
+    return execSync('wmic path win32_VideoController get name').toString().replace('Name', '').trim()
+}
+
 module.exports = {
     MBInfo,
     User,
@@ -82,5 +87,6 @@ module.exports = {
     Drives,
     BiosVersion,
     MemorySpeed,
-    MemorySize
+    MemorySize,
+    GPUName
 }

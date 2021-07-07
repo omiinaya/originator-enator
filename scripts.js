@@ -17,6 +17,10 @@ function unpinBloat() {
     core.pShellExec('UNPIN_BLOAT.ps1')
 }
 
+function runSetLS() {
+    core.pShellExec('SET_LOCK_SCREEN.ps1')
+}
+
 function runSysprep() {
     var file = scriptsHome + 'sysprep.cmd'
     exec('start ' + file).toString().trim()
@@ -62,6 +66,11 @@ function installEdge() {
     core.pShellExec('INSTALL_EDGE.ps1')
 }
 
+function findProcess(a) {
+    //tasklist /NH | findstr /I myProcess
+    return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
+}
+
 module.exports = {
     disableOneDrive,
     installSoftware,
@@ -73,5 +82,7 @@ module.exports = {
     initializeDrives,
     beforeCleanUp,
     setEdgeHome,
-    installEdge
+    installEdge,
+    runSetLS,
+    findProcess
 }
