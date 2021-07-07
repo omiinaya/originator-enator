@@ -54,6 +54,24 @@ function Drives() {
     return drives
 }
 
+function BiosVersion() {
+    return execSync('wmic bios get smbiosbiosversion').toString().replace('SMBIOSBIOSVersion', '').trim()
+}
+
+function MemorySpeed() {
+    var output = execSync('wmic memorychip get speed').toString().replace('Speed', '').trim()
+    var speed = output.split(' ')[0] + " MHz"
+    return speed
+}
+
+function MemorySize() {
+    //needs rounding
+    var output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim()
+    var gb = parseInt(output)/1000000000
+    var size = Math.round(gb) + " GB"
+    return size
+}
+
 module.exports = {
     MBInfo,
     User,
@@ -61,5 +79,8 @@ module.exports = {
     PowerGUID,
     ImageName,
     CurrentScheme,
-    Drives
+    Drives,
+    BiosVersion,
+    MemorySpeed,
+    MemorySize
 }

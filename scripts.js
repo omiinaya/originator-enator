@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 const core = require('./core')
-const request = require('request')
+//const request = require('request')
 //const { createWriteStream } = require("fs")
 
 var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
@@ -18,7 +18,7 @@ function unpinBloat() {
 }
 
 function runSysprep() {
-    var file = scriptsHome + 'sysprep.bat'
+    var file = scriptsHome + 'sysprep.cmd'
     exec('start ' + file).toString().trim()
 }
 

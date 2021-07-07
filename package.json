@@ -1,5 +1,5 @@
 {
-  "name": "tool-box",
+  "name": "system-tools",
   "version": "0.0.3",
   "description": "A minimal electron application.",
   "main": "main.js",

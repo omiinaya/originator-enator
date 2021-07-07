@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Electron</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <script defer src="../../renderer.js"></script>
-  </head>
-  <body class="content">
-    <button onClick=test(1)>getMBInfo</button>
-    <button onClick=test(2)>getUser</button>
-    <button onClick=test(3)>getPCName</button>
-    <button onClick=test(4)>setPCDescription</button>
-    <button onClick=test(5)>setPCName</button>
-    <button onClick=test(6)>setMonitorTimeout</button>
-    <button onClick=test(7)>getPowerGUID High</button>
-    <button onClick=test(8)>getPowerGUID Balanced</button>
-    <button onClick=test(9)>setPowerCfg High</button>
-    <button onClick=test(10)>setPowerCfg Balanced</button>
-    <button onClick=test(11)>pShellExec helloworld</button>
-    <button onClick=test(12)>setStandbyTimeout</button>
-    <button onClick=test(13)>takeOwnership</button>
-    <button onClick=test(14)>getCurrentScheme</button>
-    <button onClick=test(17)>imageSwap</button>
-    <button onClick=test(18)>getDrives</button>
-    <button onClick=test(19)>registerHigh</button>
-    <button onClick=test(20)>registerUltimate</button>
-    <button onClick=test(21)>unpinBloat</button>
-    <button onClick=test(22)>InitializeDrives</button>
-    <button onClick=test(23)>disableOneDrive</button>
-    <button onClick=test(24)>installSoftware</button>
-    <button onClick=test(25)>beforeCleanUp</button>
-    <button onClick=test(26)>setEdgeHome</button>
-    <button onClick=test(27)>runCleanUp</button>
-    <button onClick=test(28)>runClearlogs</button>
-    <button onClick=test(29)>runSysprep</button>
-    <button onClick=test(30)>runAfterSysprep</button>
-    <button onClick=test(31)>installEdge</button>
-  </body>
+
+<head>
+  <title>System Tools</title>
+  <link rel="stylesheet" href="../../assets/dependencies/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/index.css" />
+  <script src="../../assets/dependencies/js/bootstrap.min.js"></script>
+  <script defer src="../../renderer.js"></script>
+</head>
+
+<body>
+  <div class="computer-info">
+    <div class="title" id="top-section">Computer Information</div>
+    <ul>
+      <li><div class="info" id="BIOSVersion"></div></li>
+      <li><div class="info" id="Motherboard"></div></li>
+      <li><div class="info" id="CPU"></div></li>
+      <li><div class="info" id="MemorySize"></div></li>
+      <li><div class="info" id="MemorySpeed"></div></li>
+      <li><div class="info" id="GPU"></div></li>
+      <li><div class="info" id="OS"></div></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="title" id="middle-section">Before Sysprep</div>
+    <ul class="before-sysprep">
+      <li><input type="checkbox" /> <button class="button" onClick=test(22)>InitializeDrives</button></li>
+      <li><input type="checkbox" /> <button class="button" onClick=test(9)>setPowerCfg High</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(6)>setMonitorTimeout</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(12)>setStandbyTimeout</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(25)>beforeCleanUp</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(27)>runCleanUp</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(28)>runClearlogs</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(29)>runSysprep</button></li>
+    </ul>
+    <div class="title" id="bottom-section">After Sysprep</div>
+    <ul class="after-sysprep">
+      <li><input type="checkbox" /><button class="button" onClick=test(30)>runAfterSysprep</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(4)>setPCDescription</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(5)>setPCName</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(10)>setPowerCfg Balanced</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(21)>unpinBloat</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(23)>disableOneDrive</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(24)>installSoftware</button></li>
+      <li><input type="checkbox" /><button class="button" onClick=test(26)>setEdgeHome</button></li>
+    </ul>
+  </div>
+</body>
+
 </html>

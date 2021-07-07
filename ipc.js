@@ -119,3 +119,18 @@ ipc.on('TESTING_30', function () {
 ipc.on('TESTING_31', function () {
     scripts.installEdge()
 })
+
+ipc.on('BIOSVERSION_REQUEST', function () {
+    var data = get.BiosVersion()
+    window.webContents.send('BIOSVERSION_RESPONSE', data);
+})
+
+ipc.on('MEMORYSPEED_REQUEST', function () {
+    var data = get.MemorySpeed()
+    window.webContents.send('MEMORYSPEED_RESPONSE', data);
+})
+
+ipc.on('MEMORYSIZE_REQUEST', function () {
+    var data = get.MemorySize()
+    window.webContents.send('MEMORYSIZE_RESPONSE', data);
+})
