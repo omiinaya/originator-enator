@@ -16,8 +16,10 @@ ipc.on('TESTING_3', function () {
     core.print(get.PCName())
 })
 
-ipc.on('TESTING_4', function () {
+ipc.on('TESTING_4', function (evt, data) {
     set.PCDescription()
+    console.log(data)
+    //window.webContents.send('CHECK_RESPONSE', data);
 })
 
 ipc.on('TESTING_5', function () {

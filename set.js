@@ -1,11 +1,12 @@
 const { execSync } = require('child_process')
+const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 
 function PCDescription() {
-    execSync('net config server /srvcomment:"%USERNAME%' + 'PC"')
+    elevated('net config server /srvcomment:"%USERNAME%' + 'PC"')
 }
 
 function PCName() {
-    execSync(`WMIC computersystem where caption='%computername%' call rename name='%USERNAME%` + `-PC'`)
+    elevated(`WMIC computersystem where caption='%computername%' call rename name='%USERNAME%` + `-PC'`)
 }
 
 function MonitorTimeout() {

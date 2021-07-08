@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function test(a) {
-  ipc.send("TESTING_" + a)
+  ipc.send("TESTING_" + a, a)
 }
 
 function biosVersionRequest() {
