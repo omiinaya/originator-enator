@@ -7,6 +7,7 @@ global.window;
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
+    show: false,
     minWidth: 800,
     minHeight: 625,
     webPreferences: {
@@ -14,6 +15,11 @@ const createWindow = () => {
     }
   });
   mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
+
   global.window = mainWindow
 };
 
