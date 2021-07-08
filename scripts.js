@@ -71,6 +71,11 @@ function findProcess(a) {
     //tasklist /NH | findstr /I myProcess
     return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
 }
+
+function deleteRemnants() {
+    //cleanup dml file, electron, vscode and other temp files.
+}
+
 module.exports = {
     disableOneDrive,
     installSoftware,
@@ -84,5 +89,6 @@ module.exports = {
     setEdgeHome,
     installEdge,
     runSetLS,
-    findProcess
+    findProcess,
+    deleteRemnants
 }

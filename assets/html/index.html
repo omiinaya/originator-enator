@@ -27,18 +27,21 @@
     </ul>
   </div>
   <div class="content">
-    <div class="title">Before Sysprep</div>
+    <div class="title">Stage 1: Before Benchmark</div>
     <ul class="section">
       <li><input type="checkbox" disabled/> <button class="button" onClick=test(22)>InitializeDrives</button></li>
       <li><input type="checkbox" disabled/> <button class="button" onClick=test(9)>setPowerCfg High</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(6)>setMonitorTimeout</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(12)>setStandbyTimeout</button></li>
+    </ul>
+    <div class="title">Stage 2: Before Sysprep</div>
+    <ul class="section">
       <li><input type="checkbox" disabled/><button class="button" onClick=test(25)>beforeCleanUp</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(27)>runCleanUp</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(28)>runClearlogs</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(29)>runSysprep</button></li>
     </ul>
-    <div class="title">After Sysprep</div>
+    <div class="title">Stage 3: After Sysprep</div>
     <ul class="section">
       <li><input type="checkbox" disabled/><button class="button" onClick=test(30)>runAfterSysprep</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(4)>setPCDescription</button></li>
@@ -47,8 +50,12 @@
       <li><input type="checkbox" disabled/><button class="button" onClick=test(21)>unpinBloat</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(23)>disableOneDrive</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(24)>installSoftware</button></li>
+    </ul>
+    <div class="title">Stage 4: Before Backup</div>
+    <ul class="section">
       <li><input type="checkbox" disabled/><button class="button" onClick=test(26)>setEdgeHome</button></li>
       <li><input type="checkbox" disabled/><button class="button" onClick=test(32)>setLockScreen</button></li>
+      <li><input type="checkbox" disabled/><button class="button" onClick=test(33)>deleteRemnants</button></li>
     </ul>
   </div>
   <div class="footer">Brought to you by Andyfix and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</div>
