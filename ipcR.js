@@ -20,7 +20,7 @@ ipc.on('MEMORYSPEED_RESPONSE', (evt, data) => {
 ipc.on('MEMORYSIZE_RESPONSE', (evt, data) => {
     console.log(data)
     var el = document.getElementById('MemorySize')
-    el.innerHTML = "Memory Size: " + data
+    el.innerHTML = "Memory Size: " + nearestPower(data, 2) + ".0 GB"
 });
 
 ipc.on('GPUNAME_RESPONSE', (evt, data) => {

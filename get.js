@@ -1,5 +1,4 @@
 const { execSync } = require('child_process')
-const core = require('./core')
 
 function MBInfo() {
     var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
@@ -69,7 +68,7 @@ function MemorySize() {
     //needs rounding
     var output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim()
     var gb = parseInt(output)/1000000000
-    var size = Math.round(gb) + " GB"
+    var size = Math.round(gb)
     return size
 }
 

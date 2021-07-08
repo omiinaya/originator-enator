@@ -17,6 +17,11 @@ const createWindow = () => {
   global.window = mainWindow
 };
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow()
+});
 
 require('./ipcM.js')
+require('./get.js')
+require('./set.js')
+require('./core.js')

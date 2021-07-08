@@ -1,5 +1,6 @@
 const { exec } = require('child_process')
 const core = require('./core')
+const get = require('./get')
 //const request = require('request')
 //const { createWriteStream } = require("fs")
 
@@ -70,7 +71,6 @@ function findProcess(a) {
     //tasklist /NH | findstr /I myProcess
     return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
 }
-
 module.exports = {
     disableOneDrive,
     installSoftware,

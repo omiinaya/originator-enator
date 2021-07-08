@@ -1,7 +1,5 @@
-const ipc = require('electron').ipcMain
 const { execSync, spawn } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
-const set = require('./set')
 
 var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
 
@@ -84,9 +82,11 @@ function renameFile(a, b) {
     })
 }
 
-function roundRam(a) {
-    //logic here
+function nearestPower(num, power) {
+    //power = 2 for power of 2
+    return Math.pow(power, Math.round(Math.log(num) / Math.log(2)))
 }
+
 
 module.exports = {
     print,
@@ -95,5 +95,6 @@ module.exports = {
     takeOwnership,
     takeOwnership2,
     copyFile,
-    renameFile
+    renameFile,
+    nearestPower
 }

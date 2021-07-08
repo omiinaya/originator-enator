@@ -1,6 +1,4 @@
 const { execSync } = require('child_process')
-const core = require('./core')
-const get = require('./get')
 
 function PCDescription() {
     execSync('net config server /srvcomment:"%USERNAME%' + 'PC"')
