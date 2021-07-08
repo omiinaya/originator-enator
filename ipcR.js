@@ -40,3 +40,9 @@ ipc.on('CPUNAME_RESPONSE', (evt, data) => {
     var el = document.getElementById('CPUName')
     el.innerHTML = "CPU: " + data
 });
+
+ipc.on('CHECK_RESPONSE', (evt, data) => {
+    console.log(data)
+    var el = document.getElementById(data)
+    el.checked = true;
+});

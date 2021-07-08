@@ -1,5 +1,6 @@
 const { execSync } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
+const get = require('./get')
 
 function PCDescription() {
     elevated('net config server /srvcomment:"%USERNAME%' + 'PC"')

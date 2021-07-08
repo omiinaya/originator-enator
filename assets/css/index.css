@@ -81,3 +81,7 @@ input {
   position: absolute;
   bottom: 0;
 }
+
+input[type=checkbox]:checked {
+  color: black;
+}
