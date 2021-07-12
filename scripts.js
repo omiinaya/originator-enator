@@ -68,8 +68,9 @@ function installEdge() {
     core.pShellExec('INSTALL_EDGE.ps1')
 }
 
-function deleteRemnants() {
+function eraseRemnants() {
     //cleanup dml file, electron, vscode and other temp files.
+    core.pShellExec('ERASE_REMNANTS.ps1')
 }
 
 function runHello() {
@@ -92,6 +93,6 @@ module.exports = {
     setEdgeHome,
     installEdge,
     runSetLS,
-    deleteRemnants,
+    eraseRemnants,
     runHello
 }

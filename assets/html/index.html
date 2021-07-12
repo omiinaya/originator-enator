@@ -15,51 +15,87 @@
   <div class="computer-info">
     <div class="title">Computer Information</div>
     <ul class="section">
-      <li><div class="info" id="BIOSVersion"></div></li>
-      <li><div class="info" id="Motherboard"></div></li>
-      <li><div class="info" id="MemorySize"></div></li>
-      <li><div class="info" id="MemorySpeed"></div></li>
+      <li>
+        <div class="info" id="BIOSVersion"></div>
+      </li>
+      <li>
+        <div class="info" id="Motherboard"></div>
+      </li>
+      <li>
+        <div class="info" id="MemorySize"></div>
+      </li>
+      <li>
+        <div class="info" id="MemorySpeed"></div>
+      </li>
     </ul>
     <ul class="section">
-      <li><div class="info" id="GPUName"></div></li>
-      <li><div class="info" id="CPUName"></div></li>
-      <li><div class="info" id="OSName"></div></li>
+      <li>
+        <div class="info" id="GPUName"></div>
+      </li>
+      <li>
+        <div class="info" id="CPUName"></div>
+      </li>
+      <li>
+        <div class="info" id="OSName"></div>
+      </li>
     </ul>
   </div>
   <div class="content">
-    <div class="title">Stage 1: Before Benchmark</div>
-    <ul class="section">
-      <li><input type="checkbox" id="22" disabled/> <button class="button" onClick=test(22)>InitializeDrives</button></li>
-      <li><input type="checkbox" id="9" disabled/> <button class="button" onClick=test(9)>setPowerCfg High</button></li>
-      <li><input type="checkbox" id="6" disabled/><button class="button" onClick=test(6)>setMonitorTimeout</button></li>
-      <li><input type="checkbox" id="12" disabled/><button class="button" onClick=test(12)>setStandbyTimeout</button></li>
+    <div class="title"><input type="checkbox" id="stage-1" />Stage 1: Before Benchmark</div>
+    <ul class="section" height="30px">
+      <li><input type="checkbox" id="box-22" /> <button class="button" onClick=test(22)>InitializeDrives</button>
+        <svg class="bi bi-check" id="check-22">
+          <path
+            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+        </svg>
+      </li>
+      <li><input type="checkbox" id="box-9" /> <button class="button" onClick=test(9)>setPowerCfg High</button>
+        <svg class="bi bi-check" id="check-9">
+          <path
+            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+        </svg>
+      </li>
+      <li><input type="checkbox" id="box-6" /><button class="button" onClick=test(6)>setMonitorTimeout</button>
+        <svg class="bi bi-check" id="check-6>
+          <path
+            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+        </svg>
+      </li>
+      <li><input type="checkbox" id="box-12" /><button class="button" onClick=test(12)>setStandbyTimeout</button>
+        <svg class="bi bi-check" id="check-12">
+          <path
+            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+        </svg>
+      </li>
     </ul>
-    <div class="title">Stage 2: Before Sysprep</div>
+    <div class="title"><input type="checkbox" id="stage-2" />Stage 2: Before Sysprep</div>
     <ul class="section">
-      <li><input type="checkbox" id="25" disabled/><button class="button" onClick=test(25)>beforeCleanUp</button></li>
-      <li><input type="checkbox" id="27" disabled/><button class="button" onClick=test(27)>runCleanUp</button></li>
-      <li><input type="checkbox" id="28" disabled/><button class="button" onClick=test(28)>runClearlogs</button></li>
-      <li><input type="checkbox" id="29" disabled/><button class="button" onClick=test(29)>runSysprep</button></li>
+      <li><input type="checkbox" id="box-25" /><button class="button" onClick=test(25)>beforeCleanUp</button></li>
+      <li><input type="checkbox" id="box-27" /><button class="button" onClick=test(27)>runCleanUp</button></li>
+      <li><input type="checkbox" id="box-28" /><button class="button" onClick=test(28)>runClearlogs</button></li>
+      <li><input type="checkbox" id="box-29" /><button class="button" onClick=test(29)>runSysprep</button></li>
     </ul>
-    <div class="title">Stage 3: After Sysprep</div>
+    <div class="title"><input type="checkbox" id="stage-3" />Stage 3: After Sysprep</div>
     <ul class="section">
-      <li><input type="checkbox" id="30" disabled/><button class="button" onClick=test(30)>runAfterSysprep</button></li>
-      <li><input type="checkbox" id="4" disabled/><button class="button" onClick=test(4)>setPCDescription</button></li>
-      <li><input type="checkbox" id="5" disabled/><button class="button" onClick=test(5)>setPCName</button></li>
-      <li><input type="checkbox" id="10" disabled/><button class="button" onClick=test(10)>setPowerCfg Balanced</button></li>
-      <li><input type="checkbox" id="21" disabled/><button class="button" onClick=test(21)>unpinBloat</button></li>
-      <li><input type="checkbox" id="23" disabled/><button class="button" onClick=test(23)>disableOneDrive</button></li>
-      <li><input type="checkbox" id="24" disabled/><button class="button" onClick=test(24)>installSoftware</button></li>
+      <li><input type="checkbox" id="box-30" /><button class="button" onClick=test(30)>runAfterSysprep</button></li>
+      <li><input type="checkbox" id="box-4" /><button class="button" onClick=test(4)>setPCDescription</button></li>
+      <li><input type="checkbox" id="box-5" /><button class="button" onClick=test(5)>setPCName</button></li>
+      <li><input type="checkbox" id="box-10" /><button class="button" onClick=test(10)>setPowerCfg Balanced</button></li>
+      <li><input type="checkbox" id="box-21" /><button class="button" onClick=test(21)>unpinBloat</button></li>
+      <li><input type="checkbox" id="box-23" /><button class="button" onClick=test(23)>disableOneDrive</button></li>
+      <li><input type="checkbox" id="box-24" /><button class="button" onClick=test(24)>installSoftware</button></li>
     </ul>
-    <div class="title">Stage 4: Before Backup</div>
+    <div class="title"><input type="checkbox" id="stage-4" />Stage 4: Before Backup</div>
     <ul class="section">
-      <li><input type="checkbox" id="26" disabled/><button class="button" onClick=test(26)>setEdgeHome</button></li>
-      <li><input type="checkbox" id="32" disabled/><button class="button" onClick=test(32)>setLockScreen</button></li>
-      <li><input type="checkbox" id="33" disabled/><button class="button" onClick=test(33)>deleteRemnants</button></li>
-      <li><input type="checkbox" id="34" disabled/><button class="button" onClick=test(34)>HelloWorld</button></li>
-      <li><input type="checkbox" id="35" disabled/><button class="button" onClick=test(35)>isDone</button></li>
+      <li><input type="checkbox" id="box-26" /><button class="button" onClick=test(26)>setEdgeHome</button></li>
+      <li><input type="checkbox" id="box-32" /><button class="button" onClick=test(32)>setLockScreen</button></li>
+      <li><input type="checkbox" id="box-33" /><button class="button" onClick=test(33)>deleteRemnants</button></li>
+      <li><input type="checkbox" id="box-34" /><button class="button" onClick=test(34)>HelloWorld</button></li>
+      <li><input type="checkbox" id="box-35" /><button class="button" onClick=test(35)>isDone</button></li>
     </ul>
   </div>
-  <div class="footer">Brought to you by Andyfix and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</div>
+  <div class="footer">Brought to you by Andyfix and
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</div>
 </body>
+
 </html>

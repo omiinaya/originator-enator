@@ -2,6 +2,7 @@ const { execSync, spawn } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 
 var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
+var currentPid;
 
 var opts = {
     bridgeTimeout: 5000,
@@ -40,6 +41,9 @@ function pShellExec(a) {
     child.on("exit", function () {
         //print("Script successfully executed")
     })
+
+    currentPid = child.pid
+    console.log(currentPid)
 }
 
 function takeOwnership(a) {
@@ -98,6 +102,13 @@ function killProcess(a) {
     return execSync('taskkill /IM ' + a + ' /F').toString().trim()
 }
 
+/*
+function isUsing(a) {
+    //handle.exe -a -u ./HELLO_WORLD.ps1
+    return execSync('handle.exe -a -u ' + a).toString().trim()
+}
+*/
+
 function isDone(process, filename) {
     var isRunning = findProcess(process)
     timer = setTimeout(function () {
@@ -107,6 +118,7 @@ function isDone(process, filename) {
     if (!isRunning) {
       clearTimeout(timer)
       console.log(filename + ' finished executing.')
+      window.webContents.send('SHELL_END', filename);
     }
 }
 

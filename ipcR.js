@@ -5,6 +5,11 @@ ipc.on('LOG_REQUEST', (evt, data) => {
     console.log(data)
 });
 
+ipc.on('SHELL_END', (evt, data) => {
+    console.log(data)
+    //logic
+});
+
 ipc.on('BIOSVERSION_RESPONSE', (evt, data) => {
     console.log(data)
     var el = document.getElementById('BIOSVersion')
@@ -43,6 +48,13 @@ ipc.on('CPUNAME_RESPONSE', (evt, data) => {
 
 ipc.on('CHECK_RESPONSE', (evt, data) => {
     console.log(data)
-    var el = document.getElementById(data)
+    var el = document.getElementById("check-" + data)
+    el.style.display = 'inline';
+});
+/*
+ipc.on('CHECK_RESPONSE', (evt, data) => {
+    console.log(data)
+    var el = document.getElementById("check-" + data)
     el.checked = true;
 });
+*/
