@@ -43,25 +43,25 @@
   <div class="content">
     <div class="title"><input type="checkbox" id="stage-1" onchange="stageCheck('stage-1')"/>Stage 1: Before Benchmark</div>
     <ul class="section" height="30px">
-      <li><input type="checkbox" id="box-22" class="stage-1" /> <button class="button" onClick=test(22)>InitializeDrives</button>
+      <li><input type="checkbox" id="box-22" class="stage-1" onchange="toggleStep(22)"/> <button class="button" onClick=test(22)>InitializeDrives</button>
         <svg class="bi bi-check" id="check-22">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-9" class="stage-1"/> <button class="button" onClick=test(9)>setPowerCfg High</button>
+      <li><input type="checkbox" id="box-9" class="stage-1" onchange="toggleStep(9)" /> <button class="button" onClick=test(9)>setPowerCfg High</button>
         <svg class="bi bi-check" id="check-9">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-6" class="stage-1"/><button class="button" onClick=test(6)>setMonitorTimeout</button>
+      <li><input type="checkbox" id="box-6" class="stage-1" onchange="toggleStep(6)" /><button class="button" onClick=test(6)>setMonitorTimeout</button>
         <svg class="bi bi-check" id="check-6">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-12" class="stage-1"/><button class="button" onClick=test(12)>setStandbyTimeout</button>
+      <li><input type="checkbox" id="box-12" class="stage-1" onchange="toggleStep(12)" /><button class="button" onClick=test(12)>setStandbyTimeout</button>
         <svg class="bi bi-check" id="check-12">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
@@ -70,25 +70,25 @@
     </ul>
     <div class="title"><input type="checkbox" id="stage-2" onchange="stageCheck('stage-2')" />Stage 2: Before Sysprep</div>
     <ul class="section">
-      <li><input type="checkbox" id="box-25" class="stage-2"/><button class="button" onClick=test(25)>beforeCleanUp</button>
+      <li><input type="checkbox" id="box-25" class="stage-2" onchange="toggleStep(25)" /><button class="button" onClick=test(25)>beforeCleanUp</button>
         <svg class="bi bi-check" id="check-25">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-27" class="stage-2"/><button class="button" onClick=test(27)>runCleanUp</button>
+      <li><input type="checkbox" id="box-27" class="stage-2" onchange="toggleStep(27)" /><button class="button" onClick=test(27)>runCleanUp</button>
         <svg class="bi bi-check" id="check-27">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-28" class="stage-2"/><button class="button" onClick=test(28)>runClearlogs</button>
+      <li><input type="checkbox" id="box-28" class="stage-2" onchange="toggleStep(28)" /><button class="button" onClick=test(28)>runClearlogs</button>
         <svg class="bi bi-check" id="check-28">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-29" class="stage-2"/><button class="button" onClick=test(29)>runSysprep</button>
+      <li><input type="checkbox" id="box-29" class="stage-2" onchange="toggleStep(29)" /><button class="button" onClick=test(29)>runSysprep</button>
         <svg class="bi bi-check" id="check-29">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
@@ -97,43 +97,43 @@
     </ul>
     <div class="title"><input type="checkbox" id="stage-3" onchange="stageCheck('stage-3')" />Stage 3: After Sysprep</div>
     <ul class="section">
-      <li><input type="checkbox" id="box-30" class="stage-3"/><button class="button" onClick=test(30)>runAfterSysprep</button>
+      <li><input type="checkbox" id="box-30" class="stage-3" onchange="toggleStep(30)" /><button class="button" onClick=test(30)>runAfterSysprep</button>
         <svg class="bi bi-check" id="check-30">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-4" class="stage-3"/><button class="button" onClick=test(4)>setPCDescription</button>
+      <li><input type="checkbox" id="box-4" class="stage-3" onchange="toggleStep(4)" /><button class="button" onClick=test(4)>setPCDescription</button>
         <svg class="bi bi-check" id="check-4">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-5" class="stage-3"/><button class="button" onClick=test(5)>setPCName</button>
+      <li><input type="checkbox" id="box-5" class="stage-3" onchange="toggleStep(5)" /><button class="button" onClick=test(5)>setPCName</button>
         <svg class="bi bi-check" id="check-5">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-10" class="stage-3"/><button class="button" onClick=test(10)>setPowerCfg Balanced</button>
+      <li><input type="checkbox" id="box-10" class="stage-3" onchange="toggleStep(10)" /><button class="button" onClick=test(10)>setPowerCfg Balanced</button>
         <svg class="bi bi-check" id="check-10">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-21" class="stage-3"/><button class="button" onClick=test(21)>unpinBloat</button>
+      <li><input type="checkbox" id="box-21" class="stage-3" onchange="toggleStep(21)" /><button class="button" onClick=test(21)>unpinBloat</button>
         <svg class="bi bi-check" id="check-21">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-23" class="stage-3"/><button class="button" onClick=test(23)>disableOneDrive</button>
+      <li><input type="checkbox" id="box-23" class="stage-3" onchange="toggleStep(23)" /><button class="button" onClick=test(23)>disableOneDrive</button>
         <svg class="bi bi-check" id="check-23">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-24" class="stage-3"/><button class="button" onClick=test(24)>installSoftware</button>
+      <li><input type="checkbox" id="box-24" class="stage-3" onchange="toggleStep(24)" /><button class="button" onClick=test(24)>installSoftware</button>
         <svg class="bi bi-check" id="check-24">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
@@ -142,31 +142,31 @@
     </ul>
     <div class="title"><input type="checkbox" id="stage-4" onchange="stageCheck('stage-4')"/>Stage 4: Before Backup</div>
     <ul class="section">
-      <li><input type="checkbox" id="box-26" class="stage-4" /><button class="button" onClick=test(26)>setEdgeHome</button>
+      <li><input type="checkbox" id="box-26" class="stage-4" onchange="toggleStep(26)" /><button class="button" onClick=test(26)>setEdgeHome</button>
         <svg class="bi bi-check" id="check-26">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-32" class="stage-4" /><button class="button" onClick=test(32)>setLockScreen</button>
+      <li><input type="checkbox" id="box-32" class="stage-4" onchange="toggleStep(32)" /><button class="button" onClick=test(32)>setLockScreen</button>
         <svg class="bi bi-check" id="check-32">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-33" class="stage-4" /><button class="button" onClick=test(33)>deleteRemnants</button>
+      <li><input type="checkbox" id="box-33" class="stage-4" onchange="toggleStep(33)" /><button class="button" onClick=test(33)>deleteRemnants</button>
         <svg class="bi bi-check" id="check-33">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-34" class="stage-4" /><button class="button" onClick=test(34)>HelloWorld</button>
+      <li><input type="checkbox" id="box-34" class="stage-4" onchange="toggleStep(34)" /><button class="button" onClick=test(34)>HelloWorld</button>
         <svg class="bi bi-check" id="check-34">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
         </svg>
       </li>
-      <li><input type="checkbox" id="box-35" class="stage-4" /><button class="button" onClick=test(35)>isDone</button>
+      <li><input type="checkbox" id="box-35" class="stage-4" onchange="toggleStep(35)" /><button class="button" onClick=test(35)>isDone</button>
         <svg class="bi bi-check" id="check-35">
           <path
             d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />

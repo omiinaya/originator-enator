@@ -8,32 +8,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
   GPUNameRequest()
   OSNameRequest()
   CPUNameRequest()
-  test2()
+  //test2()
 });
 
 function test(a) {
   ipc.send("TESTING_" + a, a)
 }
 
-function test2() {
-  /*
-  var x = document.getElementsByClassName('stage-1')
-  //console.log(x)
-  for (var i = 0; i < x.length; i++) {
-    console.log(x[i])
-    x[i].checked = true
+function toggleStep(a) {
+  var el = document.getElementById('box-' + a)
+  if (el.checked === true) {
+    stepList.push(a)
+    console.log(stepList)
+  } else {
+    //console.log(stepList.indexOf(a, stepList.length-1))
+    stepList.splice(stepList.indexOf(a, stepList.length-1), 1)
+    console.log(stepList)
   }
-  */
 }
 
 function stageCheck(a) {
   var stage = document.getElementById(a)
   var el = document.getElementsByClassName(a)
   for (var i = 0; i < el.length; i++) {
+    var id = el[i].id.split('-')
+    var step = id[id.length-1]
     if (stage.checked === true) {
+      stepList.push(step)
       el[i].checked = true;
+      console.log(stepList)
     } else {
+      stepList.splice(stepList.indexOf(step, stepList.length-1), 1)
       el[i].checked = false;
+      console.log(stepList)
     }
   }
 }
