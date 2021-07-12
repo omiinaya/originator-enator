@@ -30,13 +30,18 @@ function registerPowerPlan(a) {
 function cmdShellExec(a) {
     var child = spawn('cmd.exe', ["/c", a], { shell: true, detached: true })
 
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-
-    child.on('close', function (code) {
-        console.log('exit: ' + code)
+    child.stdout.on("data", function (data) {
+        print("out: " + data)
     })
 
+    child.stderr.on("data", function (data) {
+        print("err: " + data)
+    })
+
+    child.on("exit", function (code) {
+        console.log('exit: ' + code)
+    })
+    
     isDone(a, child.pid)
 }
 

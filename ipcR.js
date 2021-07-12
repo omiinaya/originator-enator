@@ -5,7 +5,7 @@ ipc.on('LOG_REQUEST', (evt, data) => {
     console.log(data)
 });
 
-ipc.on('SHELL_END', (evt, data) => {
+ipc.on('SHELL_END', () => {
     executeQueue()
 });
 

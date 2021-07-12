@@ -48,8 +48,8 @@ function stageCheck(a) {
 function executeQueue() {
   console.log(stepList)
   if (stepList.length > 0) {
-    test(stepList[0])
     document.getElementById("box-" + stepList[0]).checked = false;
+    test(stepList[0])
   }
 }
 
