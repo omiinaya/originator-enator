@@ -1,0 +1,7 @@
+Press Ctrl+Shift+P to show all commands.
+Type profile in the displayed text box to filter the list.
+Select Terminal: Select Default Profile.
+You will be prompted to Select your preferred terminal shell, you can change this later in your settings or follow the same process as we do now
+Select Command Prompt (cmd.exe)
+Click the Delete Icon in the shell pane to remove the existing terminal.
+Press Ctrl+` (or View > Terminal in menu) to open a new terminal pane.

@@ -154,6 +154,16 @@ ipc.on('TESTING_32', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('TESTING_34', function (evt, data) {
+    scripts.runHello()
+    //window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_35', function (evt, data) {
+    core.isDone('powershell.exe')
+    //window.webContents.send('CHECK_RESPONSE', data);
+})
+
 ipc.on('BIOSVERSION_REQUEST', function (evt, data) {
     var data = get.BiosVersion()
     window.webContents.send('BIOSVERSION_RESPONSE', data);

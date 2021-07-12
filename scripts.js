@@ -1,6 +1,7 @@
-const { exec } = require('child_process')
+const { exec, execSync } = require('child_process')
 const core = require('./core')
 const get = require('./get')
+const delay = ms => new Promise(res => setTimeout(res, ms));
 //const request = require('request')
 //const { createWriteStream } = require("fs")
 
@@ -67,13 +68,15 @@ function installEdge() {
     core.pShellExec('INSTALL_EDGE.ps1')
 }
 
-function findProcess(a) {
-    //tasklist /NH | findstr /I myProcess
-    return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
-}
-
 function deleteRemnants() {
     //cleanup dml file, electron, vscode and other temp files.
+}
+
+function runHello() {
+    var process = 'powershell.exe'
+    var filename = 'HELLO_WORLD.ps1'
+    core.pShellExec(filename)
+    core.isDone(process, filename)
 }
 
 module.exports = {
@@ -89,6 +92,6 @@ module.exports = {
     setEdgeHome,
     installEdge,
     runSetLS,
-    findProcess,
-    deleteRemnants
+    deleteRemnants,
+    runHello
 }

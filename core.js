@@ -27,7 +27,6 @@ function registerPowerPlan(a) {
 }
 
 function pShellExec(a) {
-    console.log(scriptsHome)
     var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File', scriptsHome + a], { shell: true, detached: true });
 
     child.stdout.on("data", function (data) {
@@ -39,8 +38,7 @@ function pShellExec(a) {
     })
 
     child.on("exit", function () {
-        print("Script successfully executed")
-        console.log('test1')
+        //print("Script successfully executed")
     })
 }
 
@@ -87,6 +85,44 @@ function nearestPower(num, power) {
     return Math.pow(power, Math.round(Math.log(num) / Math.log(2)))
 }
 
+function findProcess(a) {
+    try {
+        return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
+    }
+    catch (error) {
+        return
+    }
+}
+
+function killProcess(a) {
+    return execSync('taskkill /IM ' + a + ' /F').toString().trim()
+}
+
+function isDone(process, filename) {
+    var isRunning = findProcess(process)
+    timer = setTimeout(function () {
+      console.log(isRunning)
+      isDone(process, filename)
+    }, 1000)
+    if (!isRunning) {
+      clearTimeout(timer)
+      console.log(filename + ' finished executing.')
+    }
+}
+
+//maybe not necessary. we'll see.
+function awaitStart(process, filename) {
+    var isRunning = findProcess(process)
+    var check = setTimeout(function () {
+        if (!isRunning) {
+            awaitStart(process, filename)
+            console.log('Waiting on process...')
+        } else {
+            clearTimeout(check)
+            isDone(process, filename)
+        }
+    })
+}
 
 module.exports = {
     print,
@@ -96,5 +132,9 @@ module.exports = {
     takeOwnership2,
     copyFile,
     renameFile,
-    nearestPower
+    nearestPower,
+    findProcess,
+    killProcess,
+    isDone,
+    awaitStart
 }
