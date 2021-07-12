@@ -6,8 +6,7 @@ ipc.on('LOG_REQUEST', (evt, data) => {
 });
 
 ipc.on('SHELL_END', (evt, data) => {
-    //console.log(data)
-    //logic
+    executeQueue()
 });
 
 ipc.on('BIOSVERSION_RESPONSE', (evt, data) => {

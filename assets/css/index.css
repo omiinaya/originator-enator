@@ -95,3 +95,15 @@ input[type=checkbox]:checked {
   position: relative;
   bottom: 8px;
 }
+
+#start-all-button {
+  text-align: center;
+  margin: 0 auto;
+  background-color: #d02e33;
+  border: none;
+}
+
+.bottom-buttons {
+  text-align: center;
+  margin: 0 auto;
+}

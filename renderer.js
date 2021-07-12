@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 function test(a) {
   ipc.send("TESTING_" + a, a)
+  stepList.shift()
 }
 
 function toggleStep(a) {
@@ -21,8 +22,7 @@ function toggleStep(a) {
     stepList.push(a)
     console.log(stepList)
   } else {
-    //console.log(stepList.indexOf(a, stepList.length-1))
-    stepList.splice(stepList.indexOf(a, stepList.length-1), 1)
+    stepList.splice(stepList.indexOf(a, stepList.length - 1), 1)
     console.log(stepList)
   }
 }
@@ -32,16 +32,24 @@ function stageCheck(a) {
   var el = document.getElementsByClassName(a)
   for (var i = 0; i < el.length; i++) {
     var id = el[i].id.split('-')
-    var step = id[id.length-1]
+    var step = id[id.length - 1]
     if (stage.checked === true) {
       stepList.push(step)
       el[i].checked = true;
       console.log(stepList)
     } else {
-      stepList.splice(stepList.indexOf(step, stepList.length-1), 1)
+      stepList.splice(stepList.indexOf(step, stepList.length - 1), 1)
       el[i].checked = false;
       console.log(stepList)
     }
+  }
+}
+
+function executeQueue() {
+  console.log(stepList)
+  if (stepList.length > 0) {
+    test(stepList[0])
+    document.getElementById("box-" + stepList[0]).checked = false;
   }
 }
 
