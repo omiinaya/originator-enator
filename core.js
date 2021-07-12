@@ -27,6 +27,19 @@ function registerPowerPlan(a) {
     }
 }
 
+function cmdShellExec(a) {
+    var child = spawn('cmd.exe', ["/c", a], { shell: true, detached: true })
+
+    child.stdout.pipe(process.stdout)
+    child.stderr.pipe(process.stderr)
+
+    child.on('close', function (code) {
+        console.log('exit: ' + code)
+    })
+
+    isDone(a, child.pid)
+}
+
 function pShellExec(a) {
     var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File', scriptsHome + a], { shell: true, detached: true });
 
@@ -38,12 +51,11 @@ function pShellExec(a) {
         print("err: " + data)
     })
 
-    child.on("exit", function () {
-        //print("Script successfully executed")
+    child.on("exit", function (code) {
+        console.log('exit: ' + code)
     })
 
-    currentPid = child.pid
-    console.log(currentPid)
+    isDone(a, child.pid)
 }
 
 function takeOwnership(a) {
@@ -89,9 +101,19 @@ function nearestPower(num, power) {
     return Math.pow(power, Math.round(Math.log(num) / Math.log(2)))
 }
 
-function findProcess(a) {
+function findProcessByName(a) {
     try {
         return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
+    }
+    catch (error) {
+        return
+    }
+}
+
+
+function findProcessByPiD(a) {
+    try {
+        return execSync('wmic process where processId=' + a + ' get name').toString().replace('Name', '').trim()
     }
     catch (error) {
         return
@@ -109,16 +131,16 @@ function isUsing(a) {
 }
 */
 
-function isDone(process, filename) {
-    var isRunning = findProcess(process)
+function isDone(filename, PiD) {
+    var isRunning = findProcessByPiD(PiD) //findProcessByName(process)
     timer = setTimeout(function () {
-      console.log(isRunning)
-      isDone(process, filename)
+        print(isRunning)
+        isDone(filename, PiD)
     }, 1000)
     if (!isRunning) {
-      clearTimeout(timer)
-      console.log(filename + ' finished executing.')
-      window.webContents.send('SHELL_END', filename);
+        clearTimeout(timer)
+        print(filename + ' finished executing.')
+        window.webContents.send('SHELL_END', filename);
     }
 }
 
@@ -145,8 +167,9 @@ module.exports = {
     copyFile,
     renameFile,
     nearestPower,
-    findProcess,
+    findProcessByName,
     killProcess,
     isDone,
-    awaitStart
+    awaitStart,
+    cmdShellExec
 }

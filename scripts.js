@@ -1,9 +1,4 @@
-const { exec, execSync } = require('child_process')
 const core = require('./core')
-const get = require('./get')
-const delay = ms => new Promise(res => setTimeout(res, ms));
-//const request = require('request')
-//const { createWriteStream } = require("fs")
 
 var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
 
@@ -25,22 +20,22 @@ function runSetLS() {
 
 function runSysprep() {
     var file = scriptsHome + 'sysprep.cmd'
-    exec('start ' + file).toString().trim()
+    core.cmdShellExec(file)
 }
 
 function runAfterSysprep() {
     var file = scriptsHome + 'RunAfterSysprep.cmd'
-    exec('start ' + file).toString().trim()
+    core.cmdShellExec(file)
 }
 
 function runCleanUp() {
     var file = scriptsHome + 'CleanUp.cmd'
-    exec('start ' + file).toString().trim()
+    core.cmdShellExec(file)
 }
 
 function runClearLogs() {
-    var file = scriptsHome + 'clearlogs.bat'
-    exec('start ' + file).toString().trim()
+    var file = scriptsHome + 'clearlogs.cmd'
+    core.cmdShellExec(file)
 }
 
 function initializeDrives() {
@@ -54,30 +49,17 @@ function beforeCleanUp() {
 function setEdgeHome() {
     core.pShellExec('SET_EDGE_TO_ORIGIN.ps1')
 }
-/*
-function downloadEdge() {
-    var url = 'https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=en';
-    var dir = scriptsHome + '\\Originator2.0\\Software\\Edge\\Edge.msi'
-    var stream = request(url).pipe(createWriteStream(dir))
-    stream.on('finish', function () { 
-        //installEdge()
-     });
-}
-*/
+
 function installEdge() {
     core.pShellExec('INSTALL_EDGE.ps1')
 }
 
 function eraseRemnants() {
-    //cleanup dml file, electron, vscode and other temp files.
     core.pShellExec('ERASE_REMNANTS.ps1')
 }
 
 function runHello() {
-    var process = 'powershell.exe'
-    var filename = 'HELLO_WORLD.ps1'
-    core.pShellExec(filename)
-    core.isDone(process, filename)
+    core.pShellExec('HELLO_WORLD.ps1')
 }
 
 module.exports = {
