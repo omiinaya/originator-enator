@@ -1,6 +1,7 @@
 const { execSync } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 const get = require('./get')
+const core = require('./core')
 
 function PCDescription() {
     elevated('net config server /srvcomment:"%USERNAME%' + 'PC"')
@@ -28,10 +29,11 @@ function PowerCfg(a) {
     if (!get.PowerGUID(a)) {
         core.registerPowerPlan(a)
         execSync('powercfg /setactive ' + get.PowerGUID(a))
+        window.webContents.send('SHELL_END', 'setPowerCfg');
     } else {
         execSync('powercfg /setactive ' + get.PowerGUID(a))
+        window.webContents.send('SHELL_END', 'setPowerCfg');
     }
-    window.webContents.send('SHELL_END', 'setPowerCfg');
 }
 
 module.exports = {

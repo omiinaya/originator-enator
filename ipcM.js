@@ -5,47 +5,98 @@ const set = require('./set')
 const scripts = require('./scripts')
 
 ipc.on('TESTING_1', function (evt, data) {
-    core.print(get.MBInfo())
+    scripts.initializeDrives()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
 ipc.on('TESTING_2', function (evt, data) {
-    core.print(get.User())
+    set.PowerCfg('High')
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
 ipc.on('TESTING_3', function (evt, data) {
-    core.print(get.PCName())
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_4', function (evt, data) {
-    set.PCDescription()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_5', function (evt, data) {
-    set.PCName()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_6', function (evt, data) {
     set.MonitorTimeout()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('TESTING_4', function (evt, data) {
+    set.StandbyTimeout()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_5', function (evt, data) {
+    scripts.beforeCleanUp()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_6', function (evt, data) {
+    scripts.runCleanUp()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 ipc.on('TESTING_7', function (evt, data) {
-    core.print(get.PowerGUID("High"))
+    scripts.runClearLogs()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
 ipc.on('TESTING_8', function (evt, data) {
-    core.print(get.PowerGUID("Balanced"))
+    scripts.runSysprep()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
 ipc.on('TESTING_9', function (evt, data) {
-    set.PowerCfg('High')
+    scripts.runAfterSysprep()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_10', function (evt, data) {
+    set.PCDescription()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_11', function (evt, data) {
+    set.PCName()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_12', function (evt, data) {
+    set.PowerCfg("Balanced")
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_13', function (evt, data) {
+    scripts.unpinBloat()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_14', function (evt, data) {
+    scripts.disableOneDrive()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_15', function (evt, data) {
+    scripts.installSoftware()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_16', function (evt, data) {
+    scripts.setEdgeHome()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_17', function (evt, data) {
+    scripts.runSetLS()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('TESTING_18', function (evt, data) {
+   scripts.eraseRemnants()
+   window.webContents.send('CHECK_RESPONSE', data);
+})
+
+/*
+ipc.on('TESTING_7', function (evt, data) {
+    core.print(get.PowerGUID("High"))
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
@@ -56,11 +107,6 @@ ipc.on('TESTING_10', function (evt, data) {
 
 ipc.on('TESTING_11', function (evt, data) {
     core.pShellExec('helloworld.ps1')
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_12', function (evt, data) {
-    set.StandbyTimeout()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
@@ -94,65 +140,13 @@ ipc.on('TESTING_20', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_21', function (evt, data) {
-    scripts.unpinBloat()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
 
-ipc.on('TESTING_22', function (evt, data) {
-    scripts.initializeDrives()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_23', function (evt, data) {
-    scripts.disableOneDrive()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_24', function (evt, data) {
-    scripts.installSoftware()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_25', function (evt, data) {
-    scripts.beforeCleanUp()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_26', function (evt, data) {
-    scripts.setEdgeHome()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_27', function (evt, data) {
-    scripts.runCleanUp()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_28', function (evt, data) {
-    scripts.runClearLogs()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_29', function (evt, data) {
-    scripts.runSysprep()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('TESTING_30', function (evt, data) {
-    scripts.runAfterSysprep()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
 
 ipc.on('TESTING_31', function (evt, data) {
     scripts.installEdge()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_32', function (evt, data) {
-    scripts.runSetLS()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
 
 ipc.on('TESTING_34', function (evt, data) {
     scripts.runHello()
@@ -163,6 +157,7 @@ ipc.on('TESTING_35', function (evt, data) {
     core.isDone('powershell.exe')
     //window.webContents.send('CHECK_RESPONSE', data);
 })
+*/
 
 ipc.on('BIOSVERSION_REQUEST', function (evt, data) {
     var data = get.BiosVersion()

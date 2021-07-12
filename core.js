@@ -2,7 +2,6 @@ const { execSync, spawn } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 
 var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
-var currentPid;
 
 var opts = {
     bridgeTimeout: 5000,
@@ -41,7 +40,7 @@ function cmdShellExec(a) {
     child.on("exit", function (code) {
         console.log('exit: ' + code)
     })
-    
+
     isDone(a, child.pid)
 }
 
@@ -143,6 +142,7 @@ function isDone(filename, PiD) {
         isDone(filename, PiD)
     }, 1000)
     if (!isRunning) {
+        console.log(isRunning)
         clearTimeout(timer)
         print(filename + ' finished executing.')
         window.webContents.send('SHELL_END', filename);

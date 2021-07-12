@@ -46,11 +46,22 @@ function stageCheck(a) {
 }
 
 function executeQueue() {
+  stepList.sort(function(a, b){return a - b});
   console.log(stepList)
   if (stepList.length > 0) {
     document.getElementById("box-" + stepList[0]).checked = false;
     test(stepList[0])
   }
+}
+
+function resetAll() {
+  stepList = []
+  var a = document.getElementsByClassName('stage-1')
+  var b = document.getElementsByClassName('stage-2')
+  var c = document.getElementsByClassName('stage-3')
+  var d = document.getElementsByClassName('stage-4')
+
+  //for each stage, reset check marks
 }
 
 function biosVersionRequest() {
