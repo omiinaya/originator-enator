@@ -6,7 +6,7 @@ ipc.on('LOG_REQUEST', (evt, data) => {
 });
 
 ipc.on('SHELL_END', (evt, data) => {
-    console.log(data)
+    //console.log(data)
     //logic
 });
 

@@ -1,3 +1,5 @@
+var stepList = [];
+
 //on DOM load
 document.addEventListener("DOMContentLoaded", function (event) {
   biosVersionRequest()
@@ -6,10 +8,34 @@ document.addEventListener("DOMContentLoaded", function (event) {
   GPUNameRequest()
   OSNameRequest()
   CPUNameRequest()
+  test2()
 });
 
 function test(a) {
   ipc.send("TESTING_" + a, a)
+}
+
+function test2() {
+  /*
+  var x = document.getElementsByClassName('stage-1')
+  //console.log(x)
+  for (var i = 0; i < x.length; i++) {
+    console.log(x[i])
+    x[i].checked = true
+  }
+  */
+}
+
+function stageCheck(a) {
+  var stage = document.getElementById(a)
+  var el = document.getElementsByClassName(a)
+  for (var i = 0; i < el.length; i++) {
+    if (stage.checked === true) {
+      el[i].checked = true;
+    } else {
+      el[i].checked = false;
+    }
+  }
 }
 
 function biosVersionRequest() {
