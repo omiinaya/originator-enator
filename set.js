@@ -4,19 +4,19 @@ const get = require('./get')
 const core = require('./core')
 
 function PCDescription() {
-    elevated('net config server /srvcomment:"%USERNAME%' + 'PC"')
+    execSync('net config server /srvcomment:"%USERNAME%' + 'PC"')
     window.webContents.send('SHELL_END', 'setPCDescription');
 }
 
 function PCName() {
-    elevated(`WMIC computersystem where caption='%computername%' call rename name='%USERNAME%` + `-PC'`)
+    execSync(`WMIC computersystem where caption='%computername%' call rename name='%USERNAME%` + `-PC'`)
     window.webContents.send('SHELL_END', 'setPCName');
 }
 
 function MonitorTimeout() {
     execSync('powercfg /change monitor-timeout-ac 0') //0 = never
     execSync('powercfg /change monitor-timeout-dc 0')
-    window.webContents.send('SHELL_END', 'MonitorTimeout');
+    window.webContents.send('SHELL_END', 'setMonitorTimeout');
 }
 
 function StandbyTimeout() {
