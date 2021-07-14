@@ -58,6 +58,18 @@ function eraseRemnants() {
     core.pShellExec('ERASE_REMNANTS.ps1')
 }
 
+function activateWindows() {
+    core.pShellExec('\\ORIGINator2.0\\OA3\\Assemble.ps1')
+}
+
+function runBenchmarks() {
+    core.pShellExec('\\ORIGINator2.0\\Benchmarks\\Run.ps1')
+}
+
+function saveScores() {
+    core.pShellExec('\\ORIGINator2.0\\Bin\\Source\\SaveScores.ps1')
+}
+
 function runHello() {
     core.pShellExec('HELLO_WORLD.ps1')
 }
@@ -76,5 +88,8 @@ module.exports = {
     installEdge,
     runSetLS,
     eraseRemnants,
-    runHello
+    runHello,
+    activateWindows,
+    runBenchmarks,
+    saveScores
 }

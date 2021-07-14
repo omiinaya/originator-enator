@@ -94,6 +94,11 @@ ipc.on('TESTING_18', function (evt, data) {
    window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('TESTING_19', function (evt, data) {
+    scripts.activateWindows()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 /*
 ipc.on('TESTING_7', function (evt, data) {
     core.print(get.PowerGUID("High"))
