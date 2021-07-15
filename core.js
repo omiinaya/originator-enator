@@ -124,7 +124,7 @@ function findProcessByPiD(a) {
     }
 }
 
-function killProcess(a) {
+function killProcessByName(a) {
     return execSync('taskkill /IM ' + a + ' /F').toString().trim()
 }
 
@@ -163,6 +163,18 @@ function awaitStart(process, filename) {
     })
 }
 
+function abort() {
+    var processes = ["electron.exe", "powershell.exe", "cmd.exe"]
+    processes.forEach(process => {
+        try {
+            killProcessByName(process)
+        }
+        catch (error) {
+            console.log(error)
+        } 
+    })
+}
+
 module.exports = {
     print,
     registerPowerPlan,
@@ -173,8 +185,9 @@ module.exports = {
     renameFile,
     nearestPower,
     findProcessByName,
-    killProcess,
+    killProcessByName,
     isDone,
     awaitStart,
-    cmdShellExec
+    cmdShellExec,
+    abort
 }
