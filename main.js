@@ -31,6 +31,3 @@ app.on('ready', () => {
 });
 
 require('./ipcM.js')
-require('./get.js')
-require('./set.js')
-require('./core.js')
