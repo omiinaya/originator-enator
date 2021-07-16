@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   OSNameRequest()
   CPUNameRequest()
   StepListRequest()
+  //test('test')
 });
 
 function start(func, num) {
@@ -93,6 +94,10 @@ function resetTitles() {
     console.log(title)
     title.style.checked = false
   }
+}
+
+function test(a) {
+  alert(a)
 }
 
 function biosVersionRequest() {

@@ -191,11 +191,14 @@ function getDrives() {
 function getRecoveryDrive() {
     var drives = getDrives()
     var drive = drives.filter(drive => drive.includes('CORSAIR'))[0]
-    var x = drive.split(' ')
-    var y = x.filter(el => el !== '')
-    var z = y[2] + "\\"
-
-    return z
+    if (drive) {
+        var x = drive.split(' ')
+        var y = x.filter(el => el !== '')
+        var z = y[2] + "\\"
+        return z
+    } else {
+        return
+    }
 }
 
 module.exports = {

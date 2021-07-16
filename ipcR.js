@@ -71,3 +71,7 @@ ipc.on('CLEARQUEUE_REQUEST', () => {
     stepList = []
     console.log('Queue has been cleared.')
 })
+
+ipc.on('ALERT_REQUEST', (evt, data) => {
+    alert(data)
+})

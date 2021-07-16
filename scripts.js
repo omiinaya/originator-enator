@@ -88,12 +88,13 @@ function runBenchmarks() {
 }
 
 function createRecoveryDrive() {
-    //console.log('To be implemented...')
-    //core.print('test')
     var corsair = core.getRecoveryDrive()
-    console.log(core.getRecoveryDrive())
-    //core.print('ROBOCOPY ' + originatorHome + 'Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
-    core.cmdShellExec('ROBOCOPY ' + originatorHome + '\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
+    if (corsair) {
+        console.log(corsair)
+        core.cmdShellExec('ROBOCOPY ' + originatorHome + '\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
+    } else {
+        console.log('no drive found.')
+    }
 }
 
 function runHello() {
