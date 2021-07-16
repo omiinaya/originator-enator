@@ -71,8 +71,15 @@ function saveScores() {
 }
 
 function runNetwork() {
-    core.pShellExec('Network.cmd')
+    var file = scriptsHome + 'Network.cmd'
+    core.cmdShellExec(file)
 }
+
+function checkDrivers() {
+    var file = scriptsHome + 'checkDrivers.cmd'
+    core.cmdShellExec(file)
+}
+
 
 function runHello() {
     core.pShellExec('HELLO_WORLD.ps1')
@@ -96,5 +103,6 @@ module.exports = {
     activateWindows,
     runBenchmarks,
     saveScores,
-    runNetwork
+    runNetwork,
+    checkDrivers
 }
