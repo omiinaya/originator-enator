@@ -1,3 +1,4 @@
+require('v8-compile-cache');
 require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 require('@electron/remote/main').initialize()
 const { app, BrowserWindow } = require('electron');
