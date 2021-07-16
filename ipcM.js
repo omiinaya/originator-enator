@@ -1,100 +1,101 @@
 const ipc = require('electron').ipcMain
-const core = require('./core')
 const get = require('./get')
 const set = require('./set')
 const scripts = require('./scripts')
+const fs = require('fs')
 
-ipc.on('TESTING_1', function (evt, data) {
+ipc.on('initializeDrives', function (evt, data) {
+    console.log(data)
     scripts.initializeDrives()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_2', function (evt, data) {
+ipc.on('setPowerCfgHigh', function (evt, data) {
     set.PowerCfg('High')
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_3', function (evt, data) {
+ipc.on('setMonitorTimeout', function (evt, data) {
     set.MonitorTimeout()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_4', function (evt, data) {
+ipc.on('setStandbyTimeout', function (evt, data) {
     set.StandbyTimeout()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_5', function (evt, data) {
+ipc.on('beforeCleanUp', function (evt, data) {
     scripts.beforeCleanUp()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_6', function (evt, data) {
+ipc.on('runCleanUp', function (evt, data) {
     scripts.runCleanUp()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_7', function (evt, data) {
+ipc.on('runCleanlogs', function (evt, data) {
     scripts.runClearLogs()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_8', function (evt, data) {
+ipc.on('runSysprep', function (evt, data) {
     scripts.runSysprep()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_9', function (evt, data) {
+ipc.on('runAfterSysprep', function (evt, data) {
     scripts.runAfterSysprep()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_10', function (evt, data) {
+ipc.on('setPCDescription', function (evt, data) {
     set.PCDescription()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_11', function (evt, data) {
+ipc.on('setPCName', function (evt, data) {
     set.PCName()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_12', function (evt, data) {
+ipc.on('setPowerCfgBalanced', function (evt, data) {
     set.PowerCfg("Balanced")
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_13', function (evt, data) {
+ipc.on('unpinBloat', function (evt, data) {
     scripts.unpinBloat()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_14', function (evt, data) {
+ipc.on('disableOneDrive', function (evt, data) {
     scripts.disableOneDrive()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_15', function (evt, data) {
+ipc.on('installSoftware', function (evt, data) {
     scripts.installSoftware()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_16', function (evt, data) {
+ipc.on('setEdgeHome', function (evt, data) {
     scripts.setEdgeHome()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_17', function (evt, data) {
-    scripts.runSetLS()
+ipc.on('setLSImg', function (evt, data) {
+    scripts.setLSImg()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_18', function (evt, data) {
-   scripts.eraseRemnants()
-   window.webContents.send('CHECK_RESPONSE', data);
+ipc.on('eraseRemnants', function (evt, data) {
+    scripts.eraseRemnants()
+    window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('TESTING_19', function (evt, data) {
+ipc.on('activateWindows', function (evt, data) {
     scripts.activateWindows()
     window.webContents.send('CHECK_RESPONSE', data);
 })
@@ -192,4 +193,10 @@ ipc.on('OSNAME_REQUEST', function (evt, data) {
 ipc.on('CPUNAME_REQUEST', function (evt, data) {
     var data = get.CPUName()
     window.webContents.send('CPUNAME_RESPONSE', data);
+})
+
+ipc.on('STEPLIST_REQUEST', function () {
+    var json = fs.readFileSync('steps.json')
+    var data = JSON.parse(json);
+    window.webContents.send('STEPLIST_RESPONSE', data);
 })

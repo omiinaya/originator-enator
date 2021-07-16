@@ -14,7 +14,7 @@ function unpinBloat() {
     core.pShellExec('UNPIN_BLOAT.ps1')
 }
 
-function runSetLS() {
+function setLSImg() {
     core.pShellExec('SET_LOCK_SCREEN.ps1')
 }
 
@@ -86,7 +86,7 @@ module.exports = {
     beforeCleanUp,
     setEdgeHome,
     installEdge,
-    runSetLS,
+    setLSImg,
     eraseRemnants,
     runHello,
     activateWindows,

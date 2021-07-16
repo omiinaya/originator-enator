@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
   GPUNameRequest()
   OSNameRequest()
   CPUNameRequest()
-  //test2()
+  StepListRequest()
 });
 
-function test(a) {
-  ipc.send("TESTING_" + a, a)
+function start(func, num) {
+  ipc.send(func, num)
   stepList.shift()
 }
 
@@ -29,28 +29,28 @@ function toggleStep(a) {
 
 function stageCheck(a) {
   var stage = document.getElementById(a)
-  var el = document.getElementsByClassName(a)
-  for (var i = 0; i < el.length; i++) {
-    var id = el[i].id.split('-')
-    var step = id[id.length - 1]
-    if (stage.checked === true) {
-      stepList.push(step)
-      el[i].checked = true;
-      console.log(stepList)
+  var stageId = a.split('-')[1]
+  var step = document.getElementsByClassName("stage-" + stageId)
+  for (var i = 0; i < step.length; i++) {
+    var id = step[i].id.split('-')
+    var num = parseInt(id[id.length-1])
+    if (stage.checked == false) {
+      stepList.splice(stepList.indexOf(num, stepList.length - 1), 1)
+      step[i].checked = false
     } else {
-      stepList.splice(stepList.indexOf(step, stepList.length - 1), 1)
-      el[i].checked = false;
-      console.log(stepList)
+      stepList.push(num)
+      step[i].checked = true
     }
   }
+  console.log(stepList)
 }
 
 function executeQueue() {
-  stepList.sort(function (a, b) { return a - b });
   console.log(stepList)
   if (stepList.length > 0) {
-    //document.getElementById("box-" + stepList[0]).checked = false;
-    test(stepList[0])
+    var el = document.getElementById("button-" + stepList[0]).getAttribute('onclick')
+    var func = el.substring(el.indexOf("'")+1, el.lastIndexOf("'"))
+    start(func, stepList[0])
   }
 }
 
@@ -112,6 +112,9 @@ function OSNameRequest() {
 }
 
 function CPUNameRequest() {
-  console.log('test')
   ipc.send("CPUNAME_REQUEST")
+}
+
+function StepListRequest() {
+  ipc.send("STEPLIST_REQUEST")
 }
