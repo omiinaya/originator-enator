@@ -66,7 +66,6 @@ function MemorySpeed() {
 }
 
 function MemorySize() {
-    //needs rounding
     var output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim()
     var gb = parseInt(output) / 1000000000
     var size = Math.round(gb)

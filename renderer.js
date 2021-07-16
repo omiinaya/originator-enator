@@ -46,22 +46,49 @@ function stageCheck(a) {
 }
 
 function executeQueue() {
-  stepList.sort(function(a, b){return a - b});
+  stepList.sort(function (a, b) { return a - b });
   console.log(stepList)
   if (stepList.length > 0) {
-    document.getElementById("box-" + stepList[0]).checked = false;
+    //document.getElementById("box-" + stepList[0]).checked = false;
     test(stepList[0])
   }
 }
 
 function resetAll() {
-  stepList = []
-  var a = document.getElementsByClassName('stage-1')
-  var b = document.getElementsByClassName('stage-2')
-  var c = document.getElementsByClassName('stage-3')
-  var d = document.getElementsByClassName('stage-4')
+  resetTitles()
+  resetCheckboxes()
+  resetCheckmarks()
+}
 
-  //for each stage, reset check marks
+function resetCheckboxes() {
+  stageList = [
+    document.getElementsByClassName('stage-1'),
+    document.getElementsByClassName('stage-2'),
+    document.getElementsByClassName('stage-3'),
+    document.getElementsByClassName('stage-4')
+  ]
+  stageList.forEach((stage) => {
+    for (step of stage) {
+      console.log(step)
+      step.checked = false
+    }
+  })
+}
+
+function resetCheckmarks() {
+  markList = document.getElementsByClassName('bi')
+  for (mark of markList) {
+    console.log(mark)
+    mark.style.display = 'none'
+  }
+}
+
+function resetTitles() {
+  titleList = document.getElementsByClassName('title')
+  for (title of titleList) {
+    console.log(title)
+    title.checked = false
+  }
 }
 
 function biosVersionRequest() {
