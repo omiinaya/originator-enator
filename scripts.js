@@ -70,6 +70,10 @@ function saveScores() {
     core.pShellExec('\\ORIGINator2.0\\Bin\\Source\\SaveScores.ps1')
 }
 
+function runNetwork() {
+    core.pShellExec('Network.cmd')
+}
+
 function runHello() {
     core.pShellExec('HELLO_WORLD.ps1')
 }
@@ -91,5 +95,6 @@ module.exports = {
     runHello,
     activateWindows,
     runBenchmarks,
-    saveScores
+    saveScores,
+    runNetwork
 }

@@ -4,6 +4,8 @@ const set = require('./set')
 const scripts = require('./scripts')
 const fs = require('fs')
 
+var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
+
 ipc.on('initializeDrives', function (evt, data) {
     console.log(data)
     scripts.initializeDrives()
@@ -97,6 +99,16 @@ ipc.on('eraseRemnants', function (evt, data) {
 
 ipc.on('activateWindows', function (evt, data) {
     scripts.activateWindows()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('runNetwork', function (evt, data) {
+    scripts.runNetwork()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('saveScores', function (evt, data) {
+    scripts.saveScores()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
@@ -196,7 +208,7 @@ ipc.on('CPUNAME_REQUEST', function (evt, data) {
 })
 
 ipc.on('STEPLIST_REQUEST', function () {
-    var json = fs.readFileSync('steps.json')
+    var json = fs.readFileSync(scriptsHome + '\\steps.json')
     var data = JSON.parse(json);
     window.webContents.send('STEPLIST_RESPONSE', data);
 })
