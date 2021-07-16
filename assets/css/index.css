@@ -99,7 +99,18 @@ input[type=checkbox]:checked {
 #start-all-button {
   text-align: center;
   margin: 0 auto;
+  width: 150px;
   background-color: #d02e33;
+  color: white;
+  border: none;
+}
+
+#other-buttons {
+  text-align: center;
+  margin: 0 auto;
+  width: 80px;
+  background-color: white;
+  color: black;
   border: none;
 }
 

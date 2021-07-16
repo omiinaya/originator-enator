@@ -1,4 +1,5 @@
 const { execSync } = require('child_process')
+const core = require('./core')
 
 function MBInfo() {
     var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
@@ -67,13 +68,19 @@ function MemorySpeed() {
 function MemorySize() {
     //needs rounding
     var output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim()
-    var gb = parseInt(output)/1000000000
+    var gb = parseInt(output) / 1000000000
     var size = Math.round(gb)
     return size
 }
 
 function GPUName() {
-    return execSync('wmic path win32_VideoController get name').toString().replace('Name', '').trim()
+    var x = execSync('wmic path win32_VideoController get name').toString().replace('Name', '')
+    var y = x.split('\n').filter(str => core.isEmpty(str))
+    if (y.length > 1) {
+        return y[1].trim()
+    } else {
+        return x.trim()
+    }
 }
 
 function OSName() {

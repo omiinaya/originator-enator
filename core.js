@@ -171,8 +171,12 @@ function abort() {
         }
         catch (error) {
             console.log(error)
-        } 
+        }
     })
+}
+
+function isEmpty(a) {
+    return a.indexOf(' ') > 0
 }
 
 module.exports = {
@@ -189,5 +193,6 @@ module.exports = {
     isDone,
     awaitStart,
     cmdShellExec,
-    abort
+    abort,
+    isEmpty
 }
