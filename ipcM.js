@@ -122,8 +122,8 @@ ipc.on('runBenchmarks', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('createRecoveryTool', function (evt, data) {
-    scripts.createRecoveryTool()
+ipc.on('createRecoveryDrive', function (evt, data) {
+    scripts.createRecoveryDrive()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 

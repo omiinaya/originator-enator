@@ -1,6 +1,9 @@
 const core = require('./core')
 
-var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
+var driveRoot = process.cwd().split('\\')[0];
+var scriptsHome = driveRoot + '\\scripts\\';
+var originatorHome = scriptsHome + 'Originator2.0\\'
+
 
 function disableOneDrive() {
     core.pShellExec('DISABLE_ONEDRIVE.ps1')
@@ -84,8 +87,13 @@ function runBenchmarks() {
     core.pShellExec('\\Originator2.0\\Benchmarks\\Run.ps1')
 }
 
-function createRecoveryTool() {
-    console.log('To be implemented...')
+function createRecoveryDrive() {
+    //console.log('To be implemented...')
+    //core.print('test')
+    var corsair = core.getRecoveryDrive()
+    console.log(core.getRecoveryDrive())
+    //core.print('ROBOCOPY ' + originatorHome + 'Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
+    core.cmdShellExec('ROBOCOPY ' + originatorHome + '\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
 }
 
 function runHello() {
@@ -126,5 +134,6 @@ module.exports = {
     runNetwork,
     checkDrivers,
     runBenchmarks,
-    abort
+    abort,
+    createRecoveryDrive
 }

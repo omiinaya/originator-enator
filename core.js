@@ -180,6 +180,24 @@ function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
 
+function getDrives() {
+    //var y = x.split('\n').filter(str => core.isEmpty(str))
+    var output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n')
+    output.shift()
+    var drives = output.filter(lines => isEmpty(lines))
+    return drives
+}
+
+function getRecoveryDrive() {
+    var drives = getDrives()
+    var drive = drives.filter(drive => drive.includes('CORSAIR'))[0]
+    var x = drive.split(' ')
+    var y = x.filter(el => el !== '')
+    var z = y[2] + "\\"
+
+    return z
+}
+
 module.exports = {
     print,
     registerPowerPlan,
@@ -194,5 +212,7 @@ module.exports = {
     isDone,
     awaitStart,
     cmdShellExec,
-    isEmpty
+    isEmpty,
+    getDrives,
+    getRecoveryDrive
 }
