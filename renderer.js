@@ -22,7 +22,7 @@ function toggleStep(a) {
     stepList.push(a)
     console.log(stepList)
   } else {
-    stepList.splice(stepList.indexOf(a, stepList.length - 1), 1)
+    stepList.splice(stepList.indexOf(a), 1)
     console.log(stepList)
   }
 }
@@ -87,7 +87,7 @@ function resetTitles() {
   titleList = document.getElementsByClassName('title')
   for (title of titleList) {
     console.log(title)
-    title.checked = false
+    title.style.checked = false
   }
 }
 

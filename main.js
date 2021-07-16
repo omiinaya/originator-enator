@@ -2,7 +2,6 @@ require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
 require('@electron/remote/main').initialize()
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const scripts = require('./scripts')
 
 global.window;
 
