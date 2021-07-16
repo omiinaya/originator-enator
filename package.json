@@ -26,5 +26,18 @@
     "cue-sdk": "^2.1.0",
     "electron-reload": "^1.5.0",
     "v8-compile-cache": "^2.3.0"
+  },
+  "build": {
+    "productName": "System Tools",
+    "appId": "org.dotnf.systemtools",
+    "win": {
+      "target": "nsis",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "guid": "eb1a0fbb-fc70-428e-97f1-fa708089806",
+      "oneClick": "true",
+      "perMachine": "true"
+    }
   }
 }
