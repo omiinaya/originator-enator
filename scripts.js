@@ -80,6 +80,9 @@ function checkDrivers() {
     core.cmdShellExec(file)
 }
 
+function runBenchmarks() {
+    core.pShellExec('\\Originator2.0\\Benchmarks\\Run.ps1')
+}
 
 function runHello() {
     core.pShellExec('HELLO_WORLD.ps1')
@@ -104,5 +107,6 @@ module.exports = {
     runBenchmarks,
     saveScores,
     runNetwork,
-    checkDrivers
+    checkDrivers,
+    runBenchmarks
 }
