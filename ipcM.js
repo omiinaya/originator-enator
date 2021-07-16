@@ -117,6 +117,11 @@ ipc.on('checkDrivers', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('runBenchmarks', function (evt, data) {
+    scripts.runBenchmarks()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 /*
 ipc.on('TESTING_7', function (evt, data) {
     core.print(get.PowerGUID("High"))
