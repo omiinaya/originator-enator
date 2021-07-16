@@ -20,6 +20,11 @@
         "Function": "setStandbyTimeout"
     },
     {
+        "Stage": "1",
+        "Name": "Activate Windows",
+        "Function": "activateWindows"
+    },
+    {
         "Stage": "2",
         "Name": "Before Cleanup",
         "Function": "beforeCleanUp"
