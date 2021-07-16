@@ -162,11 +162,12 @@ function awaitStart(process, filename) {
         }
     })
 }
-
+/*
 function abort() {
     var processes = ["electron.exe", "powershell.exe", "cmd.exe"]
     processes.forEach(process => {
         try {
+            global.window.webContents.send('TEST');
             killProcessByName(process)
         }
         catch (error) {
@@ -174,7 +175,7 @@ function abort() {
         }
     })
 }
-
+*/
 function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
@@ -193,6 +194,5 @@ module.exports = {
     isDone,
     awaitStart,
     cmdShellExec,
-    abort,
     isEmpty
 }

@@ -122,6 +122,16 @@ ipc.on('runBenchmarks', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('createRecoveryTool', function (evt, data) {
+    scripts.createRecoveryTool()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('installEdge', function (evt, data) {
+    scripts.installEdge()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 /*
 ipc.on('TESTING_7', function (evt, data) {
     core.print(get.PowerGUID("High"))
@@ -165,13 +175,6 @@ ipc.on('TESTING_19', function (evt, data) {
 
 ipc.on('TESTING_20', function (evt, data) {
     core.registerPowerPlan('Ultimate')
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-
-
-ipc.on('TESTING_31', function (evt, data) {
-    scripts.installEdge()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 

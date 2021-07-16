@@ -15,7 +15,7 @@ function start(func, num) {
   ipc.send(func, num)
   stepList.shift()
 }
-
+//remove duplicates from queue 
 function toggleStep(a) {
   var el = document.getElementById('box-' + a)
   if (el.checked === true) {
@@ -33,12 +33,16 @@ function stageCheck(a) {
   var step = document.getElementsByClassName("stage-" + stageId)
   for (var i = 0; i < step.length; i++) {
     var id = step[i].id.split('-')
-    var num = parseInt(id[id.length-1])
+    var num = parseInt(id[id.length - 1])
     if (stage.checked == false) {
       stepList.splice(stepList.indexOf(num, stepList.length - 1), 1)
+      let uniqueChars = [...new Set(stepList)];
+      stepList = uniqueChars
       step[i].checked = false
     } else {
       stepList.push(num)
+      let uniqueChars = [...new Set(stepList)];
+      stepList = uniqueChars
       step[i].checked = true
     }
   }
@@ -49,7 +53,7 @@ function executeQueue() {
   console.log(stepList)
   if (stepList.length > 0) {
     var el = document.getElementById("button-" + stepList[0]).getAttribute('onclick')
-    var func = el.substring(el.indexOf("'")+1, el.lastIndexOf("'"))
+    var func = el.substring(el.indexOf("'") + 1, el.lastIndexOf("'"))
     start(func, stepList[0])
   }
 }

@@ -84,8 +84,25 @@ function runBenchmarks() {
     core.pShellExec('\\Originator2.0\\Benchmarks\\Run.ps1')
 }
 
+function createRecoveryTool() {
+    console.log('To be implemented...')
+}
+
 function runHello() {
     core.pShellExec('HELLO_WORLD.ps1')
+}
+
+function abort() {
+    var processes = ["powershell.exe", "cmd.exe"]
+    processes.forEach(process => {
+        try {
+            window.webContents.send('CLEARQUEUE_REQUEST');
+            core.killProcessByName(process)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    })
 }
 
 module.exports = {
@@ -108,5 +125,6 @@ module.exports = {
     saveScores,
     runNetwork,
     checkDrivers,
-    runBenchmarks
+    runBenchmarks,
+    abort
 }
