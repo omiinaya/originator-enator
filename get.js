@@ -49,12 +49,6 @@ function CurrentScheme() {
     return scheme
 }
 
-function Drives() {
-    var output = execSync('wmic logicaldisk get name, size, volumename, description').toString()
-    var drives = output.split('\n').splice(1, output.length - 1)
-    return drives
-}
-
 function BiosVersion() {
     return execSync('wmic bios get smbiosbiosversion').toString().replace('SMBIOSBIOSVersion', '').trim()
 }
@@ -90,6 +84,31 @@ function CPUName() {
     return execSync('wmic cpu get name').toString().replace('Name', '').trim()
 }
 
+function SerialNumber() {
+    return execSync('wmic baseboard get serialnumber').toString().replace('SerialNumber', '').trim()
+}
+
+function Drives() {
+    //var y = x.split('\n').filter(str => core.isEmpty(str))
+    var output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n')
+    output.shift()
+    var drives = output.filter(lines => core.isEmpty(lines))
+    return drives
+}
+
+function RecoveryDrive() {
+    var drives = Drives()
+    var drive = drives.filter(drive => drive.includes('CORSAIR'))[0]
+    if (drive) {
+        var x = drive.split(' ')
+        var y = x.filter(el => el !== '')
+        var z = y[2] + "\\"
+        return z
+    } else {
+        return
+    }
+}
+
 module.exports = {
     MBInfo,
     User,
@@ -103,5 +122,7 @@ module.exports = {
     MemorySize,
     GPUName,
     OSName,
-    CPUName
+    CPUName,
+    SerialNumber,
+    RecoveryDrive
 }

@@ -1,4 +1,6 @@
+const ipc = require('electron').ipcMain
 const core = require('./core')
+const get = require('./get')
 
 var driveRoot = process.cwd().split('\\')[0];
 var scriptsHome = driveRoot + '\\scripts\\';
@@ -88,12 +90,12 @@ function runBenchmarks() {
 }
 
 function createRecoveryDrive() {
-    var corsair = core.getRecoveryDrive()
+    var corsair = get.RecoveryDrive()
     if (corsair) {
         console.log(corsair)
         core.cmdShellExec('ROBOCOPY ' + originatorHome + '\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
     } else {
-        console.log('no drive found.')
+        window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
     }
 }
 

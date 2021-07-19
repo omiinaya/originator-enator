@@ -9,14 +9,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
   OSNameRequest()
   CPUNameRequest()
   StepListRequest()
-  //test('test')
 });
 
 function start(func, num) {
   ipc.send(func, num)
   stepList.shift()
 }
-//remove duplicates from queue 
+
 function toggleStep(a) {
   var el = document.getElementById('box-' + a)
   if (el.checked === true) {
@@ -94,10 +93,6 @@ function resetTitles() {
     console.log(title)
     title.style.checked = false
   }
-}
-
-function test(a) {
-  alert(a)
 }
 
 function biosVersionRequest() {
