@@ -7,7 +7,6 @@ const fs = require('fs')
 var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
 
 ipc.on('initializeDrives', function (evt, data) {
-    console.log(data)
     scripts.initializeDrives()
     window.webContents.send('CHECK_RESPONSE', data);
 })
@@ -129,6 +128,11 @@ ipc.on('createRecoveryDrive', function (evt, data) {
 
 ipc.on('installEdge', function (evt, data) {
     scripts.installEdge()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
+ipc.on('restartPC', function (evt, data) {
+    scripts.restartPC()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 

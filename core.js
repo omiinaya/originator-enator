@@ -1,8 +1,6 @@
 const { execSync, spawn } = require('child_process')
 const elevated = require('@mh-cbon/aghfabsowecwn').exec;
 
-var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
-
 var opts = {
     bridgeTimeout: 5000,
     stdio: 'pipe',
@@ -45,7 +43,7 @@ function cmdShellExec(a) {
 }
 
 function pShellExec(a) {
-    var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File', scriptsHome + a], { shell: true, detached: true });
+    var child = spawn('powershell.exe', ['-ExecutionPolicy', 'ByPass', '-File', a], { shell: true, detached: true });
 
     child.stdout.on("data", function (data) {
         print("out: " + data)
@@ -149,39 +147,8 @@ function isDone(filename, PiD) {
     }
 }
 
-//maybe not necessary. we'll see.
-function awaitStart(process, filename) {
-    var isRunning = findProcess(process)
-    var check = setTimeout(function () {
-        if (!isRunning) {
-            awaitStart(process, filename)
-            console.log('Waiting on process...')
-        } else {
-            clearTimeout(check)
-            isDone(process, filename)
-        }
-    })
-}
-/*
-function abort() {
-    var processes = ["electron.exe", "powershell.exe", "cmd.exe"]
-    processes.forEach(process => {
-        try {
-            global.window.webContents.send('TEST');
-            killProcessByName(process)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    })
-}
-*/
 function isEmpty(a) {
     return a.indexOf(' ') > 0
-}
-
-function restartPC() {
-    return execSync('shutdown /r').toString().trim()
 }
 
 module.exports = {
@@ -196,8 +163,6 @@ module.exports = {
     findProcessByName,
     killProcessByName,
     isDone,
-    awaitStart,
     cmdShellExec,
-    isEmpty,
-    restartPC
+    isEmpty
 }

@@ -44,35 +44,44 @@ function runClearLogs() {
 }
 
 function initializeDrives() {
-    core.pShellExec('INITIALIZE_DRIVES.ps1')
+    var file = scriptsHome + 'INITIALIZE_DRIVES.ps1'
+    core.pShellExec(file)
 }
 
 function beforeCleanUp() {
-    core.pShellExec('BEFORE_CLEANUP.ps1')
+    var file = scriptsHome + 'BEFORE_CLEANUP.ps1'
+    core.pShellExec(file)
 }
 
 function setEdgeHome() {
-    core.pShellExec('SET_EDGE_TO_ORIGIN.ps1')
+    var file = scriptsHome + 'SET_EDGE_TO_ORIGIN.ps1'
+    core.pShellExec(file)
 }
 
 function installEdge() {
-    core.pShellExec('INSTALL_EDGE.ps1')
+    var file = scriptsHome + 'INSTALL_EDGE.ps1'
+    core.pShellExec(file)
 }
 
 function eraseRemnants() {
-    core.pShellExec('ERASE_REMNANTS.ps1')
+    var file = scriptsHome + 'ERASE_REMNANTS.ps1'
+    core.pShellExec(file)
 }
 
 function activateWindows() {
-    core.pShellExec('\\ORIGINator2.0\\OA3\\Assemble.ps1')
+    var file = scriptsHome + '\\ORIGINator2.0\\OA3\\Assemble.ps1'
+    core.pShellExec(file)
 }
 
 function runBenchmarks() {
-    core.pShellExec('\\ORIGINator2.0\\Benchmarks\\Run.ps1')
+    //change to pc root
+    var file = scriptsHome + '\\ORIGINator2.0\\Benchmarks\\Run.ps1'
+    core.pShellExec(file)
 }
 
 function saveScores() {
-    core.pShellExec('\\ORIGINator2.0\\Bin\\Source\\SaveScores.ps1')
+    var file = scriptsHome + '\\ORIGINator2.0\\Bin\\Source\\SaveScores.ps1'
+    core.pShellExec(file)
 }
 
 function runNetwork() {
@@ -86,7 +95,8 @@ function checkDrivers() {
 }
 
 function runBenchmarks() {
-    core.pShellExec('\\Originator2.0\\Benchmarks\\Run.ps1')
+    var file = scriptsHome + '\\Originator2.0\\Benchmarks\\Run.ps1'
+    core.pShellExec(file)
 }
 
 function createRecoveryDrive() {
@@ -100,7 +110,8 @@ function createRecoveryDrive() {
 }
 
 function runHello() {
-    core.pShellExec('HELLO_WORLD.ps1')
+    var file = scriptsHome + 'HELLO_WORLD.ps1'
+    core.pShellExec(file)
 }
 
 function abort() {
@@ -114,6 +125,10 @@ function abort() {
             console.log(error)
         }
     })
+}
+
+function restartPC() {
+    return execSync('shutdown /r').toString().trim()
 }
 
 module.exports = {
@@ -138,5 +153,6 @@ module.exports = {
     checkDrivers,
     runBenchmarks,
     abort,
-    createRecoveryDrive
+    createRecoveryDrive,
+    restartPC
 }
