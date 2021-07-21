@@ -2,10 +2,9 @@ const ipc = require('electron').ipcMain
 const core = require('./core')
 const get = require('./get')
 
-var driveRoot = process.cwd().split('\\')[0];
-var scriptsHome = driveRoot + '\\scripts\\';
-var originatorHome = scriptsHome + 'Originator2.0\\'
-
+var PCRoot = process.env['USERPROFILE'].split('\\')[0]
+var USBRoot = process.cwd().split('\\')[0]
+var scriptsHome = USBRoot + '\\scripts\\';
 
 function disableOneDrive() {
     core.pShellExec('DISABLE_ONEDRIVE.ps1')
@@ -95,7 +94,7 @@ function checkDrivers() {
 }
 
 function runBenchmarks() {
-    var file = scriptsHome + '\\Originator2.0\\Benchmarks\\Run.ps1'
+    var file = PCRoot + '\\Originator2.0\\Benchmarks\\Run.ps1'
     core.pShellExec(file)
 }
 
@@ -103,7 +102,7 @@ function createRecoveryDrive() {
     var corsair = get.RecoveryDrive()
     if (corsair) {
         console.log(corsair)
-        core.cmdShellExec('ROBOCOPY ' + originatorHome + '\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
+        core.cmdShellExec('ROBOCOPY ' + scriptsHome + 'Originator2.0\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
     } else {
         window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
     }
