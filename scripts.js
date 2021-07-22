@@ -7,19 +7,23 @@ var USBRoot = process.cwd().split('\\')[0]
 var scriptsHome = USBRoot + '\\scripts\\';
 
 function disableOneDrive() {
-    core.pShellExec('DISABLE_ONEDRIVE.ps1')
+    var file = scriptsHome + 'DISABLE_ONEDRIVE.ps1'
+    core.pShellExec(file)
 }
 
 function installSoftware() {
-    core.pShellExec('INSTALL_SOFTWARE.ps1')
+    var file = scriptsHome + 'INSTALL_SOFTWARE.ps1'
+    core.pShellExec(file)
 }
 
 function unpinBloat() {
-    core.pShellExec('UNPIN_BLOAT.ps1')
+    var file = scriptsHome + 'UNPIN_BLOAT.ps1'
+    core.pShellExec(file)
 }
 
 function setLSImg() {
-    core.pShellExec('SET_LOCK_SCREEN.ps1')
+    var file = scriptsHome + 'SET_LOCK_SCREEN.ps1'
+    core.pShellExec(file)
 }
 
 function runSysprep() {
@@ -69,12 +73,13 @@ function eraseRemnants() {
 
 function activateWindows() {
     var file = scriptsHome + '\\ORIGINator2.0\\OA3\\Assemble.ps1'
+    console.log(file)
     core.pShellExec(file)
 }
 
 function runBenchmarks() {
-    //change to pc root
-    var file = scriptsHome + '\\ORIGINator2.0\\Benchmarks\\Run.ps1'
+    var file = PCRoot + '\\ORIGINator2.0\\Benchmarks\\Run.ps1'
+    console.log(file)
     core.pShellExec(file)
 }
 
