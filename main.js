@@ -28,12 +28,6 @@ const createWindow = () => {
 
 app.on('ready', () => {
   createWindow()
-  test()
 });
-
-function test() {
-  var root = process.env['USERPROFILE'].split('\\')[0] + '\\'
-  console.log(root)
-}
 
 require('./ipcM.js')

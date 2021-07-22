@@ -102,7 +102,7 @@ function RecoveryDrive() {
     if (drive) {
         var x = drive.split(' ')
         var y = x.filter(el => el !== '')
-        var z = y[2] + "\\"
+        var z = y[2]
         return z
     } else {
         return

@@ -1,4 +1,4 @@
-const ipc = require('electron').ipcMain
+const { execSync } = require('child_process')
 const core = require('./core')
 const get = require('./get')
 
@@ -98,11 +98,13 @@ function checkDrivers() {
     core.cmdShellExec(file)
 }
 
+
 function createRecoveryDrive() {
     var corsair = get.RecoveryDrive()
     if (corsair) {
         console.log(corsair)
-        core.cmdShellExec('ROBOCOPY ' + scriptsHome + 'Originator2.0\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
+        core.cmdShellExec('ROBOCOPY ' + scriptsHome + '\\Originator2.0\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
+        execSync('label ' + corsair + 'USB Recover')
     } else {
         window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
     }
