@@ -151,6 +151,10 @@ function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
 
+function restartPC() {
+    return execSync('shutdown /r').toString().trim()
+}
+
 module.exports = {
     print,
     registerPowerPlan,
@@ -164,5 +168,6 @@ module.exports = {
     killProcessByName,
     isDone,
     cmdShellExec,
-    isEmpty
+    isEmpty,
+    restartPC
 }

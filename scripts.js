@@ -126,8 +126,8 @@ function abort() {
     })
 }
 
-function restartPC() {
-    return execSync('shutdown /r').toString().trim()
+function restartPCAfterBench() {
+    core.restartPC
 }
 
 module.exports = {
@@ -153,5 +153,5 @@ module.exports = {
     runBenchmarks,
     abort,
     createRecoveryDrive,
-    restartPC
+    restartPCAfterBench
 }
