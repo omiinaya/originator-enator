@@ -67,8 +67,8 @@ function installEdge() {
 }
 
 function eraseRemnants() {
-    var file = scriptsHome + 'ERASE_REMNANTS.ps1'
-    core.pShellExec(file)
+    var file = scriptsHome + 'eraseRemnants.cmd'
+    core.cmdShellExec(file)
 }
 
 function activateWindows() {
@@ -96,11 +96,6 @@ function runNetwork() {
 function checkDrivers() {
     var file = scriptsHome + 'checkDrivers.cmd'
     core.cmdShellExec(file)
-}
-
-function runBenchmarks() {
-    var file = PCRoot + '\\Originator2.0\\Benchmarks\\Run.ps1'
-    core.pShellExec(file)
 }
 
 function createRecoveryDrive() {
