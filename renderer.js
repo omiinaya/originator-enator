@@ -103,11 +103,7 @@ function resetTitles() {
   }
 }
 function resetJSON() {
-  //var json = fs.readFileSync(scriptsHome + '\\bearings.json')
   var bearings = []
-  //for (var key in bearings) {
-  //  delete bearings[key];
- // }
   fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
 }
 

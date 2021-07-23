@@ -2,6 +2,10 @@ const { execSync } = require('child_process')
 const core = require('./core')
 const get = require('./get')
 
+var PCRoot = process.env['USERPROFILE'].split('\\')[0]
+var USBRoot = process.cwd().split('\\')[0]
+var scriptsHome = USBRoot + '\\scripts\\';
+
 function disableOneDrive() {
     var file = scriptsHome + 'DISABLE_ONEDRIVE.ps1'
     core.pShellExec(file)
