@@ -41,7 +41,13 @@ ipc.on('CPUNAME_RESPONSE', (evt, data) => {
 
 ipc.on('CHECK_RESPONSE', (evt, data) => {
     var el = document.getElementById("check-" + data)
-    el.style.display = 'inline';
+    el.style.display = 'inline'
+    ipc.send('PROGRESS_UPDATE', data)
+});
+
+ipc.on('CHECK_RESPONSE2', (evt, data) => {
+    var el = document.getElementById("check-" + data)
+    el.style.display = 'inline'
 });
 
 ipc.on('STEPLIST_RESPONSE', (evt, data) => {
@@ -58,6 +64,7 @@ ipc.on('STEPLIST_RESPONSE', (evt, data) => {
         `;
         ul.appendChild(li)
     }
+
 });
 
 ipc.on('CLEARQUEUE_REQUEST', () => {

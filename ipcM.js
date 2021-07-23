@@ -261,8 +261,8 @@ ipc.on('PROGRESS_REQUEST', function () {
     bearings.forEach((bearing) => {
         for (const key in bearing) {
             if (key !== 'Serial') {
-                console.log(key)
-                window.webContents.send('CHECK_RESPONSE', key);
+                //console.log(key)
+                window.webContents.send('CHECK_RESPONSE2', key);
             }
         }
     })
