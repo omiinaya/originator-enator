@@ -151,10 +151,6 @@ function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
 
-function restartPC() {
-    return execSync('shutdown /r').toString().trim()
-}
-
 function findBySerial(bearings, serial) {
     return bearings.filter(element => element.Serial === serial)
 }
@@ -173,6 +169,5 @@ module.exports = {
     isDone,
     cmdShellExec,
     isEmpty,
-    restartPC,
     findBySerial
 }

@@ -2,10 +2,6 @@ const { execSync } = require('child_process')
 const core = require('./core')
 const get = require('./get')
 
-var PCRoot = process.env['USERPROFILE'].split('\\')[0]
-var USBRoot = process.cwd().split('\\')[0]
-var scriptsHome = USBRoot + '\\scripts\\';
-
 function disableOneDrive() {
     var file = scriptsHome + 'DISABLE_ONEDRIVE.ps1'
     core.pShellExec(file)
@@ -73,13 +69,11 @@ function eraseRemnants() {
 
 function activateWindows() {
     var file = scriptsHome + '\\ORIGINator2.0\\OA3\\Assemble.ps1'
-    console.log(file)
     core.pShellExec(file)
 }
 
 function runBenchmarks() {
     var file = PCRoot + '\\ORIGINator2.0\\Benchmarks\\Run.ps1'
-    console.log(file)
     core.pShellExec(file)
 }
 
@@ -98,7 +92,6 @@ function checkDrivers() {
     core.cmdShellExec(file)
 }
 
-
 function createRecoveryDrive() {
     var corsair = get.RecoveryDrive()
     if (corsair) {
@@ -108,6 +101,10 @@ function createRecoveryDrive() {
     } else {
         window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
     }
+}
+
+function resetUI() {
+    window.webContents.send('CLEARBEARINGS_REQUEST')
 }
 
 function runHello() {
@@ -126,10 +123,6 @@ function abort() {
             console.log(error)
         }
     })
-}
-
-function restartPCAfterBench() {
-    core.restartPC
 }
 
 module.exports = {
@@ -155,5 +148,5 @@ module.exports = {
     runBenchmarks,
     abort,
     createRecoveryDrive,
-    restartPCAfterBench
+    resetUI
 }

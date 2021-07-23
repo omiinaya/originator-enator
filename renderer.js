@@ -1,5 +1,10 @@
+const fs = require('fs')
+
 var stepList = []
-var initialized = false
+
+//var PCRoot = process.env['USERPROFILE'].split('\\')[0]
+var USBRoot = process.cwd().split('\\')[0]
+var scriptsHome = USBRoot + '\\scripts\\';
 
 //on DOM load
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -64,6 +69,7 @@ function resetAll() {
   resetTitles()
   resetCheckboxes()
   resetCheckmarks()
+  resetJSON()
 }
 
 function resetCheckboxes() {
@@ -95,6 +101,14 @@ function resetTitles() {
     console.log(title)
     title.style.checked = false
   }
+}
+function resetJSON() {
+  //var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+  var bearings = []
+  //for (var key in bearings) {
+  //  delete bearings[key];
+ // }
+  fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
 }
 
 function biosVersionRequest() {

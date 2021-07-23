@@ -94,6 +94,7 @@ ipc.on('setLSImg', function (evt, data) {
 
 ipc.on('eraseRemnants', function (evt, data) {
     scripts.eraseRemnants()
+    //clear file
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
@@ -129,11 +130,6 @@ ipc.on('createRecoveryDrive', function (evt, data) {
 
 ipc.on('installEdge', function (evt, data) {
     scripts.installEdge()
-    window.webContents.send('CHECK_RESPONSE', data);
-})
-
-ipc.on('restartPC', function (evt, data) {
-    scripts.restartPC()
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
@@ -261,7 +257,6 @@ ipc.on('PROGRESS_REQUEST', function () {
     bearings.forEach((bearing) => {
         for (const key in bearing) {
             if (key !== 'Serial') {
-                //console.log(key)
                 window.webContents.send('CHECK_RESPONSE2', key);
             }
         }
