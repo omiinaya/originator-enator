@@ -259,8 +259,14 @@ ipc.on('PROGRESS_UPDATE', function (evt, data) {
 
 
 ipc.on('PROGRESS_REQUEST', function (evt, data) {
-    console.log('test: ' + data)
-    //var json = fs.readFileSync(scriptsHome + '\\bearings.json')
-    //var data = JSON.parse(json);
-    //window.webContents.send('PROGRESS_RESPONSE', data);
+    var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+    var bearings = JSON.parse(json);
+    bearings.forEach((bearing) => {
+        for (const key in bearing) {
+            if (key !== 'Serial') {
+                console.log(key)
+                window.webContents.send('CHECK_RESPONSE', key);
+            }
+        }
+    })
 })
