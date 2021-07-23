@@ -122,3 +122,7 @@ function CPUNameRequest() {
 function StepListRequest() {
   ipc.send("STEPLIST_REQUEST")
 }
+
+function ProgressRequest() {
+  ipc.send("PROGRESS_REQUEST")
+}

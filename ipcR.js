@@ -42,6 +42,7 @@ ipc.on('CPUNAME_RESPONSE', (evt, data) => {
 ipc.on('CHECK_RESPONSE', (evt, data) => {
     var el = document.getElementById("check-" + data)
     el.style.display = 'inline';
+    ipc.send('PROGRESS_UPDATE', data)
 });
 
 ipc.on('STEPLIST_RESPONSE', (evt, data) => {
@@ -58,6 +59,11 @@ ipc.on('STEPLIST_RESPONSE', (evt, data) => {
         `;
         ul.appendChild(li)
     }
+});
+
+ipc.on('PROGRESS_RESPONSE', (evt, data) => {
+    //progress logic
+    console.log(data)
 });
 
 ipc.on('CLEARQUEUE_REQUEST', () => {

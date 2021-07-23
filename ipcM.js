@@ -1,5 +1,6 @@
 const ipc = require('electron').ipcMain
 const get = require('./get')
+const core = require('./core')
 const set = require('./set')
 const scripts = require('./scripts')
 const fs = require('fs')
@@ -228,4 +229,31 @@ ipc.on('STEPLIST_REQUEST', function () {
     var json = fs.readFileSync(scriptsHome + '\\steps.json')
     var data = JSON.parse(json);
     window.webContents.send('STEPLIST_RESPONSE', data);
+})
+
+ipc.on('PROGRESS_UPDATE', function (evt, data) {
+    var mb = get.SerialNumber()
+    var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+    var bearings = JSON.parse(json);
+    console.log('step: ' + data + " mb: " + mb)
+    if (core.findBySerial(bearings, mb).length <= 0) {
+        console.log('not found')
+        bearings.push({
+            Serial: mb
+        })
+        var newFile = JSON.stringify(bearings)
+        fs.writeFileSync(scriptsHome + '\\bearings.json', newFile);
+        console.log('file has been updated.')
+    } else {
+        console.log('found')
+    }
+    //window.webContents.send('PROGRESS_RESPONSE', data);
+})
+
+
+ipc.on('PROGRESS_REQUEST', function (evt, data) {
+    console.log('test: ' + data)
+    //var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+    //var data = JSON.parse(json);
+    //window.webContents.send('PROGRESS_RESPONSE', data);
 })

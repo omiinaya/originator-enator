@@ -155,6 +155,10 @@ function restartPC() {
     return execSync('shutdown /r').toString().trim()
 }
 
+function findBySerial(bearings, serial) {
+    return bearings.filter(element => element.Serial === serial)
+}
+
 module.exports = {
     print,
     registerPowerPlan,
@@ -169,5 +173,6 @@ module.exports = {
     isDone,
     cmdShellExec,
     isEmpty,
-    restartPC
+    restartPC,
+    findBySerial
 }

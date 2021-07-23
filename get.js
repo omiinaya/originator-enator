@@ -89,7 +89,6 @@ function SerialNumber() {
 }
 
 function Drives() {
-    //var y = x.split('\n').filter(str => core.isEmpty(str))
     var output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n')
     output.shift()
     var drives = output.filter(lines => core.isEmpty(lines))
