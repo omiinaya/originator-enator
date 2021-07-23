@@ -1,4 +1,5 @@
-var stepList = [];
+var stepList = []
+var initialized = false
 
 //on DOM load
 document.addEventListener("DOMContentLoaded", function (event) {

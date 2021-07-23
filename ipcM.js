@@ -9,7 +9,7 @@ var scriptsHome = process.cwd().split('\\')[0] + '\\scripts\\';
 
 ipc.on('initializeDrives', function (evt, data) {
     scripts.initializeDrives()
-    window.webContents.send('CHECK_RESPONSE', data);
+    window.webContents.send('CHECK_RESPONSE', data)
 })
 
 ipc.on('setPowerCfgHigh', function (evt, data) {
@@ -244,21 +244,18 @@ ipc.on('PROGRESS_UPDATE', function (evt, data) {
             [data]: true
         })
         fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
-        console.log('file has been updated.')
     } else {
         console.log('found')
         bearings.forEach(bearing => {
             if (bearing.Serial === mb) {
                 Object.assign(bearing, { [data]: true })
                 fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
-                console.log('file has been updated.')
             }
         })
     }
 })
 
-
-ipc.on('PROGRESS_REQUEST', function (evt, data) {
+ipc.on('PROGRESS_REQUEST', function () {
     var json = fs.readFileSync(scriptsHome + '\\bearings.json')
     var bearings = JSON.parse(json);
     bearings.forEach((bearing) => {
