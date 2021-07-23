@@ -236,18 +236,25 @@ ipc.on('PROGRESS_UPDATE', function (evt, data) {
     var json = fs.readFileSync(scriptsHome + '\\bearings.json')
     var bearings = JSON.parse(json);
     console.log('step: ' + data + " mb: " + mb)
-    if (core.findBySerial(bearings, mb).length <= 0) {
+    var isFound = core.findBySerial(bearings, mb)
+    if (isFound.length <= 0) {
         console.log('not found')
         bearings.push({
-            Serial: mb
+            Serial: mb,
+            [data]: true
         })
-        var newFile = JSON.stringify(bearings)
-        fs.writeFileSync(scriptsHome + '\\bearings.json', newFile);
+        fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
         console.log('file has been updated.')
     } else {
         console.log('found')
+        bearings.forEach(bearing => {
+            if (bearing.Serial === mb) {
+                Object.assign(bearing, { [data]: true })
+                fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
+                console.log('file has been updated.')
+            }
+        })
     }
-    //window.webContents.send('PROGRESS_RESPONSE', data);
 })
 
 
