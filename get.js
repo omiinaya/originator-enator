@@ -1,5 +1,8 @@
 const { execSync } = require('child_process')
-const core = require('./core')
+
+function isEmpty(a) {
+    return a.indexOf(' ') > 0
+}
 
 function MBInfo() {
     var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
@@ -68,7 +71,7 @@ function MemorySize() {
 
 function GPUName() {
     var x = execSync('wmic path win32_VideoController get name').toString().replace('Name', '')
-    var y = x.split('\n').filter(str => core.isEmpty(str))
+    var y = x.split('\n').filter(str => isEmpty(str))
     if (y.length > 1) {
         return y[1].trim()
     } else {
@@ -91,7 +94,7 @@ function SerialNumber() {
 function Drives() {
     var output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n')
     output.shift()
-    var drives = output.filter(lines => core.isEmpty(lines))
+    var drives = output.filter(lines => isEmpty(lines))
     return drives
 }
 

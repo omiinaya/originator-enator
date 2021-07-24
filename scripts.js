@@ -1,6 +1,8 @@
 const { execSync } = require('child_process')
 const core = require('./core')
 const get = require('./get')
+const set = require('./set')
+const fs = require('fs')
 
 var PCRoot = process.env['USERPROFILE'].split('\\')[0]
 var USBRoot = process.cwd().split('\\')[0]
@@ -129,6 +131,70 @@ function abort() {
     })
 }
 
+function setPowerCfgHigh() {
+    set.PowerCfg('High')
+}
+
+function setMonitorTimeout() {
+    set.MonitorTimeout()
+}
+
+function setStandbyTimeout() {
+    set.StandbyTimeout()
+}
+
+function setPCDescription() {
+    set.PCDescription()
+}
+
+function setPCName() {
+    set.PCName()
+}
+
+function setPowerCfgBalanced() {
+    set.PowerCfg("Balanced")
+}
+
+function progressUpdate(data) {
+    var mb = get.SerialNumber()
+    var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+    var bearings = JSON.parse(json);
+    console.log('step: ' + data + " mb: " + mb)
+    var isFound = core.findBySerial(bearings, mb)
+    console.log(isFound)
+    if (isFound.length <= 0) {
+        console.log('not found')
+        bearings.push({
+            Serial: mb,
+            [data]: true
+        })
+        fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
+    } else {
+        console.log('found')
+        bearings.forEach(bearing => {
+            if (bearing.Serial === mb) {
+                Object.assign(bearing, { [data]: true })
+                fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
+            }
+        })
+    }
+}
+
+function progressRequest() {
+    var mb = get.SerialNumber()
+    var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+    var bearings = JSON.parse(json);
+    bearings.forEach((bearing) => {
+        if (bearing.Serial === mb) {
+            for (const key in bearing) {
+                if (key !== 'Serial') {
+                    window.webContents.send('CHECK_RESPONSE2', key);
+                }
+            }
+        }
+    })
+}
+
 module.exports = {
     disableOneDrive,
     installSoftware,
@@ -152,5 +218,13 @@ module.exports = {
     runBenchmarks,
     abort,
     createRecoveryDrive,
-    resetUI
+    resetUI,
+    setPowerCfgHigh,
+    setMonitorTimeout,
+    setStandbyTimeout,
+    setPCDescription,
+    setPCName,
+    setPowerCfgBalanced,
+    progressUpdate,
+    progressRequest
 }

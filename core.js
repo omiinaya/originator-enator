@@ -98,11 +98,6 @@ function renameFile(a, b) {
     })
 }
 
-function nearestPower(num, power) {
-    //power = 2 for power of 2
-    return Math.pow(power, Math.round(Math.log(num) / Math.log(2)))
-}
-
 function findProcessByName(a) {
     try {
         return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
@@ -147,10 +142,6 @@ function isDone(filename, PiD) {
     }
 }
 
-function isEmpty(a) {
-    return a.indexOf(' ') > 0
-}
-
 function findBySerial(bearings, serial) {
     return bearings.filter(element => element.Serial === serial)
 }
@@ -163,11 +154,9 @@ module.exports = {
     takeOwnership2,
     copyFile,
     renameFile,
-    nearestPower,
     findProcessByName,
     killProcessByName,
     isDone,
     cmdShellExec,
-    isEmpty,
     findBySerial
 }
