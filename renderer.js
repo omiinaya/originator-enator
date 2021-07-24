@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
   CPUNameRequest()
   StepListRequest()
   ProgressRequest()
+  MBNameRequest()
+  MBSerialRequest()
+  MBRevisionRequest()
 });
 
 function start(func, num) {
@@ -145,6 +148,24 @@ function CPUNameRequest() {
   ipc.send("CPUNAME_REQUEST", data)
 }
 
+function MBNameRequest() {
+  var data = MBName()
+  console.log(data)
+  ipc.send("MBNAME_REQUEST", data)
+}
+
+function MBSerialRequest() {
+  var data = MBSerial()
+  console.log(data)
+  ipc.send("MBSERIAL_REQUEST", data)
+}
+
+function MBRevisionRequest() {
+  var data = MBRevision()
+  console.log(data)
+  ipc.send("MBREVISION_REQUEST", data)
+}
+
 function StepListRequest() {
   var json = fs.readFileSync(scriptsHome + '\\steps.json')
   var data = JSON.parse(json);
@@ -191,6 +212,21 @@ ipc.on('OSNAME_RESPONSE', (evt, data) => {
 ipc.on('CPUNAME_RESPONSE', (evt, data) => {
   var el = document.getElementById('CPUName')
   el.innerHTML = "CPU: " + data
+});
+
+ipc.on('MBNAME_RESPONSE', (evt, data) => {
+  var el = document.getElementById('MBName')
+  el.innerHTML = "Motherboard: " + data
+});
+
+ipc.on('MBSERIAL_RESPONSE', (evt, data) => {
+  var el = document.getElementById('MBSerial')
+  el.innerHTML = "Serial: " + data
+});
+
+ipc.on('MBREVISION_RESPONSE', (evt, data) => {
+  var el = document.getElementById('MBRevision')
+  el.innerHTML = "Revision: " + data
 });
 
 ipc.on('CHECK_RESPONSE', (evt, data) => {

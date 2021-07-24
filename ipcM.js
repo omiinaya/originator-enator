@@ -150,6 +150,18 @@ ipc.on('CPUNAME_REQUEST', function (evt, data) {
     window.webContents.send('CPUNAME_RESPONSE', data);
 })
 
+ipc.on('MBNAME_REQUEST', function (evt, data) {
+    window.webContents.send('MBNAME_RESPONSE', data);
+})
+
+ipc.on('MBSERIAL_REQUEST', function (evt, data) {
+    window.webContents.send('MBSERIAL_RESPONSE', data);
+})
+
+ipc.on('MBREVISION_REQUEST', function (evt, data) {
+    window.webContents.send('MBREVISION_RESPONSE', data);
+})
+
 ipc.on('STEPLIST_REQUEST', function (evt, data) {
     window.webContents.send('STEPLIST_RESPONSE', data);
 })

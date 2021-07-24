@@ -4,11 +4,22 @@ function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
 
-function MBInfo() {
-    var x = execSync('wmic baseboard get product').toString().replace("Product", "").trim()
-    var y = x.lastIndexOf(' ')
-    var z = x.substring(0, y + 1)
-    return z
+function MBName() {
+    return execSync('wmic baseboard get product').toString().replace("Product", "").trim()
+}
+
+function MBSerial() {
+    return execSync('wmic baseboard get serialnumber').toString().replace("SerialNumber", "").trim()
+}
+
+function MBRevision() {
+    var x = execSync('wmic baseboard get version').toString().replace("Version", "").trim()
+    if (x.includes('REV:')) {
+        y = x.replace('REV:', '')
+        return y
+    } else {
+        return x
+    }
 }
 
 function User() {
@@ -112,7 +123,9 @@ function RecoveryDrive() {
 }
 
 module.exports = {
-    MBInfo,
+    MBName,
+    MBSerial,
+    MBRevision,
     User,
     PCName,
     PowerGUID,
