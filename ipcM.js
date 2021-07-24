@@ -233,6 +233,7 @@ ipc.on('PROGRESS_UPDATE', function (evt, data) {
     var bearings = JSON.parse(json);
     console.log('step: ' + data + " mb: " + mb)
     var isFound = core.findBySerial(bearings, mb)
+    console.log(isFound)
     if (isFound.length <= 0) {
         console.log('not found')
         bearings.push({
@@ -252,12 +253,15 @@ ipc.on('PROGRESS_UPDATE', function (evt, data) {
 })
 
 ipc.on('PROGRESS_REQUEST', function () {
+    var mb = get.SerialNumber()
     var json = fs.readFileSync(scriptsHome + '\\bearings.json')
     var bearings = JSON.parse(json);
     bearings.forEach((bearing) => {
-        for (const key in bearing) {
-            if (key !== 'Serial') {
-                window.webContents.send('CHECK_RESPONSE2', key);
+        if (bearing.Serial === mb) {
+            for (const key in bearing) {
+                if (key !== 'Serial') {
+                    window.webContents.send('CHECK_RESPONSE2', key);
+                }
             }
         }
     })
