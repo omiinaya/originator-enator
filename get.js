@@ -68,7 +68,7 @@ function BiosVersion() {
 }
 
 function MemorySpeed() {
-    var output = execSync('wmic memorychip get speed').toString().replace('Speed', '').trim()
+    var output = execSync('wmic memorychip get Configuredclockspeed').toString().replace('ConfiguredClockSpeed', '').trim()
     var speed = output.split(' ')[0] + " MHz"
     return speed
 }

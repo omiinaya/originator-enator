@@ -216,7 +216,7 @@ ipc.on('CPUNAME_RESPONSE', (evt, data) => {
 
 ipc.on('MBNAME_RESPONSE', (evt, data) => {
   var el = document.getElementById('MBName')
-  el.innerHTML = "Motherboard: " + data
+  el.innerHTML = "MB: " + data
 });
 
 ipc.on('MBSERIAL_RESPONSE', (evt, data) => {
