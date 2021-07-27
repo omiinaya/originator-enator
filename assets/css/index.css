@@ -118,3 +118,17 @@ input[type=checkbox]:checked {
   text-align: center;
   margin: 0 auto;
 }
+
+.wrapper {
+  display: flex;
+}
+
+.left-side {
+  display: inline-block;
+  width: 450px;
+}
+
+.right-side {
+  display: inline-block;
+  width: 450px;
+}
