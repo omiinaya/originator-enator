@@ -76,6 +76,11 @@ ipc.on('installSoftware', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('pinPrograms', function (evt, data) {
+    scripts.pinPrograms()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 ipc.on('setEdgeHome', function (evt, data) {
     scripts.setEdgeHome()
     window.webContents.send('CHECK_RESPONSE', data);

@@ -128,6 +128,11 @@ function getSteps() {
     return JSON.parse(json)
 }
 
+function getItemsToPin() {
+    var test = [1, 2, 3, 4]
+    return test
+}
+
 module.exports = {
     getMBName,
     getMBSerial,
@@ -146,5 +151,6 @@ module.exports = {
     getCPUName,
     getSerialNumber,
     getRecoveryDrive,
-    getSteps
+    getSteps,
+    getItemsToPin
 }

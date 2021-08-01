@@ -11,10 +11,13 @@ const {
 } = require('./set')
 const {
     getRecoveryDrive,
-    getSerialNumber
+    getSerialNumber,
+    getItemsToPin
 } = require('./get')
 
-var PCRoot = process.env['USERPROFILE'].split('\\')[0]
+var PCProfile = process.env['USERPROFILE']
+var PCRoot = PCProfile.split('\\')[0]
+var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
 var USBRoot = process.cwd().split('\\')[0]
 var scriptsHome = USBRoot + '\\scripts\\';
 
@@ -118,6 +121,19 @@ function createRecoveryDrive() {
     }
 }
 
+function pinPrograms() {
+    var toPin = getItemsToPin()
+    if (toPin.length > 0) {
+        toPin.forEach((item) => {
+            var file = scriptsHome + 'PINTOTASKBAR.ps1 "' + PCDesktop + item + '" PIN'
+            console.log(file)
+            //core.pShellExec(file)
+        })
+    } else {
+        console.log('No items to pin.')
+    }
+}
+
 function resetUI() {
     window.webContents.send('CLEARBEARINGS_REQUEST')
 }
@@ -208,5 +224,6 @@ module.exports = {
     setPCName,
     setPowerCfgBalanced,
     progressUpdate,
-    progressRequest
+    progressRequest,
+    pinPrograms
 }
