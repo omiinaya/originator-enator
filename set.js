@@ -1,6 +1,5 @@
 const { execSync } = require('child_process')
-const elevated = require('@mh-cbon/aghfabsowecwn').exec;
-const get = require('./get')
+const { getPowerGUID } = require('./get')
 const core = require('./core')
 
 function PCDescription() {
@@ -26,12 +25,12 @@ function StandbyTimeout() {
 }
 
 function PowerCfg(a) {
-    if (!get.PowerGUID(a)) {
+    if (!getPowerGUID(a)) {
         core.registerPowerPlan(a)
-        execSync('powercfg /setactive ' + get.PowerGUID(a))
+        execSync('powercfg /setactive ' + getPowerGUID(a))
         window.webContents.send('SHELL_END', 'setPowerCfg');
     } else {
-        execSync('powercfg /setactive ' + get.PowerGUID(a))
+        execSync('powercfg /setactive ' + getPowerGUID(a))
         window.webContents.send('SHELL_END', 'setPowerCfg');
     }
 }

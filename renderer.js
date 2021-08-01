@@ -9,16 +9,16 @@ var scriptsHome = USBRoot + '\\scripts\\';
 
 //on DOM load
 document.addEventListener("DOMContentLoaded", function (event) {
-  ipc.send("BIOSVERSION_REQUEST", BiosVersion())
-  ipc.send("MEMORYSPEED_REQUEST", MemorySpeed())
-  ipc.send("MEMORYSIZE_REQUEST", MemorySize())
-  ipc.send("GPUNAME_REQUEST", GPUName())
-  ipc.send("OSNAME_REQUEST", OSName())
-  ipc.send("CPUNAME_REQUEST", CPUName())
-  ipc.send("MBNAME_REQUEST", MBName())
+  ipc.send("BIOSVERSION_REQUEST", getBiosVersion())
+  ipc.send("MEMORYSPEED_REQUEST", getMemorySpeed())
+  ipc.send("MEMORYSIZE_REQUEST", getMemorySize())
+  ipc.send("GPUNAME_REQUEST", getGPUName())
+  ipc.send("OSNAME_REQUEST", getOSName())
+  ipc.send("CPUNAME_REQUEST", getCPUName())
+  ipc.send("MBNAME_REQUEST", getMBName())
   ipc.send("STEPLIST_REQUEST", getSteps())
-  ipc.send("MBSERIAL_REQUEST", MBSerial())
-  ipc.send("MBREVISION_REQUEST", MBRevision())
+  ipc.send("MBSERIAL_REQUEST", getMBSerial())
+  ipc.send("MBREVISION_REQUEST", getMBRevision())
   ipc.send("PROGRESS_REQUEST")
 });
 

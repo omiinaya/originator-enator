@@ -36,7 +36,7 @@ function cmdShellExec(a) {
     })
 
     child.on("exit", function (code) {
-        console.log('exit: ' + code)
+        //console.log('exit: ' + code)
     })
 
     isDone(a, child.pid)
@@ -54,7 +54,8 @@ function pShellExec(a) {
     })
 
     child.on("exit", function (code) {
-        console.log('exit: ' + code)
+        //console.log('exit: ' + code)
+        //window.webContents.send('SHELL_END', filename);
     })
 
     isDone(a, child.pid)
@@ -129,7 +130,7 @@ function isUsing(a) {
 */
 
 function isDone(filename, PiD) {
-    var isRunning = findProcessByPiD(PiD) //findProcessByName(process)
+    var isRunning = findProcessByPiD(PiD)
     timer = setTimeout(function () {
         print(isRunning)
         isDone(filename, PiD)

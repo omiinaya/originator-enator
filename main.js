@@ -1,8 +1,11 @@
-require('v8-compile-cache');
-require('electron-reload')(__dirname, { ignored: /db|[\/\\]\./, argv: [] });
-require('@electron/remote/main').initialize()
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+
+require('v8-compile-cache');
+require('electron-reload')(__dirname, {
+      electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+      ignored: /db|[\/\\]\./, argv: [] })
+require('@electron/remote/main').initialize()
 
 global.window;
 
@@ -14,7 +17,8 @@ const createWindow = () => {
     minWidth: 800,
     minHeight: 900,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     }
   });
   mainWindow.loadFile(path.join(__dirname, './assets/html/index.html'));

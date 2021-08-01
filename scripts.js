@@ -1,8 +1,11 @@
 const { execSync } = require('child_process')
 const core = require('./core')
-const get = require('./get')
 const set = require('./set')
 const fs = require('fs')
+const { 
+    getRecoveryDrive, 
+    getSerialNumber 
+} = require('./get')
 
 var PCRoot = process.env['USERPROFILE'].split('\\')[0]
 var USBRoot = process.cwd().split('\\')[0]
@@ -99,9 +102,8 @@ function checkDrivers() {
 }
 
 function createRecoveryDrive() {
-    var corsair = get.RecoveryDrive()
+    var corsair = getRecoveryDrive()
     if (corsair) {
-        console.log(corsair)
         core.cmdShellExec('ROBOCOPY ' + scriptsHome + '\\Originator2.0\\Software\\USBRecovery\\Image\\ /E /Z /MT ' + corsair)
         execSync('label ' + corsair + 'USB Recover')
     } else {
@@ -156,21 +158,18 @@ function setPowerCfgBalanced() {
 }
 
 function progressUpdate(data) {
-    var mb = get.SerialNumber()
+    var mb = getSerialNumber()
     var json = fs.readFileSync(scriptsHome + '\\bearings.json')
     var bearings = JSON.parse(json);
-    console.log('step: ' + data + " mb: " + mb)
     var isFound = core.findBySerial(bearings, mb)
     console.log(isFound)
     if (isFound.length <= 0) {
-        console.log('not found')
         bearings.push({
             Serial: mb,
             [data]: true
         })
         fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings));
     } else {
-        console.log('found')
         bearings.forEach(bearing => {
             if (bearing.Serial === mb) {
                 Object.assign(bearing, { [data]: true })
@@ -181,7 +180,7 @@ function progressUpdate(data) {
 }
 
 function progressRequest() {
-    var mb = get.SerialNumber()
+    var mb = getSerialNumber()
     var json = fs.readFileSync(scriptsHome + '\\bearings.json')
     var bearings = JSON.parse(json);
     bearings.forEach((bearing) => {

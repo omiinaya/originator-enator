@@ -5,15 +5,15 @@ function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
 
-function MBName() {
+function getMBName() {
     return execSync('wmic baseboard get product').toString().replace("Product", "").trim()
 }
 
-function MBSerial() {
+function getMBSerial() {
     return execSync('wmic baseboard get serialnumber').toString().replace("SerialNumber", "").trim()
 }
 
-function MBRevision() {
+function getMBRevision() {
     var x = execSync('wmic baseboard get version').toString().replace("Version", "").trim()
     if (x.includes('REV:')) {
         y = x.replace('REV:', '')
@@ -23,15 +23,15 @@ function MBRevision() {
     }
 }
 
-function User() {
+function getUser() {
     return execSync('echo %USERNAME%').toString().trim()
 }
 
-function PCName() {
+function getPCName() {
     return execSync('echo %computername%').toString().trim()
 }
 
-function PowerGUID(a) {
+function getPowerGUID(a) {
     var raw = execSync('powercfg /list').toString().trim()
     var bloated = raw.split('\n')
     var list = bloated.splice(2, bloated.length - 1)
@@ -47,7 +47,7 @@ function PowerGUID(a) {
     return guid
 }
 
-function ImageName(a) {
+function getImageName(a) {
     var x = execSync('dir ' + a).toString().trim()
     var y = x.split('\n')
     var z = y.filter(name => name.includes('LockScreen') && name.includes('.jpg'))
@@ -55,7 +55,7 @@ function ImageName(a) {
     return name
 }
 
-function CurrentScheme() {
+function getCurrentScheme() {
     var output = execSync('powercfg /getactivescheme').toString().trim()
     var scheme = output.substring(
         output.lastIndexOf(":") + 1,
@@ -64,24 +64,24 @@ function CurrentScheme() {
     return scheme
 }
 
-function BiosVersion() {
+function getBiosVersion() {
     return execSync('wmic bios get smbiosbiosversion').toString().replace('SMBIOSBIOSVersion', '').trim()
 }
 
-function MemorySpeed() {
+function getMemorySpeed() {
     var output = execSync('wmic memorychip get Configuredclockspeed').toString().replace('ConfiguredClockSpeed', '').trim()
     var speed = output.split(' ')[0] + " MHz"
     return speed
 }
 
-function MemorySize() {
+function getMemorySize() {
     var output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim()
     var gb = parseInt(output) / 1000000000
     var size = Math.round(gb)
     return size
 }
 
-function GPUName() {
+function getGPUName() {
     var x = execSync('wmic path win32_VideoController get name').toString().replace('Name', '')
     var y = x.split('\n').filter(str => isEmpty(str))
     if (y.length > 1) {
@@ -91,26 +91,26 @@ function GPUName() {
     }
 }
 
-function OSName() {
+function getOSName() {
     return execSync('wmic os get Caption').toString().replace('Caption', '').trim()
 }
 
-function CPUName() {
+function getCPUName() {
     return execSync('wmic cpu get name').toString().replace('Name', '').trim()
 }
 
-function SerialNumber() {
+function getSerialNumber() {
     return execSync('wmic baseboard get serialnumber').toString().replace('SerialNumber', '').trim()
 }
 
-function Drives() {
+function getDrives() {
     var output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n')
     output.shift()
     var drives = output.filter(lines => isEmpty(lines))
     return drives
 }
 
-function RecoveryDrive() {
+function getRecoveryDrive() {
     var drives = Drives()
     var drive = drives.filter(drive => drive.includes('CORSAIR'))[0]
     if (drive) {
@@ -129,22 +129,22 @@ function getSteps() {
 }
 
 module.exports = {
-    MBName,
-    MBSerial,
-    MBRevision,
-    User,
-    PCName,
-    PowerGUID,
-    ImageName,
-    CurrentScheme,
-    Drives,
-    BiosVersion,
-    MemorySpeed,
-    MemorySize,
-    GPUName,
-    OSName,
-    CPUName,
-    SerialNumber,
-    RecoveryDrive,
+    getMBName,
+    getMBSerial,
+    getMBRevision,
+    getUser,
+    getPCName,
+    getPowerGUID,
+    getImageName,
+    getCurrentScheme,
+    getDrives,
+    getBiosVersion,
+    getMemorySpeed,
+    getMemorySize,
+    getGPUName,
+    getOSName,
+    getCPUName,
+    getSerialNumber,
+    getRecoveryDrive,
     getSteps
 }
