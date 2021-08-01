@@ -1,6 +1,13 @@
 const { execSync } = require('child_process')
 const fs = require('fs')
 
+var PCProfile = process.env['USERPROFILE']
+var PCRoot = PCProfile.split('\\')[0]
+var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
+var USBRoot = process.cwd().split('\\')[0]
+var ScriptsHome = USBRoot + '\\scripts\\';
+var WindowsDir = PCRoot + '\\Windows\\'
+
 function isEmpty(a) {
     return a.indexOf(' ') > 0
 }
@@ -124,8 +131,32 @@ function getRecoveryDrive() {
 }
 
 function getSteps() {
-    var json = fs.readFileSync(scriptsHome + '\\steps.json')
+    var json = fs.readFileSync(ScriptsHome + '\\steps.json')
     return JSON.parse(json)
+}
+
+function getSO() {
+    try {
+        var buffer = fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le')
+        console.log(buffer)
+        return buffer
+    }
+
+    catch (err) {
+        console.log(err)
+    }
+}
+
+function getSoftware() {
+    var lines = getSO().split(/\r?\n/)
+    var software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'))
+    console.log(software)
+}
+
+function getBrowsers() {
+    var lines = getSO().split(/\r?\n/)
+    var browsers = lines.filter(line => line.includes('BWSR'))
+    console.log(browsers)
 }
 
 function getItemsToPin() {
@@ -152,5 +183,8 @@ module.exports = {
     getSerialNumber,
     getRecoveryDrive,
     getSteps,
-    getItemsToPin
+    getItemsToPin,
+    getSO,
+    getSoftware,
+    getBrowsers
 }

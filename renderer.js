@@ -6,6 +6,9 @@ var stepList = []
 //var PCRoot = process.env['USERPROFILE'].split('\\')[0]
 var USBRoot = process.cwd().split('\\')[0]
 var scriptsHome = USBRoot + '\\scripts\\';
+var PCProfile = process.env['USERPROFILE']
+var PCRoot = PCProfile.split('\\')[0]
+var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
 
 //on DOM load
 document.addEventListener("DOMContentLoaded", function (event) {

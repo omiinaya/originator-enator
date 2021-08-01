@@ -12,7 +12,8 @@ const {
 const {
     getRecoveryDrive,
     getSerialNumber,
-    getItemsToPin
+    getItemsToPin,
+    getSoftware
 } = require('./get')
 
 var PCProfile = process.env['USERPROFILE']
@@ -122,6 +123,7 @@ function createRecoveryDrive() {
 }
 
 function pinPrograms() {
+    getSoftware()
     var toPin = getItemsToPin()
     if (toPin.length > 0) {
         toPin.forEach((item) => {
