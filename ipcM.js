@@ -31,7 +31,7 @@ ipc.on('runCleanUp', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
-ipc.on('runCleanlogs', function (evt, data) {
+ipc.on('runClearLogs', function (evt, data) {
     scripts.runClearLogs()
     window.webContents.send('CHECK_RESPONSE', data);
 })

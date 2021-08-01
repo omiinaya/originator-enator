@@ -1,11 +1,11 @@
+require('v8-compile-cache')
+
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
-require('v8-compile-cache');
 require('electron-reload')(__dirname, {
       electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
       ignored: /db|[\/\\]\./, argv: [] })
-require('@electron/remote/main').initialize()
 
 global.window;
 

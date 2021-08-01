@@ -17,10 +17,10 @@ function print(a) {
 function registerPowerPlan(a) {
     if (a === "High") {
         execSync('powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c')
-        set.PowerCfg(a)
+        setPowerCfg(a)
     } else if (a === "Ultimate") {
         execSync('powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61')
-        set.PowerCfg(a)
+        setPowerCfg(a)
     }
 }
 

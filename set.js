@@ -2,29 +2,29 @@ const { execSync } = require('child_process')
 const { getPowerGUID } = require('./get')
 const core = require('./core')
 
-function PCDescription() {
+function setPCDescription() {
     execSync('net config server /srvcomment:"%USERNAME%' + 'PC"')
     window.webContents.send('SHELL_END', 'setPCDescription');
 }
 
-function PCName() {
+function setPCName() {
     execSync(`WMIC computersystem where caption='%computername%' call rename name='%USERNAME%` + `-PC'`)
     window.webContents.send('SHELL_END', 'setPCName');
 }
 
-function MonitorTimeout() {
+function setMonitorTimeout() {
     execSync('powercfg /change monitor-timeout-ac 0') //0 = never
     execSync('powercfg /change monitor-timeout-dc 0')
     window.webContents.send('SHELL_END', 'setMonitorTimeout');
 }
 
-function StandbyTimeout() {
+function setStandbyTimeout() {
     execSync('powercfg -change -standby-timeout-ac 0')
     execSync('powercfg -change -standby-timeout-dc 0')
     window.webContents.send('SHELL_END', 'setStandbyTimeout');
 }
 
-function PowerCfg(a) {
+function setPowerCfg(a) {
     if (!getPowerGUID(a)) {
         core.registerPowerPlan(a)
         execSync('powercfg /setactive ' + getPowerGUID(a))
@@ -35,10 +35,20 @@ function PowerCfg(a) {
     }
 }
 
+function setPowerCfgHigh() {
+    setPowerCfg('High')
+}
+
+function setPowerCfgBalanced() {
+    setPowerCfg('Balanced')
+}
+
 module.exports = {
-    PCDescription,
-    PCName,
-    MonitorTimeout,
-    StandbyTimeout,
-    PowerCfg
+    setPCDescription,
+    setPCName,
+    setMonitorTimeout,
+    setStandbyTimeout,
+    setPowerCfg,
+    setPowerCfgHigh,
+    setPowerCfgBalanced
 }

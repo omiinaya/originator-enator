@@ -1,10 +1,17 @@
 const { execSync } = require('child_process')
 const core = require('./core')
-const set = require('./set')
 const fs = require('fs')
-const { 
-    getRecoveryDrive, 
-    getSerialNumber 
+const {
+    setMonitorTimeout,
+    setStandbyTimeout,
+    setPCDescription,
+    setPCName,
+    setPowerCfgHigh,
+    setPowerCfgBalanced
+} = require('./set')
+const {
+    getRecoveryDrive,
+    getSerialNumber
 } = require('./get')
 
 var PCRoot = process.env['USERPROFILE'].split('\\')[0]
@@ -131,30 +138,6 @@ function abort() {
             console.log(error)
         }
     })
-}
-
-function setPowerCfgHigh() {
-    set.PowerCfg('High')
-}
-
-function setMonitorTimeout() {
-    set.MonitorTimeout()
-}
-
-function setStandbyTimeout() {
-    set.StandbyTimeout()
-}
-
-function setPCDescription() {
-    set.PCDescription()
-}
-
-function setPCName() {
-    set.PCName()
-}
-
-function setPowerCfgBalanced() {
-    set.PowerCfg("Balanced")
 }
 
 function progressUpdate(data) {

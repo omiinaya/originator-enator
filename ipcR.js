@@ -1,4 +1,3 @@
-
 ipc.on('LOG_REQUEST', (evt, data) => {
     console.log(data)
 });
