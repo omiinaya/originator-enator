@@ -1,4 +1,5 @@
 const { execSync } = require('child_process')
+const fs = require('fs')
 
 function isEmpty(a) {
     return a.indexOf(' ') > 0
@@ -122,6 +123,11 @@ function RecoveryDrive() {
     }
 }
 
+function getSteps() {
+    var json = fs.readFileSync(scriptsHome + '\\steps.json')
+    return JSON.parse(json)
+}
+
 module.exports = {
     MBName,
     MBSerial,
@@ -139,5 +145,6 @@ module.exports = {
     OSName,
     CPUName,
     SerialNumber,
-    RecoveryDrive
+    RecoveryDrive,
+    getSteps
 }
