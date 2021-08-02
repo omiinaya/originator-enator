@@ -16,6 +16,7 @@ const createWindow = () => {
     height: 900,
     minWidth: 800,
     minHeight: 900,
+    icon: path.join(__dirname + './assets/images/favicon.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false

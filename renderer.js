@@ -89,7 +89,8 @@ function resetCheckboxes() {
     document.getElementsByClassName('stage-1'),
     document.getElementsByClassName('stage-2'),
     document.getElementsByClassName('stage-3'),
-    document.getElementsByClassName('stage-4')
+    document.getElementsByClassName('stage-4'),
+    document.getElementsByClassName('stage-5')
   ]
   stageList.forEach((stage) => {
     for (step of stage) {

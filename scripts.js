@@ -12,9 +12,7 @@ const {
 const {
     getRecoveryDrive,
     getSerialNumber,
-    getItemsToPin,
-    getSoftware,
-    getBrowsers
+    getItemsToPin
 } = require('./get')
 
 var PCProfile = process.env['USERPROFILE']
@@ -206,6 +204,10 @@ function progressRequest() {
     })
 }
 
+function restartPC() {
+    return execSync('shutdown /r').toString().trim()
+}
+
 module.exports = {
     disableOneDrive,
     installSoftware,
@@ -239,5 +241,6 @@ module.exports = {
     progressUpdate,
     progressRequest,
     pinPrograms,
-    formatRecoveryDrive
+    formatRecoveryDrive,
+    restartPC
 }
