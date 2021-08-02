@@ -197,3 +197,7 @@ ipc.on('RESET_REQUEST', function (evt, data) {
     //script that resets current pc in json
     scripts.resetPC()
 })
+
+ipc.on('TEST_FUNCTION', function (evt, data) {
+    console.log('test')
+})

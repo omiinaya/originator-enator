@@ -148,7 +148,7 @@ function getSO() {
 function getSoftware() {
     var lines = getSO().split(/\r?\n/)
     var software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'))
-    console.log(software)
+    return software
 }
 
 function getBrowsers() {

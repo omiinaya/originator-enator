@@ -196,7 +196,6 @@ function progressRequest() {
     bearings.forEach((bearing) => {
         if (bearing.Serial === mb) {
             for (const key in bearing) {
-                console.log(isNaN(key))
                 if (!isNaN(key)) {
                     window.webContents.send('CHECK_RESPONSE2', key);
                 }

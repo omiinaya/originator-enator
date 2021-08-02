@@ -122,8 +122,6 @@ function resetJSON() {
 
 function pauseQueue() {
   var el = document.getElementById('pause-button')
-  console.log(el.innerHTML)
-  console.log(el.innerText)
   if (el.innerText === 'Pause') {
     el.innerText = 'Resume'
   } else {
@@ -135,4 +133,8 @@ function pauseQueue() {
 function resetPC(a) {
   ipc.send('RESET_REQUEST', a)
   ipc.send("PROGRESS_REQUEST")
+}
+
+function test() {
+  ipc.send('TEST_FUNCTION')
 }

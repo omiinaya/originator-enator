@@ -12,7 +12,6 @@ var opts = {
 
 function print(a) {
     window.webContents.send('LOG_REQUEST', a);
-    console.log(pause)
 }
 
 function registerPowerPlan(a) {
