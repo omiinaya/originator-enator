@@ -133,6 +133,6 @@ function pauseQueue() {
 }
 
 function resetPC(a) {
-  ipc.send("PROGRESS_REQUEST")
   ipc.send('RESET_REQUEST', a)
+  ipc.send("PROGRESS_REQUEST")
 }

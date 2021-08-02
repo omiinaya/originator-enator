@@ -196,12 +196,22 @@ function progressRequest() {
     bearings.forEach((bearing) => {
         if (bearing.Serial === mb) {
             for (const key in bearing) {
-                if (key !== 'Serial') {
+                console.log(isNaN(key))
+                if (!isNaN(key)) {
                     window.webContents.send('CHECK_RESPONSE2', key);
                 }
             }
         }
     })
+}
+
+function progressReset() {
+    var mb = getSerialNumber()
+    var json = fs.readFileSync(scriptsHome + '\\steps.json')
+    var steps = JSON.parse(json);
+    for (step in steps) {
+        window.webContents.send('CHECK_RESET', step);
+    }
 }
 
 function restartPC() {
@@ -214,7 +224,7 @@ function resetPC() {
     var bearings = JSON.parse(json);
     var filtered = bearings.filter(bearing => !(Object.values(bearing).indexOf(serial) > -1))
     fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(filtered))
-    progressRequest()
+    progressReset()
 }
 
 module.exports = {
