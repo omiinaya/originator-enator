@@ -183,3 +183,17 @@ ipc.on('PROGRESS_UPDATE', function (evt, data) {
 ipc.on('PROGRESS_REQUEST', function () {
     scripts.progressRequest()
 })
+
+ipc.on('PAUSE_REQUEST', function () {
+    if (pause === false) {
+        pause = true;
+    } else {
+        pause = false;
+    }
+    console.log(pause)
+})
+
+ipc.on('RESET_REQUEST', function (evt, data) {
+    //script that resets current pc in json
+    scripts.resetPC()
+})

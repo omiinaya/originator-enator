@@ -3,12 +3,11 @@ const ipc = electron.ipcRenderer
 
 var stepList = []
 
-//var PCRoot = process.env['USERPROFILE'].split('\\')[0]
 var USBRoot = process.cwd().split('\\')[0]
 var scriptsHome = USBRoot + '\\scripts\\';
-var PCProfile = process.env['USERPROFILE']
-var PCRoot = PCProfile.split('\\')[0]
-var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
+//var PCProfile = process.env['USERPROFILE']
+//var PCRoot = PCProfile.split('\\')[0]
+//var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
 
 //on DOM load
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -119,4 +118,21 @@ function resetTitles() {
 function resetJSON() {
   var bearings = []
   fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(bearings))
+}
+
+function pauseQueue() {
+  var el = document.getElementById('pause-button')
+  console.log(el.innerHTML)
+  console.log(el.innerText)
+  if (el.innerText === 'Pause') {
+    el.innerText = 'Resume'
+  } else {
+    el.innerText = 'Pause'
+  }
+  ipc.send("PAUSE_REQUEST")
+}
+
+function resetPC(a) {
+  ipc.send("PROGRESS_REQUEST")
+  ipc.send('RESET_REQUEST', a)
 }

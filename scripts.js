@@ -208,6 +208,15 @@ function restartPC() {
     return execSync('shutdown /r').toString().trim()
 }
 
+function resetPC() {
+    var serial = getSerialNumber()
+    var json = fs.readFileSync(scriptsHome + '\\bearings.json')
+    var bearings = JSON.parse(json);
+    var filtered = bearings.filter(bearing => !(Object.values(bearing).indexOf(serial) > -1))
+    fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(filtered))
+    progressRequest()
+}
+
 module.exports = {
     disableOneDrive,
     installSoftware,
@@ -242,5 +251,6 @@ module.exports = {
     progressRequest,
     pinPrograms,
     formatRecoveryDrive,
-    restartPC
+    restartPC,
+    resetPC
 }

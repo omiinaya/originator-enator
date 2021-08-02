@@ -11,7 +11,8 @@ var opts = {
 }
 
 function print(a) {
-    global.window.webContents.send('LOG_REQUEST', a);
+    window.webContents.send('LOG_REQUEST', a);
+    console.log(pause)
 }
 
 function registerPowerPlan(a) {
@@ -32,7 +33,7 @@ function cmdShellExec(a) {
     })
 
     child.stderr.on("data", function (data) {
-        print("err: " + data)
+        //print("err: " + data)
     })
 
     isDone(a, child.pid)
@@ -46,7 +47,7 @@ function pShellExec(a) {
     })
 
     child.stderr.on("data", function (data) {
-        print("err: " + data)
+        //print("err: " + data)
     })
 
     isDone(a, child.pid)
@@ -126,7 +127,7 @@ function isDone(filename, PiD) {
         print(isRunning)
         isDone(filename, PiD)
     }, 1000)
-    if (!isRunning) {
+    if (!isRunning && !pause) {
         console.log(isRunning)
         clearTimeout(timer)
         print(filename + ' finished executing.')

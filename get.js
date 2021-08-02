@@ -170,7 +170,7 @@ function getItemsToPin() {
         if (browser === 'CHROME') {
             parsed.push('Google Chrome.lnk')
         }
-        if (browser === 'MOZILLA') {
+        if (browser === 'FIREFOX') {
             parsed.push('Firefox.lnk')
         } 
         //do the same for other browsers

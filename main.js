@@ -8,14 +8,15 @@ require('electron-reload')(__dirname, {
       ignored: /db|[\/\\]\./, argv: [] })
 
 global.window;
+global.pause;
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
     show: false,
     width: 800,
-    height: 900,
+    height: 950,
     minWidth: 800,
-    minHeight: 900,
+    minHeight: 950,
     icon: path.join(__dirname + './assets/images/favicon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -29,6 +30,7 @@ const createWindow = () => {
   })
 
   global.window = mainWindow
+  global.pause = false;
 };
 
 app.on('ready', () => {
