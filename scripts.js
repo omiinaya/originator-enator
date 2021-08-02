@@ -115,6 +115,16 @@ function checkDrivers() {
     core.cmdShellExec(file)
 }
 
+function formatRecoveryDrive() {
+    var corsair = getRecoveryDrive()
+    if (corsair) {
+        var file = scriptsHome + 'formatDrive.cmd ' + corsair
+        core.cmdShellExec(file)
+    } else {
+        window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
+    }
+}
+
 function createRecoveryDrive() {
     var corsair = getRecoveryDrive()
     if (corsair) {
@@ -126,8 +136,6 @@ function createRecoveryDrive() {
 }
 
 function pinPrograms() {
-    //getSoftware()
-    //getBrowsers()
     var toPin = getItemsToPin()
     if (toPin.length > 0) {
         toPin.forEach((item) => {
@@ -230,5 +238,6 @@ module.exports = {
     setPowerCfgBalanced,
     progressUpdate,
     progressRequest,
-    pinPrograms
+    pinPrograms,
+    formatRecoveryDrive
 }

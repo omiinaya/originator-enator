@@ -118,7 +118,7 @@ function getDrives() {
 }
 
 function getRecoveryDrive() {
-    var drives = Drives()
+    var drives = getDrives()
     var drive = drives.filter(drive => drive.includes('CORSAIR'))[0]
     if (drive) {
         var x = drive.split(' ')

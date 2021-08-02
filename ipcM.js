@@ -126,6 +126,11 @@ ipc.on('createRecoveryDrive', function (evt, data) {
     window.webContents.send('CHECK_RESPONSE', data);
 })
 
+ipc.on('formatRecoveryDrive', function (evt, data) {
+    scripts.formatRecoveryDrive()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 ipc.on('installEdge', function (evt, data) {
     scripts.installEdge()
     window.webContents.send('CHECK_RESPONSE', data);
