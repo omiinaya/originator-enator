@@ -12,8 +12,7 @@ const {
 const {
     getRecoveryDrive,
     getSerialNumber,
-    getItemsToPin,
-    getAvailableLeds
+    getItemsToPin
 } = require('./get')
 
 var PCProfile = process.env['USERPROFILE']

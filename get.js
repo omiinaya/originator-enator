@@ -200,6 +200,5 @@ module.exports = {
     getItemsToPin,
     getSO,
     getSoftware,
-    getBrowsers,
-    getAvailableLeds
+    getBrowsers
 }
