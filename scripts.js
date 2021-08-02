@@ -12,8 +12,10 @@ const {
 const {
     getRecoveryDrive,
     getSerialNumber,
-    getItemsToPin
+    getItemsToPin,
+    getAvailableLeds
 } = require('./get')
+const sdk = require('cue-sdk')
 
 var PCProfile = process.env['USERPROFILE']
 var PCRoot = PCProfile.split('\\')[0]
@@ -205,16 +207,11 @@ function progressRequest() {
 }
 
 function progressReset() {
-    var mb = getSerialNumber()
     var json = fs.readFileSync(scriptsHome + '\\steps.json')
     var steps = JSON.parse(json);
     for (step in steps) {
         window.webContents.send('CHECK_RESET', step);
     }
-}
-
-function restartPC() {
-    return execSync('shutdown /r').toString().trim()
 }
 
 function resetPC() {
@@ -224,6 +221,44 @@ function resetPC() {
     var filtered = bearings.filter(bearing => !(Object.values(bearing).indexOf(serial) > -1))
     fs.writeFileSync(scriptsHome + '\\bearings.json', JSON.stringify(filtered))
     progressReset()
+}
+
+function restartPC() {
+    core.restartSystem()
+}
+
+function cuesdk() {
+    sdk.CorsairPerformProtocolHandshake()
+    const availableLeds = getAvailableLeds()
+    const n = sdk.CorsairGetDeviceCount()
+
+    console.log(n)
+
+    for (let i = 0; i < n; ++i) {
+        const info = sdk.CorsairGetDeviceInfo(i);
+
+        // example: read device properties
+        if (info.capsMask & sdk.CorsairDeviceCaps.CDC_PropertyLookup) {
+            console.log(info);
+            Object.keys(sdk.CorsairDevicePropertyId).forEach(p => {
+                const prop = sdk.CorsairGetDeviceProperty(i, sdk.CorsairDevicePropertyId[p]);
+                if (!prop) {
+                    console.log(p, ':', sdk.CorsairErrorToString(sdk.CorsairGetLastError()));
+                } else {
+                    console.log(p, prop.value);
+                }
+            });
+        }
+
+        if (info.capsMask & sdk.CorsairDeviceCaps.CDC_Lighting) {
+            const positions = sdk.CorsairGetLedPositionsByDeviceIndex(i);
+            const maxX = positions.reduce((acc, curr) => Math.max(curr.left, acc), 0);
+            // create red gradient
+            const colors = positions.map(p => ({ ledId: p.ledId, r: Math.floor(p.left / maxX * 255), g: 0, b: 0 }));
+            sdk.CorsairSetLedsColorsBufferByDeviceIndex(i, colors);
+            sdk.CorsairSetLedsColorsFlushBuffer();
+        }
+    }
 }
 
 module.exports = {
@@ -260,6 +295,7 @@ module.exports = {
     progressRequest,
     pinPrograms,
     formatRecoveryDrive,
-    restartPC,
-    resetPC
+    resetPC,
+    cuesdk,
+    restartPC
 }

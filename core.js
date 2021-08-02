@@ -113,6 +113,10 @@ function killProcessByName(a) {
     return execSync('taskkill /IM ' + a + ' /F').toString().trim()
 }
 
+function restartSystem() {
+    return execSync('shutdown /r /t 0').toString().trim()
+}
+
 /*
 function isUsing(a) {
     //handle.exe -a -u ./HELLO_WORLD.ps1
@@ -134,6 +138,8 @@ function isDone(filename, PiD) {
     }
 }
 
+
+
 function findBySerial(bearings, serial) {
     return bearings.filter(element => element.Serial === serial)
 }
@@ -150,5 +156,6 @@ module.exports = {
     killProcessByName,
     isDone,
     cmdShellExec,
-    findBySerial
+    findBySerial,
+    restartSystem
 }

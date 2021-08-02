@@ -1,5 +1,6 @@
 const { execSync } = require('child_process')
 const { getPowerGUID } = require('./get')
+const sdk = require('cue-sdk')
 const core = require('./core')
 
 function setPCDescription() {
@@ -43,6 +44,22 @@ function setPowerCfgBalanced() {
     setPowerCfg('Balanced')
 }
 
+function setPulseEffect(allLeds, x) {
+    const cnt = allLeds.length
+    let val = ~~((1 - (x - 1) * (x - 1)) * 255)
+    for (let di = 0; di < cnt; ++di) {
+      const device_leds = allLeds[di]
+      device_leds.forEach(led => {
+        led.r = 0
+        led.g = val
+        led.b = 0
+      })
+  
+      sdk.CorsairSetLedsColorsBufferByDeviceIndex(di, device_leds)
+    }
+    sdk.CorsairSetLedsColorsFlushBuffer()
+  }
+
 module.exports = {
     setPCDescription,
     setPCName,
@@ -50,5 +67,6 @@ module.exports = {
     setStandbyTimeout,
     setPowerCfg,
     setPowerCfgHigh,
-    setPowerCfgBalanced
+    setPowerCfgBalanced,
+    setPulseEffect
 }

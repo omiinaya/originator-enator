@@ -194,10 +194,14 @@ ipc.on('PAUSE_REQUEST', function () {
 })
 
 ipc.on('RESET_REQUEST', function (evt, data) {
-    //script that resets current pc in json
     scripts.resetPC()
 })
 
+ipc.on('restartPC', function (evt, data) {
+    scripts.restartPC()
+    window.webContents.send('CHECK_RESPONSE', data);
+})
+
 ipc.on('TEST_FUNCTION', function (evt, data) {
-    console.log('test')
+    scripts.cuesdk()
 })

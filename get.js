@@ -1,4 +1,5 @@
 const { execSync } = require('child_process')
+const sdk = require('cue-sdk')
 const fs = require('fs')
 
 var PCProfile = process.env['USERPROFILE']
@@ -178,6 +179,16 @@ function getItemsToPin() {
     return parsed
 }
 
+function getAvailableLeds() {
+    const leds = []
+    const deviceCount = sdk.CorsairGetDeviceCount()
+    for (let di = 0; di < deviceCount; ++di) {
+      const ledPositions = sdk.CorsairGetLedPositionsByDeviceIndex(di)
+      leds.push(ledPositions.map(p => ({ ledId: p.ledId, r: 0, g: 0, b: 0 })))
+    }
+    return leds
+  }
+
 module.exports = {
     getMBName,
     getMBSerial,
@@ -200,5 +211,6 @@ module.exports = {
     getItemsToPin,
     getSO,
     getSoftware,
-    getBrowsers
+    getBrowsers,
+    getAvailableLeds
 }
