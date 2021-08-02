@@ -15,7 +15,6 @@ const {
     getItemsToPin,
     getAvailableLeds
 } = require('./get')
-const sdk = require('cue-sdk')
 
 var PCProfile = process.env['USERPROFILE']
 var PCRoot = PCProfile.split('\\')[0]
@@ -227,40 +226,6 @@ function restartPC() {
     core.restartSystem()
 }
 
-function cuesdk() {
-    sdk.CorsairPerformProtocolHandshake()
-    const availableLeds = getAvailableLeds()
-    const n = sdk.CorsairGetDeviceCount()
-
-    console.log(n)
-
-    for (let i = 0; i < n; ++i) {
-        const info = sdk.CorsairGetDeviceInfo(i);
-
-        // example: read device properties
-        if (info.capsMask & sdk.CorsairDeviceCaps.CDC_PropertyLookup) {
-            console.log(info);
-            Object.keys(sdk.CorsairDevicePropertyId).forEach(p => {
-                const prop = sdk.CorsairGetDeviceProperty(i, sdk.CorsairDevicePropertyId[p]);
-                if (!prop) {
-                    console.log(p, ':', sdk.CorsairErrorToString(sdk.CorsairGetLastError()));
-                } else {
-                    console.log(p, prop.value);
-                }
-            });
-        }
-
-        if (info.capsMask & sdk.CorsairDeviceCaps.CDC_Lighting) {
-            const positions = sdk.CorsairGetLedPositionsByDeviceIndex(i);
-            const maxX = positions.reduce((acc, curr) => Math.max(curr.left, acc), 0);
-            // create red gradient
-            const colors = positions.map(p => ({ ledId: p.ledId, r: Math.floor(p.left / maxX * 255), g: 0, b: 0 }));
-            sdk.CorsairSetLedsColorsBufferByDeviceIndex(i, colors);
-            sdk.CorsairSetLedsColorsFlushBuffer();
-        }
-    }
-}
-
 module.exports = {
     disableOneDrive,
     installSoftware,
@@ -296,6 +261,5 @@ module.exports = {
     pinPrograms,
     formatRecoveryDrive,
     resetPC,
-    cuesdk,
     restartPC
 }

@@ -138,8 +138,6 @@ function isDone(filename, PiD) {
     }
 }
 
-
-
 function findBySerial(bearings, serial) {
     return bearings.filter(element => element.Serial === serial)
 }

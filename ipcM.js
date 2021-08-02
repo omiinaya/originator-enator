@@ -203,5 +203,5 @@ ipc.on('restartPC', function (evt, data) {
 })
 
 ipc.on('TEST_FUNCTION', function (evt, data) {
-    scripts.cuesdk()
+    //scripts.cuesdk()
 })
