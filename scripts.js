@@ -13,12 +13,15 @@ const {
     getRecoveryDrive,
     getSerialNumber,
     getItemsToPin,
-    getSoftware
+    getSoftware,
+    getBrowsers
 } = require('./get')
 
 var PCProfile = process.env['USERPROFILE']
 var PCRoot = PCProfile.split('\\')[0]
 var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
+var PCPublic = PCRoot + '\\Users\\Public\\'
+var PublicDesktop = PCPublic + 'Desktop\\'
 var USBRoot = process.cwd().split('\\')[0]
 var scriptsHome = USBRoot + '\\scripts\\';
 
@@ -123,13 +126,13 @@ function createRecoveryDrive() {
 }
 
 function pinPrograms() {
-    getSoftware()
+    //getSoftware()
+    //getBrowsers()
     var toPin = getItemsToPin()
     if (toPin.length > 0) {
         toPin.forEach((item) => {
-            var file = scriptsHome + 'PINTOTASKBAR.ps1 "' + PCDesktop + item + '" PIN'
-            console.log(file)
-            //core.pShellExec(file)
+            var file = scriptsHome + 'PINTOTASKBAR.ps1 "' + PublicDesktop + item + '" PIN'
+            core.pShellExec(file)
         })
     } else {
         console.log('No items to pin.')

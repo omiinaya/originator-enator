@@ -35,10 +35,6 @@ function cmdShellExec(a) {
         print("err: " + data)
     })
 
-    child.on("exit", function (code) {
-        //console.log('exit: ' + code)
-    })
-
     isDone(a, child.pid)
 }
 
@@ -51,11 +47,6 @@ function pShellExec(a) {
 
     child.stderr.on("data", function (data) {
         print("err: " + data)
-    })
-
-    child.on("exit", function (code) {
-        //console.log('exit: ' + code)
-        //window.webContents.send('SHELL_END', filename);
     })
 
     isDone(a, child.pid)

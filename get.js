@@ -137,9 +137,7 @@ function getSteps() {
 
 function getSO() {
     try {
-        var buffer = fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le')
-        console.log(buffer)
-        return buffer
+        return fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le')
     }
 
     catch (err) {
@@ -155,13 +153,29 @@ function getSoftware() {
 
 function getBrowsers() {
     var lines = getSO().split(/\r?\n/)
-    var browsers = lines.filter(line => line.includes('BWSR'))
-    console.log(browsers)
+    var list = lines.filter(line => line.includes('BWSR'))
+    browsers = []
+    list.forEach((item) => { 
+        var x = item.replaceAll('BWSR-', '')
+        var y = x.split(' ')[0]
+        browsers.push(y)
+    })
+    return browsers
 }
 
 function getItemsToPin() {
-    var test = [1, 2, 3, 4]
-    return test
+    var parsed = []
+    getBrowsers().forEach((browser) => {
+        console.log(browser)
+        if (browser === 'CHROME') {
+            parsed.push('Google Chrome.lnk')
+        }
+        if (browser === 'MOZILLA') {
+            parsed.push('Firefox.lnk')
+        } 
+        //do the same for other browsers
+    })
+    return parsed
 }
 
 module.exports = {
