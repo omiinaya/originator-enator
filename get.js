@@ -143,7 +143,7 @@ function getSO() {
     }
 
     catch (err) {
-        console.log(err)
+        window.webContents.send('ALERT_REQUEST', 'No SO found.');
     }
 
     return content
@@ -154,8 +154,6 @@ function getSoftware() {
         var lines = getSO().split(/\r?\n/)
         var software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'))
         return software
-    } else {
-        console.log('test1')
     }
 }
 
@@ -170,8 +168,6 @@ function getBrowsers() {
             browsers.push(y)
         })
         return browsers
-    } else {
-        console.log('test2')
     }
 }
 
@@ -189,8 +185,6 @@ function getItemsToPin() {
             //do the same for other browsers
         })
         return parsed
-    } else {
-        console.log('test3')
     }
 }
 
