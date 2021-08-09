@@ -116,7 +116,7 @@ function checkDrivers() {
 function formatRecoveryDrive() {
     var corsair = getRecoveryDrive()
     if (corsair) {
-        var file = scriptsHome + 'formatDrive.cmd' + corsair
+        var file = scriptsHome + 'formatDrive.cmd ' + corsair
         core.cmdShellExec(file)
     } else {
         window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
