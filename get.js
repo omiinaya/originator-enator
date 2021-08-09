@@ -188,6 +188,13 @@ function getItemsToPin() {
     }
 }
 
+function getCurrentStage() {
+    var data = JSON.parse(fs.readFileSync(ScriptsHome + '\\steps.json'))
+    var stages //find unique stages and add to array
+    console.log(data)
+    //return bearings.filter(element => element.Serial === serial)
+}
+
 module.exports = {
     getMBName,
     getMBSerial,
@@ -210,5 +217,6 @@ module.exports = {
     getItemsToPin,
     getSO,
     getSoftware,
-    getBrowsers
+    getBrowsers,
+    getCurrentStage
 }

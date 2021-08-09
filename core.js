@@ -46,7 +46,7 @@ function pShellExec(a) {
     })
 
     child.stderr.on("data", function (data) {
-        //print("err: " + data)
+        print("err: " + data)
     })
 
     isDone(a, child.pid)

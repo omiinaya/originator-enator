@@ -83,6 +83,7 @@ ipc.on('STEPLIST_RESPONSE', (evt, data) => {
         `;
         ul.appendChild(li)
     }
+    console.log(getCurrentStage())
 });
 
 ipc.on('CLEARQUEUE_REQUEST', () => {
