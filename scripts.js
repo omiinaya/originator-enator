@@ -116,7 +116,7 @@ function checkDrivers() {
 function formatRecoveryDrive() {
     var corsair = getRecoveryDrive()
     if (corsair) {
-        var file = scriptsHome + 'formatDrive.cmd ' + corsair
+        var file = scriptsHome + 'formatDrive.cmd' + corsair
         core.cmdShellExec(file)
     } else {
         window.webContents.send('ALERT_REQUEST', 'No drive labeled "CORSAIR" found.');
@@ -134,14 +134,16 @@ function createRecoveryDrive() {
 }
 
 function pinPrograms() {
+    var filename = 'PINTOTASKBAR.ps1'
     var toPin = getItemsToPin()
-    if (toPin.length > 0) {
+    if (toPin && toPin.length > 0) {
         toPin.forEach((item) => {
-            var file = scriptsHome + 'PINTOTASKBAR.ps1 "' + PublicDesktop + item + '" PIN'
+            var file = scriptsHome + filename + '"' + PublicDesktop + item + '" PIN'
             core.pShellExec(file)
         })
     } else {
         console.log('No items to pin.')
+        window.webContents.send('SHELL_END', filename);
     }
 }
 

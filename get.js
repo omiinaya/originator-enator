@@ -136,46 +136,62 @@ function getSteps() {
 }
 
 function getSO() {
+    var content;
+
     try {
-        return fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le')
+        content = fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le')
     }
 
     catch (err) {
         console.log(err)
     }
+
+    return content
 }
 
 function getSoftware() {
-    var lines = getSO().split(/\r?\n/)
-    var software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'))
-    return software
+    if (getSO()) {
+        var lines = getSO().split(/\r?\n/)
+        var software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'))
+        return software
+    } else {
+        console.log('test1')
+    }
 }
 
 function getBrowsers() {
-    var lines = getSO().split(/\r?\n/)
-    var list = lines.filter(line => line.includes('BWSR'))
-    browsers = []
-    list.forEach((item) => { 
-        var x = item.replaceAll('BWSR-', '')
-        var y = x.split(' ')[0]
-        browsers.push(y)
-    })
-    return browsers
+    if (getSO()) {
+        var lines = getSO().split(/\r?\n/)
+        var list = lines.filter(line => line.includes('BWSR'))
+        browsers = []
+        list.forEach((item) => {
+            var x = item.replaceAll('BWSR-', '')
+            var y = x.split(' ')[0]
+            browsers.push(y)
+        })
+        return browsers
+    } else {
+        console.log('test2')
+    }
 }
 
 function getItemsToPin() {
     var parsed = []
-    getBrowsers().forEach((browser) => {
-        console.log(browser)
-        if (browser === 'CHROME') {
-            parsed.push('Google Chrome.lnk')
-        }
-        if (browser === 'FIREFOX') {
-            parsed.push('Firefox.lnk')
-        } 
-        //do the same for other browsers
-    })
-    return parsed
+    if (getBrowsers()) {
+        getBrowsers().forEach((browser) => {
+            console.log(browser)
+            if (browser === 'CHROME') {
+                parsed.push('Google Chrome.lnk')
+            }
+            if (browser === 'FIREFOX') {
+                parsed.push('Firefox.lnk')
+            }
+            //do the same for other browsers
+        })
+        return parsed
+    } else {
+        console.log('test3')
+    }
 }
 
 module.exports = {

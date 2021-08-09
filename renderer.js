@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function start(func, num) {
+  console.log(sortFunc(stepList))
   ipc.send(func, num)
   stepList.shift()
 }
@@ -38,11 +39,11 @@ function toggleStep(a) {
   var el = document.getElementById('box-' + a)
   if (el.checked === true) {
     stepList.push(a)
-    console.log(stepList)
   } else {
     stepList.splice(stepList.indexOf(a), 1)
-    console.log(stepList)
   }
+  sortFunc(stepList)
+  console.log(stepList)
 }
 
 function stageCheck(a) {
@@ -67,8 +68,11 @@ function stageCheck(a) {
   console.log(stepList)
 }
 
+function sortFunc(a) {
+  return a.sort()
+}
+
 function executeQueue() {
-  console.log(stepList)
   if (stepList.length > 0) {
     var el = document.getElementById("button-" + stepList[0]).getAttribute('onclick')
     var func = el.substring(el.indexOf("'") + 1, el.lastIndexOf("'"))
