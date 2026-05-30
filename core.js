@@ -136,7 +136,7 @@ function isUsing(a) {
 
 function isDone(filename, PiD) {
     var isRunning = findProcessByPiD(PiD)
-    timer = setTimeout(function () {
+    var timer = setTimeout(function () {
         print(isRunning)
         isDone(filename, PiD)
     }, 1000)
