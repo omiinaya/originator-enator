@@ -209,7 +209,7 @@ function progressRequest() {
 function progressReset() {
     var json = fs.readFileSync(scriptsHome + '\\steps.json')
     var steps = JSON.parse(json);
-    for (step in steps) {
+    for (const step in steps) {
         window.webContents.send('CHECK_RESET', step);
     }
 }
