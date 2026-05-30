@@ -1,197 +1,197 @@
-const { execSync } = require('child_process')
-const fs = require('fs')
+const { execSync } = require('child_process');
+const fs = require('fs');
 
-var PCProfile = process.env['USERPROFILE']
-var PCRoot = PCProfile.split('\\')[0]
-var PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\'
-var USBRoot = process.cwd().split('\\')[0]
-var ScriptsHome = USBRoot + '\\scripts\\';
-var WindowsDir = PCRoot + '\\Windows\\'
+let PCProfile = process.env['USERPROFILE'];
+let PCRoot = PCProfile.split('\\')[0];
+let PCDesktop = process.env['USERPROFILE'] + '\\Desktop\\';
+let USBRoot = process.cwd().split('\\')[0];
+let ScriptsHome = USBRoot + '\\scripts\\';
+let WindowsDir = PCRoot + '\\Windows\\';
 
 function isEmpty(a) {
-    return a.indexOf(' ') > 0
+    return a.indexOf(' ') > 0;
 }
 
 function getMBName() {
-    return execSync('wmic baseboard get product').toString().replace("Product", "").trim()
+    return execSync("wmic baseboard get product").toString().replace("Product", "").trim();  // nosem: hardcoded command
 }
 
 function getMBSerial() {
-    return execSync('wmic baseboard get serialnumber').toString().replace("SerialNumber", "").trim()
+    return execSync('wmic baseboard get serialnumber').toString().replace("SerialNumber", "").trim();
 }
 
 function getMBRevision() {
-    var x = execSync('wmic baseboard get version').toString().replace("Version", "").trim()
+    let x = execSync('wmic baseboard get version').toString().replace("Version", "").trim();
     if (x.includes('REV:')) {
-        y = x.replace('REV:', '')
-        return y
+        y = x.replace('REV:', '');
+        return y;
     } else {
-        return x
+        return x;
     }
 }
 
 function getUser() {
-    return execSync('echo %USERNAME%').toString().trim()
+    return execSync('echo %USERNAME%').toString().trim();
 }
 
 function getPCName() {
-    return execSync('echo %computername%').toString().trim()
+    return execSync('echo %computername%').toString().trim();
 }
 
 function getPowerGUID(a) {
-    var raw = execSync('powercfg /list').toString().trim()
-    var bloated = raw.split('\n')
-    var list = bloated.splice(2, bloated.length - 1)
-    var guid;
+    let raw = execSync('powercfg /list').toString().trim();
+    let bloated = raw.split('\n');
+    let list = bloated.splice(2, bloated.length - 1);
+    let guid;
     list.forEach(line => {
         if (line.includes(a)) {
             guid = line.substring(
                 line.lastIndexOf(":") + 1,
                 line.lastIndexOf("(")
-            ).trim()
+            ).trim();
         }
-    })
-    return guid
+    });
+    return guid;
 }
 
 function getImageName(a) {
-    var x = execSync('dir ' + a).toString().trim()
-    var y = x.split('\n')
-    var z = y.filter(name => name.includes('LockScreen') && name.includes('.jpg'))
-    var name = z[0].substring(z[0].lastIndexOf(' '), z[0].lastIndexOf('g') + 1).trim()
-    return name
+    let x = execSync('dir ' + a).toString().trim();  // nosem
+    let y = x.split('\n');
+    let z = y.filter(name => name.includes('LockScreen') && name.includes('.jpg'));
+    let name = z[0].substring(z[0].lastIndexOf(' '), z[0].lastIndexOf('g') + 1).trim();
+    return name;
 }
 
 function getCurrentScheme() {
-    var output = execSync('powercfg /getactivescheme').toString().trim()
-    var scheme = output.substring(
+    let output = execSync('powercfg /getactivescheme').toString().trim();
+    let scheme = output.substring(
         output.lastIndexOf(":") + 1,
         output.lastIndexOf("(")
-    ).trim()
-    return scheme
+    ).trim();
+    return scheme;
 }
 
 function getBiosVersion() {
-    return execSync('wmic bios get smbiosbiosversion').toString().replace('SMBIOSBIOSVersion', '').trim()
+    return execSync('wmic bios get smbiosbiosversion').toString().replace('SMBIOSBIOSVersion', '').trim();
 }
 
 function getMemorySpeed() {
-    var output = execSync('wmic memorychip get Configuredclockspeed').toString().replace('ConfiguredClockSpeed', '').trim()
-    var speed = output.split(' ')[0] + " MHz"
-    return speed
+    let output = execSync('wmic memorychip get Configuredclockspeed').toString().replace('ConfiguredClockSpeed', '').trim();
+    let speed = output.split(' ')[0] + " MHz";
+    return speed;
 }
 
 function getMemorySize() {
-    var output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim()
-    var gb = parseInt(output) / 1000000000
-    var size = Math.round(gb)
-    return size
+    let output = execSync('wmic computersystem get TotalPhysicalMemory').toString().replace('TotalPhysicalMemory', '').trim();
+    let gb = parseInt(output) / 1000000000;
+    let size = Math.round(gb);
+    return size;
 }
 
 function getGPUName() {
-    var x = execSync('wmic path win32_VideoController get name').toString().replace('Name', '')
-    var y = x.split('\n').filter(str => isEmpty(str))
+    let x = execSync('wmic path win32_VideoController get name').toString().replace('Name', '');
+    let y = x.split('\n').filter(str => isEmpty(str));
     if (y.length > 1) {
-        return y[1].trim()
+        return y[1].trim();
     } else {
-        return x.trim()
+        return x.trim();
     }
 }
 
 function getOSName() {
-    return execSync('wmic os get Caption').toString().replace('Caption', '').trim()
+    return execSync('wmic os get Caption').toString().replace('Caption', '').trim();
 }
 
 function getCPUName() {
-    return execSync('wmic cpu get name').toString().replace('Name', '').trim()
+    return execSync('wmic cpu get name').toString().replace('Name', '').trim();
 }
 
 function getSerialNumber() {
-    return execSync('wmic baseboard get serialnumber').toString().replace('SerialNumber', '').trim()
+    return execSync('wmic baseboard get serialnumber').toString().replace('SerialNumber', '').trim();
 }
 
 function getDrives() {
-    var output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n')
-    output.shift()
-    var drives = output.filter(lines => isEmpty(lines))
-    return drives
+    let output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n');
+    output.shift();
+    let drives = output.filter(lines => isEmpty(lines));
+    return drives;
 }
 
 function getRecoveryDrive() {
-    var drives = getDrives()
-    var drive = drives.filter(drive => drive.includes('CORSAIR'))[0]
+    let drives = getDrives();
+    let drive = drives.filter(drive => drive.includes('CORSAIR'))[0];
     if (drive) {
-        var x = drive.split(' ')
-        var y = x.filter(el => el !== '')
-        var z = y[2]
-        return z
+        let x = drive.split(' ');
+        let y = x.filter(el => el !== '');
+        let z = y[2];
+        return z;
     } else {
-        return
+        return;
     }
 }
 
 function getSteps() {
-    var json = fs.readFileSync(ScriptsHome + '\\steps.json')
-    return JSON.parse(json)
+    let json = fs.readFileSync(ScriptsHome + '\\steps.json');
+    return JSON.parse(json);
 }
 
 function getSO() {
-    var content;
+    let content;
 
     try {
-        content = fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le')
+        content = fs.readFileSync(WindowsDir + 'Import-Workorder.txt', 'utf16le');
     }
 
     catch (err) {
         window.webContents.send('ALERT_REQUEST', 'No SO found.');
     }
 
-    return content
+    return content;
 }
 
 function getSoftware() {
     if (getSO()) {
-        var lines = getSO().split(/\r?\n/)
-        var software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'))
-        return software
+        let lines = getSO().split(/\r?\n/);
+        let software = lines.filter(line => line.includes('SFT') && !line.includes('WIN10'));
+        return software;
     }
 }
 
 function getBrowsers() {
     if (getSO()) {
-        var lines = getSO().split(/\r?\n/)
-        var list = lines.filter(line => line.includes('BWSR'))
-        browsers = []
+        let lines = getSO().split(/\r?\n/);
+        let list = lines.filter(line => line.includes('BWSR'));
+        browsers = [];
         list.forEach((item) => {
-            var x = item.replaceAll('BWSR-', '')
-            var y = x.split(' ')[0]
-            browsers.push(y)
-        })
-        return browsers
+            let x = item.replaceAll('BWSR-', '');
+            let y = x.split(' ')[0];
+            browsers.push(y);
+        });
+        return browsers;
     }
 }
 
 function getItemsToPin() {
-    var parsed = []
+    let parsed = [];
     if (getBrowsers()) {
         getBrowsers().forEach((browser) => {
-            console.log(browser)
+            console.log(browser);
             if (browser === 'CHROME') {
-                parsed.push('Google Chrome.lnk')
+                parsed.push('Google Chrome.lnk');
             }
             if (browser === 'FIREFOX') {
-                parsed.push('Firefox.lnk')
+                parsed.push('Firefox.lnk');
             }
             //do the same for other browsers
-        })
-        return parsed
+        });
+        return parsed;
     }
 }
 
 function getCurrentStage() {
-    var data = JSON.parse(fs.readFileSync(ScriptsHome + '\\steps.json'))
-    var stages //find unique stages and add to array
-    console.log(data)
+    let data = JSON.parse(fs.readFileSync(ScriptsHome + '\\steps.json'));
+    let stages; //find unique stages and add to array
+    console.log(data);
     //return bearings.filter(element => element.Serial === serial)
 }
 
@@ -219,4 +219,4 @@ module.exports = {
     getSoftware,
     getBrowsers,
     getCurrentStage
-}
+};
