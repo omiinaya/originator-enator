@@ -23,7 +23,7 @@ function getMBSerial() {
 function getMBRevision() {
     let x = execSync('wmic baseboard get version').toString().replace("Version", "").trim();
     if (x.includes('REV:')) {
-        y = x.replace('REV:', '');
+        let y = x.replace('REV:', '');
         return y;
     } else {
         return x;
@@ -161,7 +161,7 @@ function getBrowsers() {
     if (getSO()) {
         let lines = getSO().split(/\r?\n/);
         let list = lines.filter(line => line.includes('BWSR'));
-        browsers = [];
+        const browsers = [];
         list.forEach((item) => {
             let x = item.replaceAll('BWSR-', '');
             let y = x.split(' ')[0];
