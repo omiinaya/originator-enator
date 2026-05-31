@@ -247,7 +247,6 @@ module.exports = {
     saveScores,
     runNetwork,
     checkDrivers,
-    runBenchmarks,
     abort,
     createRecoveryDrive,
     resetUI,
