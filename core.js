@@ -140,7 +140,7 @@ function isDone(filename, PiD) {
         print(isRunning)
         isDone(filename, PiD)
     }, 1000)
-    if (!isRunning && !pause) {
+    if (!isRunning && !global.pause) {
         console.log(isRunning)
         clearTimeout(timer)
         print(filename + ' finished executing.')
