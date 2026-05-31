@@ -1,5 +1,6 @@
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
+const fs = require('fs');
 
 let stepList = [];
 
