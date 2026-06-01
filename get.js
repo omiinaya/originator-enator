@@ -8,8 +8,8 @@ let USBRoot = process.cwd().split('\\')[0];
 let ScriptsHome = USBRoot + '\\scripts\\';
 let WindowsDir = PCRoot + '\\Windows\\';
 
-function isEmpty(a) {
-    return a.indexOf(' ') > 0;
+function isNotEmpty(a) {
+    return a.trim().length > 0;
 }
 
 function getMBName() {
@@ -90,7 +90,7 @@ function getMemorySize() {
 
 function getGPUName() {
     let x = execSync('wmic path win32_VideoController get name').toString().replace('Name', '');
-    let y = x.split('\n').filter(str => isEmpty(str));
+    let y = x.split('\n').filter(str => isNotEmpty(str));
     if (y.length > 1) {
         return y[1].trim();
     } else {
@@ -113,7 +113,7 @@ function getSerialNumber() {
 function getDrives() {
     let output = execSync('wmic logicaldisk get name, size, volumename, description').toString().split('\n');
     output.shift();
-    let drives = output.filter(lines => isEmpty(lines));
+    let drives = output.filter(lines => isNotEmpty(lines));
     return drives;
 }
 
