@@ -185,12 +185,12 @@ ipc.on('PROGRESS_REQUEST', function () {
 })
 
 ipc.on('PAUSE_REQUEST', function () {
-    if (pause === false) {
-        pause = true;
+    if (global.pause === false) {
+        global.pause = true;
     } else {
-        pause = false;
+        global.pause = false;
     }
-    console.log(pause)
+    console.log(global.pause)
 })
 
 ipc.on('RESET_REQUEST', function (evt, data) {
