@@ -91,32 +91,22 @@ function renameFile(a, b) {
 }
 
 function findProcessByName(a) {
-    var content;
-
     try {
-        content = execSync('tasklist /NH | findstr /I ' + a).toString().trim()
-    }
-
-    catch (error) {
+        return execSync('tasklist /NH | findstr /I ' + a).toString().trim()
+    } catch (error) {
         window.webContents.send('ALERT_REQUEST', 'Process not found.');
+        return 'Process not found.'
     }
-
-    return content
 }
 
 
 function findProcessByPiD(a) {
-    var content;
-
     try {
-        content = execSync('wmic process where processId=' + a + ' get name').toString().replace('Name', '').trim()
-    }
-
-    catch (error) {
+        return execSync('wmic process where processId=' + a + ' get name').toString().replace('Name', '').trim()
+    } catch (error) {
         window.webContents.send('ALERT_REQUEST', 'Process not found.');
+        return 'Process not found.'
     }
-
-    return content
 }
 
 function killProcessByName(a) {
